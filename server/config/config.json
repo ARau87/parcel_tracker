@@ -1,0 +1,5 @@
+{
+  "MONGO_URI": "mongodb://parcel_tracker_admin:ichbin18@ds229008.mlab.com:29008/parcel_tracker_dev",
+  "COOKIE_KEY": "bar",
+  "PASSWORD_KEY": "supersecretmegakey"
+}
