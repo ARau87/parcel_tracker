@@ -8,7 +8,13 @@ const bodyParser = require('body-parser');
 // Middleware
 app.use(bodyParser.json());
 
-require('./services/database').setup();
+if(process.env.NODE_ENV === 'test'){
+  require('./services/database').setup('test');
+}
+if(process.env.NODE_ENV === 'production'){
+  require('./services/database').setup('production');
+}
+
 require('./services/misc/logger')(app);
 require('./services/rest/router')(app);
 

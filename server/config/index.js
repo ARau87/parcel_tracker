@@ -10,6 +10,7 @@ else {
   module.exports = {
     MONGO_URI : config.MONGO_URI,
     COOKIE_KEY : config.COOKIE_KEY,
-    PASSWORD_KEY: config.PASSWORD_KEY
+    PASSWORD_KEY: config.PASSWORD_KEY,
+    MONGO_URI_TEST: config.MONGO_URI_TEST
   }
 }

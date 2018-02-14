@@ -3,7 +3,7 @@ const {Schema} = mongoose;
 
 const parcelSchema = new Schema({
 
-  trackingNr: {type: String, required: true},
+  trackingNr: {type: String, required: true, unique: true},
 
   fromCity: {type: String, required: true},
   toCity: {type: String, required:true},
@@ -17,23 +17,21 @@ const parcelSchema = new Schema({
   fromFirstName: {type: String, default: 'Firma'},
   toFirstName: {type: String, default: 'Firma'},
 
-  fromCityCode: {type: String, required:true},
-  toCityCode: {type: String, required:true},
+  fromPostCode: {type: String, required:true},
+  toPostCode: {type: String, required:true},
 
   fromAddress: {type: String, required: true},
   toAddress: {type:String, require:true},
 
   nextStep: {type: String, default: ''},
   previousSteps: {type: [{
+    stepLocation: {type: String, required: true},
     stepName: {type: String, required:true},
-    stepDate: {type: Date, required: true}
-  }], default: []},
+    stepDate: {type: Date, default: Date.now}
+  } ], default: []},
 
   arrived: {type: Boolean, default: false}
 });
 
-parcelSchema.pre('save', next => {
-  
-})
 
 mongoose.model('parcel', parcelSchema, 'parcel');
