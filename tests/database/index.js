@@ -145,7 +145,7 @@ describe('DATABASE', () => {
           }
         );
 
-        let user = await database.user.get({email: 'andirau@gmx.de'});
+        let user = await database.user.get({email: 'andirau@gmx.de', password: 'ichbin18'});
 
         expect(user.firstname).to.equal('Andreas');
         expect(user.lastname).to.equal('Rau');

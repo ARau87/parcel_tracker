@@ -4,12 +4,11 @@ process.env.NODE_ENV = 'test';
 
 const mocha = require('mocha');
 const chai = require('chai');
-const chaiHttp = require('chai-http');
-const should = chai.should;
+const { should, expect } = chai;
 const server = require('../../server');
 const database = require('../../server/services/database');
+const request = require('supertest');
 
-chai.use(chaiHttp);
 
 describe('REST API', () => {
 
@@ -22,7 +21,7 @@ describe('REST API', () => {
     describe('/login', () => {
 
       before( async () => {
-        await database.setup('test');
+        database.setup('test');
 
         let user = await database.user.create(
           {
@@ -40,61 +39,56 @@ describe('REST API', () => {
 
       it('should return a response with status 200 if the user is existing', async () => {
 
-        await chai.request(server)
-            .post('/login')
-            .send({
-              email: 'andirau@gmx.de',
-              password: 'ichbin18'
-            })
-            .end((err, res) => {
-              res.should.have.status(200);
-            });
+            let res = await request(server)
+                            .post('/login')
+                            .set('Accept', 'application/json')
+                            .send({
+                              email: 'andirau@gmx.de',
+                              password: 'ichbin18'
+                            });
+            expect(res.status).to.equal(200);
 
       });
 
       it('should return a response with status 404 if a false password or username is provided', async () => {
 
-        await chai.request(server)
-            .post('/login')
-            .send({
-              email: 'andirau@gmx.de',
-              password: 'ichbin17'
-            })
-            .end((err, res) => {
-              res.should.have.status(404);
-            });
+            let res1 = await request(server)
+                             .post('/login')
+                             .set('Accept', 'application/json')
+                             .send({
+                                email: 'andirau@gmx.de',
+                                password: 'ichbin17'
+                             });
+            let res2 = await request(server)
+                             .post('/login')
+                             .set('Accept', 'application/json')
+                             .send({
+                                email: 'andirau1@gmx.de',
+                                password: 'ichbin18'
+                             });
 
-        await chai.request(server)
-            .post('/login')
-            .send({
-              email: 'andirau1@gmx.de',
-              password: 'ichbin18'
-            })
-            .end((err, res) => {
-              res.should.have.status(404);
-            });
+            expect(res1.status).to.equal(404);
+            expect(res2.status).to.equal(404);
 
       });
 
-      it('should return a response with status 404 if a false password or username is not provided', async () => {
+      it('should return a response with status 404 if password or username are missing', async () => {
 
-        await chai.request(server)
-            .post('/login')
-            .send({
-              email: 'andirau@gmx.de'
-            })
-            .end((err, res) => {
-              res.should.have.status(404);
-            });
+            let res1 = await request(server)
+                             .post('/login')
+                             .set('Accept', 'application/json')
+                             .send({
+                                password: 'ichbin18'
+                             });
+            let res2 = await request(server)
+                             .post('/login')
+                             .set('Accept', 'application/json')
+                             .send({
+                                email: 'andirau1@gmx.de',
+                             });
 
-        await chai.request(server)
-            .post('/login')
-            .send({
-              password: 'ichbin18'
-            })
-            .end((err, res) => {
-              res.should.have.status(404);
-            });
+            expect(res1.status).to.equal(404);
+            expect(res2.status).to.equal(404);
 
       });
 
