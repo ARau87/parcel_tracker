@@ -14,7 +14,9 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 require('./services/misc/logger')(app);
-require('./services/rest/auth')(app);
-require('./services/rest/router')(app);
+require('./services/misc/cookies')(app);
+require('./services/routes/auth')(app);
+require('./services/routes/router')(app);
+require('./services/routes/rest')(app);
 
 module.exports = server;

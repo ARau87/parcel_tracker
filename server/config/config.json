@@ -1,6 +1,6 @@
 {
   "MONGO_URI": "mongodb://parcel_tracker_admin:ichbin18@ds229008.mlab.com:29008/parcel_tracker_dev",
-  "COOKIE_KEY": "bar",
+  "COOKIE_KEY": "liweeoigWHGIUERGIUEHFIUHFUHWCLKNEOIF298RU2FH298FH238FH9H2",
   "PASSWORD_KEY": "supersecretmegakey",
   "MONGO_URI_TEST":"mongodb://parcel_tracker_admin:ichbin18@ds125938.mlab.com:25938/parcel_tracker_test"
 }
