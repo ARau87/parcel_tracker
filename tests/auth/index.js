@@ -156,4 +156,70 @@ describe('AUTHENTIFICATION', () => {
 
     });
 
+    describe('POST /register', () => {
+
+      before( async () => {
+        database.setup('test');
+
+        await database.user.create(
+          {
+            email: 'andirau@gmx.de',
+            firstname: 'Andreas',
+            lastname: 'Rau',
+            password: 'ichbin18',
+            city: 'Olching',
+            postcode: '82140',
+            address: 'Rauschweg 131'
+          }
+        );
+
+      });
+
+      it('should create a new user if all required parameters exist', async () => {
+
+        let user = {
+                    email: 'bobi@gmx.de',
+                    firstname: 'Bobi',
+                    lastname: 'Oberländer',
+                    password: 'ichbin17',
+                    city: 'Puchheim',
+                    postcode: '82178',
+                    address: 'Adenauerstr 8b'
+                  }
+        await request.agent(server)
+                     .post('/register')
+                     .send(user)
+                     .expect(200);
+
+        await request.agent(server)
+                     .post('/login')
+                     .set('Accept', 'application/json')
+                     .send({
+                          email: user.email,
+                          password: user.password
+                     })
+                     .expect(200);
+      });
+
+      it('should not create a new user if the user already exists in the database', async () => {
+
+        let user ={
+                    email: 'andirau@gmx.de',
+                    firstname: 'Andreas',
+                    lastname: 'Rau',
+                    password: 'ichbin18',
+                    city: 'Olching',
+                    postcode: '82140',
+                    address: 'Rauschweg 131'
+                  }
+
+        await request.agent(server)
+                     .post('/register')
+                     .send(user)
+                     .expect(401);
+
+      });
+
+    });
+
 });

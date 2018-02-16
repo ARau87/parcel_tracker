@@ -5,7 +5,11 @@ const randomString = require('randomstring');
 
 module.exports = (app) => {
 
-  // Logout route
+  /** GET /logout
+    *
+    * This endpoint destroys the current cookie session and leads to the user being
+    * logged out from the application.
+    */
   app.get('/logout', jsonParser , (req,res) => {
 
     req.session = null;
@@ -14,7 +18,42 @@ module.exports = (app) => {
 
   });
 
-  // Login route
+  /** POST /register
+    *
+    * This endpoint destroys the current cookie session and leads to the user being
+    * logged out from the application.
+    */
+  app.post('/register', jsonParser , async (req,res) => {
+
+    if(req.body.email && req.body.firstname && req.body.lastname && req.body.password && req.body.city && req.body.postcode && req.body.address){
+      try {
+        if(await database.user.get({email: req.body.email})){
+          res.status(401).send({message: 'Forbidden. A user with this email already exists!'});
+        }
+        else {
+          await database.user.create({...req.body});
+
+          res.status(200).send({message: 'Success. The user was created!'})
+        }
+      }
+      catch(err){
+        res.status(500).send({message: 'Internal server error!'});
+      }
+
+    }
+    else {
+      res.status(404).send({message: 'Bad request. Some required parameters were not provided!'});
+    }
+
+  });
+
+  /** POST /login
+    *
+    * Endpoint that provides login functionality by checking if the user is available
+    * in database. If so a new session is created. The session provides some information
+    * about the user and fills in some padding to ensure that every time a new session
+    * cookie is created.
+    */
   app.post('/login', jsonParser , (req,res) => {
     res.setHeader('Content-Type', 'application/json');
     if(req.body.email && req.body.password){
