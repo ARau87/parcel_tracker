@@ -15,8 +15,10 @@ if(process.env.NODE_ENV === 'production'){
 
 require('./services/misc/logger')(app);
 require('./services/misc/cookies')(app);
+
 require('./services/routes/auth')(app);
 require('./services/routes/router')(app);
-require('./services/routes/rest')(app);
+
+require('./services/routes/rest-parcel')(app);
 
 module.exports = server;

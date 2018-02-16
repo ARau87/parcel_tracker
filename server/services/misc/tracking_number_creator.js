@@ -27,7 +27,6 @@ const create = (parcel) => {
   if(parcel && parcel.fromCity && parcel.toCity && parcel.fromName && parcel.fromFirstName){
     const key = randomstring.generate(MAX_CHARS);
     const stringToEncrypt = JSON.stringify({fromCity: parcel.fromCity, toCity: parcel.toCity, fromFirstName: parcel.fromFirstName, fromName: parcel.fromName});
-
     const encryption = cryptoJS.AES.encrypt(stringToEncrypt, key);
     let ciphertext = encryption.toString();
 
