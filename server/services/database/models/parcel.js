@@ -23,8 +23,7 @@ const parcelSchema = new Schema({
   fromAddress: {type: String, required: true},
   toAddress: {type:String, require:true},
 
-  nextStep: {type: String, default: ''},
-  previousSteps: {type: [{
+  steps: {type: [{
     stepLocation: {type: String, required: true},
     stepName: {type: String, required:true},
     stepDate: {type: Date, default: Date.now}

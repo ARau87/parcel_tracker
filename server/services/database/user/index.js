@@ -46,9 +46,31 @@ const get = async (identifier) => {
   }
 }
 
+// Add a parcel to the parcels array of a user
+const addParcel = async (user, parcel) => {
+  const User = mongoose.model('user');
+
+  if(parcel && parcel.trackingNr){
+
+    if(await get({email: user.email, password: user.password})){
+      console.log('TEST');
+      return User.updateOne({email: user.email, password: user.password}, {$push: {parcels: {trackingNr: parcel.trackingNr}}});
+    }
+    else {
+      return null;
+    }
+  }
+
+  else {
+    return null;
+  }
+
+}
+
 module.exports = {
   create,
   clear,
   set,
-  get
+  get,
+  addParcel
 }

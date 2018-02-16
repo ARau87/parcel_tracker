@@ -34,6 +34,7 @@ describe('user.', () => {
       expect(user.city).to.equal('Olching');
       expect(user.postcode).to.equal('82140');
       expect(user.address).to.equal('Rauschweg 131');
+      expect(user.parcels).not.to.be.undefined;
 
 
     });
@@ -165,6 +166,72 @@ describe('user.', () => {
       let user = await database.user.get({firstname: 'Andreas'});
 
       expect(user).to.be.null;
+    });
+
+    after(async () => {
+      await database.user.clear();
+      database.disconnect();
+    });
+  });
+
+  describe('addParcel()', () => {
+    before(async () => {
+      database.setup('test');
+      await database.user.clear();
+    });
+
+    it('should add an parcel to the parcels array of the user', async () => {
+
+      let user = await database.user.create(
+        {
+          email: 'andirau@gmx.de',
+          firstname: 'Andreas',
+          lastname: 'Rau',
+          password: 'ichbin18',
+          city: 'Olching',
+          postcode: '82140',
+          address: 'Rausprocess after testchweg 131'
+        }
+      );
+
+      let parcel = {
+          trackingNr: 'A8238978-BDWHDU7126',
+          fromCity: 'Olching',
+          toCity: 'Puchheim',
+          fromName: 'Rau',
+          toName: 'Oberländer',
+          fromFirstName: 'Andreas',
+          toFirstName: 'Sebastian',
+          fromPostCode: '82140',
+          toPostCode: '82178',
+          fromAddress: 'Rauschweg 131',
+          toAddress: 'Adenauerstr 8b'
+        };
+
+        let parcel1 = {
+            trackingNr: 'A8238978-BDWHDU7127',
+            fromCity: 'Olching',
+            toCity: 'Puchheim',
+            fromName: 'Rau',
+            toName: 'Oberländer',
+            fromFirstName: 'Andreas',
+            toFirstName: 'Sebastian',
+            fromPostCode: '82140',
+            toPostCode: '82178',
+            fromAddress: 'Rauschweg 131',
+            toAddress: 'Adenauerstr 8b'
+          };
+
+       await database.user.addParcel(user,parcel);
+       await database.user.addParcel(user,parcel1);
+
+       let userAfterUpdate = await database.user.get({email: 'andirau@gmx.de', password: 'ichbin18'});
+
+       console.log(userAfterUpdate);
+
+       expect(userAfterUpdate.parcels[0].trackingNr).to.equal('A8238978-BDWHDU7126');
+       expect(userAfterUpdate.parcels[1].trackingNr).to.equal('A8238978-BDWHDU7127');
+
     });
 
     after(async () => {

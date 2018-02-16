@@ -166,7 +166,7 @@ describe('POST /v1/parcels/new', () => {
 
   });
 
-  it('should return information about the parcel with the specified tracking number', async () => {
+  it('should create a new parcel with fresh tracking number and save everything into database', async () => {
 
     let login = await request(server)
                     .post('/login')
@@ -194,6 +194,7 @@ describe('POST /v1/parcels/new', () => {
                         toAddress: 'Adenauerstr 8b'
                       }
                     )
+                    
     expect(res.status).to.equal(200);
 
 

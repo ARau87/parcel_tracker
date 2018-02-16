@@ -60,7 +60,7 @@ const addStep = async (identifier, step) => {
 
       // Check if the parcel is available
       if(await get(identifier)){
-        return Parcel.updateOne(identifier, {$push: {previousSteps: step}});
+        return Parcel.updateOne(identifier, {$push: {steps: step}});
       }
       else {
         return null;

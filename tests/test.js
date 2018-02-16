@@ -1,10 +1,26 @@
 const mocha = require('mocha');
+const database = require('../server/services/database');
 
 describe('PARCEL TRACKER TESTS', () => {
 
-  require('./database');
-  require('./auth');
+  before( async () => {
+    database.setup('test');
+    await database.user.clear();
+    await database.parcel.clear();
+    await database.trackingnr.clear();
+  });
+
+  //require('./database');
+  //require('./auth');
   require('./rest');
-  require('./misc');
+  //require('./misc');
+
+
+  after( async () => {
+    await database.user.clear();
+    await database.parcel.clear();
+    await database.trackingnr.clear();
+    database.disconnect();
+  });
 
 });

@@ -213,7 +213,7 @@ describe('parcel.', () => {
       await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, newStep);
 
       let parcel = await database.parcel.get({trackingNr: 'A8238978-BDWHDU7131'});
-      let loadedSteps = parcel.previousSteps;
+      let loadedSteps = parcel.steps;
 
       expect(loadedSteps[0].stepLocation).to.equal(newStep.stepLocation);
       expect(loadedSteps[0].stepName).to.equal(newStep.stepName);
@@ -244,7 +244,7 @@ describe('parcel.', () => {
       await database.parcel.addStep({fromCity: 'OlchingTTTT'}, newStep);
 
       let parcel = await database.parcel.get({trackingNr: 'A8238978-BDWHDU7132'});
-      let loadedSteps = parcel.previousSteps;
+      let loadedSteps = parcel.steps;
 
       expect(loadedSteps[0]).to.be.undefined;
     });

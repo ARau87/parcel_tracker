@@ -9,7 +9,10 @@ const userSchema = new Schema({
   created: {type: Date, default: Date.now()},
   city: {type: String, required: true},
   address: {type: String, required: true},
-  postcode: {type: String, required: true}
+  postcode: {type: String, required: true},
+  parcels: {type: [
+    {trackingNr: {type: String, required:true}}
+                  ], default: []}
 });
 
 mongoose.model('user', userSchema, 'user');
