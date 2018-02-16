@@ -2,7 +2,7 @@ const mocha = require('mocha');
 
 describe('PARCEL TRACKER TESTS', () => {
 
-  //require('./database');
+  require('./database');
   require('./auth');
   require('./rest');
 

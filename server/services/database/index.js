@@ -34,5 +34,6 @@ module.exports = {
    disconnect,
    user: require('./user'),
    parcel: require('./parcel'),
+   trackingnr: require('./trackingnr')
 
 }

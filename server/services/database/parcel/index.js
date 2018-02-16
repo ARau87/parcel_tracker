@@ -14,7 +14,7 @@ const create = async (parcel) => {
 
   if(parcel.trackingNr && parcel.toName && parcel.fromName && parcel.toFirstName && parcel.fromFirstName && parcel.toCity && parcel.fromCity && parcel.toPostCode && parcel.fromPostCode && parcel.toAddress && parcel.fromAddress){
     let newParcel = new Parcel({...parcel});
-    return await newParcel.save();
+    return newParcel.save();
   }
   else {
     return null;
