@@ -5,7 +5,7 @@ const server = require('../../server');
 const database = require('../../server/services/database');
 const request = require('supertest');
 
-describe('GET /parcel/:trackingNr', () => {
+describe('GET /v1/parcel/:trackingNr', () => {
 
   before( async () => {
     database.setup('test');
@@ -139,6 +139,68 @@ describe('GET /parcel/:trackingNr', () => {
   after(async function() {
     await database.user.clear();
     await database.parcel.clear();
+    database.disconnect();
+  });
+
+});
+
+
+describe('POST /v1/parcels/new', () => {
+
+  before( async () => {
+    database.setup('test');
+    await database.user.clear();
+    await database.parcel.clear();
+
+    await database.user.create(
+      {
+        email: 'andirau@gmx.de',
+        firstname: 'Andreas',
+        lastname: 'Rau',
+        password: 'ichbin18',
+        city: 'Olching',
+        postcode: '82140',
+        address: 'Rauschweg 131'
+      }
+    );
+
+  });
+
+  it('should return information about the parcel with the specified tracking number', async () => {
+
+    let login = await request(server)
+                    .post('/login')
+                    .set('Accept', 'application/json')
+                    .send({
+                      email: 'andirau@gmx.de',
+                      password: 'ichbin18'
+                    });
+
+
+    let res = await request(server)
+                    .post('/v1/parcels/new')
+                    .set('Cookie', login.headers['set-cookie'])
+                    .send(
+                      {
+                        fromCity: 'Olching',
+                        toCity: 'Puchheim',
+                        fromName: 'Rau',
+                        toName: 'Oberländer',
+                        fromFirstName: 'Andreas',
+                        toFirstName: 'Sebastian',
+                        fromPostCode: '82140',
+                        toPostCode: '82178',
+                        fromAddress: 'Rauschweg 131',
+                        toAddress: 'Adenauerstr 8b'
+                      }
+                    )
+    expect(res.status).to.equal(200);
+
+
+  });
+
+
+  after(async () => {
     database.disconnect();
   });
 

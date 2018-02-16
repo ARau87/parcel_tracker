@@ -3,6 +3,7 @@ const {Schema} = mongoose;
 
 const trackingNrSchema = new Schema({
   trackingNr: {type: String, required: true},
+  cipher: {type: String, required: true},
   randomKey: {type: String, required: true}
 });
 

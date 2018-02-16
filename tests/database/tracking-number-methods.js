@@ -14,7 +14,7 @@ describe('trackingnr.', () => {
 
     it('should a new tracking number instance to the database', async () => {
 
-      let trackingNr = await database.trackingnr.create({trackingNr: 'AUIH7656DG-HYERSHMJ7656', randomKey: 'qhfiuqhduhud78gd27g8dg192'});
+      let trackingNr = await database.trackingnr.create({trackingNr: 'AUIH7656DG-HYERSHMJ7656', cipher: 'jgsvdfHWEBQENcqWNQWNAKNDK' ,randomKey: 'qhfiuqhduhud78gd27g8dg192'});
 
       expect(trackingNr.trackingNr).to.equal('AUIH7656DG-HYERSHMJ7656');
       expect(trackingNr.randomKey).to.equal('qhfiuqhduhud78gd27g8dg192');
@@ -43,7 +43,7 @@ describe('trackingnr.', () => {
       });
 
       it('should return the trackingNr with randomKey from database if a valid trackingNr is provided', async () => {
-        await database.trackingnr.create({trackingNr: 'AUIH7656DG-HYERSHMJ7656', randomKey: 'qhfiuqhduhud78gd27g8dg192'});
+        await database.trackingnr.create({trackingNr: 'AUIH7656DG-HYERSHMJ7656', randomKey: 'qhfiuqhduhud78gd27g8dg192', cipher: 'jgsvdfHWEBQENcqWNQWNAKNDK'});
 
         let trackingNr = await database.trackingnr.get({trackingNr: 'AUIH7656DG-HYERSHMJ7656'});
 

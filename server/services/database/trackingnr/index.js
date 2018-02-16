@@ -39,5 +39,4 @@ module.exports = {
   clear,
   create,
   get
-
 }
