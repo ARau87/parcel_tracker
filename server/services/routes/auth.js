@@ -91,7 +91,7 @@ module.exports = (app) => {
     /** GET /login
      *
      * This endpoint checks if the client is currently logged in. If so it
-     * returns the email address of the user. If not it returns 404.
+     * returns the email address of the user. If not it returns 401.
      */
     app.get('/login', jsonParser , (req,res) => {
 
@@ -100,7 +100,7 @@ module.exports = (app) => {
             res.status(200).send({message: 'Success. Client logged in', username: req.session.email});
         }
         else {
-            res.status(404).send({message: 'Bad request. User not found!'});
+            res.status(401).send({message: 'User not logged in!'});
         }
 
     });

@@ -5,11 +5,12 @@ const server = http.createServer(app);
 
 
 // Middleware
+console.log('[SERVER] NODE_ENV =', process.env.NODE_ENV);
 
 if(process.env.NODE_ENV === 'test'){
   require('./services/database').setup('test');
 }
-if(process.env.NODE_ENV === 'production'){
+else{
   require('./services/database').setup('production');
 }
 

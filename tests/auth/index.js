@@ -262,12 +262,12 @@ describe('AUTHENTIFICATION', () => {
 
         });
 
-        it('should return a response with status 404 if user is not logged in', async () => {
+        it('should return a response with status 401 if user is not logged in', async () => {
 
             let agent = request.agent(server);
 
             let res = await agent.get('/login')
-                                 .expect(404);
+                                 .expect(401);
 
         });
 
