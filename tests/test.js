@@ -10,10 +10,10 @@ describe('PARCEL TRACKER TESTS', () => {
     await database.trackingnr.clear();
   });
 
-  //require('./database');
+  require('./database');
   require('./auth');
-  //require('./rest');
-  //require('./misc');
+  require('./rest');
+  require('./misc');
 
 
   after( async () => {

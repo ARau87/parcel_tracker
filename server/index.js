@@ -15,6 +15,7 @@ if(process.env.NODE_ENV === 'production'){
 
 require('./services/misc/logger')(app);
 require('./services/misc/cookies')(app);
+require('./services/misc/statics')(app);
 
 require('./services/routes/auth')(app);
 require('./services/routes/router')(app);
