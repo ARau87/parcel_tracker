@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,8 +70,8 @@
 "use strict";
 
 
-var bind = __webpack_require__(3);
-var isBuffer = __webpack_require__(13);
+var bind = __webpack_require__(5);
+var isBuffer = __webpack_require__(15);
 
 /*global toString:true*/
 
@@ -377,11 +377,56 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(14);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+
+// Check if a valid session for the current client exists
+const checkLogin = function () {
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/login')
+                 .then((response) => {
+                    if(response && response.data && response.status === 200){
+                        return response.data;
+                    }
+                    else {
+                        return null
+                    }
+                })
+                .catch(err => {
+                    return null;
+                });
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = checkLogin;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header__ = __webpack_require__(32);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    'page-header': __WEBPACK_IMPORTED_MODULE_0__header__["a" /* default */]
+});
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(15);
+var normalizeHeaderName = __webpack_require__(17);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -397,10 +442,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(7);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(7);
   }
   return adapter;
 }
@@ -475,16 +520,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(12);
-
-/***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -502,7 +541,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -692,19 +731,19 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(16);
-var buildURL = __webpack_require__(18);
-var parseHeaders = __webpack_require__(19);
-var isURLSameOrigin = __webpack_require__(20);
-var createError = __webpack_require__(6);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(21);
+var settle = __webpack_require__(18);
+var buildURL = __webpack_require__(20);
+var parseHeaders = __webpack_require__(21);
+var isURLSameOrigin = __webpack_require__(22);
+var createError = __webpack_require__(8);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(23);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -801,7 +840,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(22);
+      var cookies = __webpack_require__(24);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -877,16 +916,16 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(17);
+var enhanceError = __webpack_require__(19);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -905,7 +944,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -917,7 +956,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -943,61 +982,50 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_routes__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_routes__ = __webpack_require__(12);
 
 
 const router = new VueRouter({
     routes: __WEBPACK_IMPORTED_MODULE_0__settings_routes__["a" /* default */]
 });
 
+
+// The main application body
 const app = new Vue({
     router,
-    el: '#app',
-    beforeMount: () => {
-      __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/login')
-           .then((response) => {
-               if(response && response.data && response.status === 200){
-                   this.username = response.data.username;
-                   this.isLoggedIn = true;
-               }
-               else {
-                   this.username = '';
-                   this.isLoggedIn = false;
-               }
-           })
-          .catch(err => {
-              console.error(err);
-              this.username = '';
-              this.isLoggedIn = false;
-          })
-    },
-    data(){
-        return {
-            isLoggedIn: false,
-            username: '',
-        }
-    }
+    el: '#app'
 });
 
+
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_login__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_register__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_login__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_register__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_home__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_dashboard__ = __webpack_require__(35);
+
+
+
+
 
 
 
 const routes = [
+    //Index route
+    {
+        path: '/',
+        component: __WEBPACK_IMPORTED_MODULE_2__pages_home__["a" /* default */]
+    },
+
+    //Auth routes
     {
         path: '/login',
         component: __WEBPACK_IMPORTED_MODULE_0__pages_login__["a" /* default */]
@@ -1005,51 +1033,38 @@ const routes = [
     {
         path: '/register',
         component: __WEBPACK_IMPORTED_MODULE_1__pages_register__["a" /* default */]
-    }
+    },
+
+    // User routes
+    {
+        path: '/dashboard',
+        component: __WEBPACK_IMPORTED_MODULE_3__pages_dashboard__["a" /* default */]
+    },
 ];
 
 
 /* harmony default export */ __webpack_exports__["a"] = (routes);
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_methods__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(3);
 
 
-const submit = function(){
 
-
-    if(validateInput(this.email, this.password)){
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/login',{
-            email: this.email,
-            password: this.password
-        })
-            .then((response) => {
-                if(response && response.status === 200){
-                    this.$emit('login_successful');
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-                this.message = 'Benutzername oder Passwort sind inkorrekt!';
-                this.messageType = 400;
-            })
-    }
-
-};
-
-const validateInput = function(email, password) {
-    //TODO: Validate if email is really an email by regex
-    return true;
-}
 
 const Login = {
+    components: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* default */],
     template: `
                 <div class="page page__login">
+                
+                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    
                     <h1>Login</h1>
                     
                     <form class="login">
@@ -1062,6 +1077,15 @@ const Login = {
                     </form>
                 </div>
               `,
+    mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                }
+            });
+    },
     data(){
         return {
             // Error and Information messages about the login form
@@ -1071,15 +1095,55 @@ const Login = {
             // Login form models
             password: '',
             email: '',
-            submit: submit.bind(this),
-            validateInput: validateInput.bind(this)
+
+            // Currently logged in?
+            isLoggedIn: false
+
         }
+    },
+    methods: {
+        submit: function(){
+
+
+            if(this.validateInput(this.email, this.password)){
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/login',{
+                    email: this.email,
+                    password: this.password
+                })
+                    .then((response) => {
+                        if(response && response.status === 200){
+                            this.message = 'Sie haben sich erfolgreich angemeldet';
+                            this.messageType = 200;
+                            this.$emit('login_successful');
+                            setTimeout(() => {
+                                this.$router.push({path: '/dashboard'});
+                            }, 1000);
+                        }
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                        this.message = 'Benutzername oder Passwort sind inkorrekt!';
+                        this.messageType = 400;
+                    })
+            }
+
+        },
+        validateInput: function(email, password) {
+            //TODO: Validate if email is really an email by regex
+            return true;
+        },
+        checkLogin: __WEBPACK_IMPORTED_MODULE_1__common_methods__["a" /* checkLogin */]
     },
     computed: {
         messageStyle: function(){
             if(this.messageType === 400){
                 return {
                     color: '#ff0000'
+                };
+            }
+            if(this.messageType === 200){
+                return {
+                    color: '#0a0'
                 };
             }
             if(this.messageType === 100){
@@ -1092,16 +1156,16 @@ const Login = {
 /* harmony default export */ __webpack_exports__["a"] = (Login);
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(3);
-var Axios = __webpack_require__(14);
-var defaults = __webpack_require__(1);
+var bind = __webpack_require__(5);
+var Axios = __webpack_require__(16);
+var defaults = __webpack_require__(4);
 
 /**
  * Create an instance of Axios
@@ -1134,15 +1198,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(8);
-axios.CancelToken = __webpack_require__(28);
-axios.isCancel = __webpack_require__(7);
+axios.Cancel = __webpack_require__(10);
+axios.CancelToken = __webpack_require__(30);
+axios.isCancel = __webpack_require__(9);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(29);
+axios.spread = __webpack_require__(31);
 
 module.exports = axios;
 
@@ -1151,7 +1215,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /*!
@@ -1178,16 +1242,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(23);
-var dispatchRequest = __webpack_require__(24);
+var InterceptorManager = __webpack_require__(25);
+var dispatchRequest = __webpack_require__(26);
 
 /**
  * Create a new instance of Axios
@@ -1264,7 +1328,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1283,13 +1347,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(8);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -1316,7 +1380,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1344,7 +1408,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1417,7 +1481,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1477,7 +1541,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1552,7 +1616,7 @@ module.exports = (
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1595,7 +1659,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1655,7 +1719,7 @@ module.exports = (
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1714,18 +1778,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(25);
-var isCancel = __webpack_require__(7);
-var defaults = __webpack_require__(1);
-var isAbsoluteURL = __webpack_require__(26);
-var combineURLs = __webpack_require__(27);
+var transformData = __webpack_require__(27);
+var isCancel = __webpack_require__(9);
+var defaults = __webpack_require__(4);
+var isAbsoluteURL = __webpack_require__(28);
+var combineURLs = __webpack_require__(29);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -1807,7 +1871,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1834,7 +1898,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1855,7 +1919,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1876,13 +1940,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(8);
+var Cancel = __webpack_require__(10);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -1940,7 +2004,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1974,19 +2038,312 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name: 'page-header',
+    props: [
+        'isLoggedIn'
+    ],
+    template: `
+            
+            <header>
+                    <div class="logo"></div>
+        
+                    <nav class="nav">
+                        <router-link class="nav__link" to="/login">Login</router-link>
+                        <router-link class="nav__link" to="/register">Registrierung</router-link>
+                        <router-link class="nav__link" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
+                        <button class="nav__button button-primary" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
+                    </nav>          
+            </header>
+    
+    `,
+    methods: {
+        logout: function(){
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/logout');
+            this.$emit('logout');
+        }
+    }
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_methods__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(3);
+
+
+
+
+
 const Register = {
+    components: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* default */],
     template: `
                 <div class="page page__register">
+                
+                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    
+                    <main>
+                        <form class="register">
+                            
+                            <div class="register__message" :style="messageStyle">{{message}}</div>
+                        
+                            <input class="register__email" placeholder="E-Mail" v-model="email" type="email">
+                            <input class="register__password" placeholder="Passwort" v-model="password" type="password">
+                            <input class="register__password-repeat" placeholder="Passwort (Wiederholung)" v-model="passwordRepeat" type="password">
+                            <input class="register__firstname" placeholder="Vorname" v-model="firstname" type="text">
+                            <input class="register__lastname" placeholder="Nachname" v-model="lastname" type="text">
+                            <input class="register__city" placeholder="Stadt" v-model="city" type="text">
+                            <input class="register__postcode" placeholder="PLZ" v-model="postcode" type="number">
+                            <input class="register__address" placeholder="Adresse" v-model="address" type="text">
+                            
+                            <button class="register__submit button-primary" @click.prevent="submit">Abschicken</button>
+    
+                        </form>
+                    
+                    </main>
+                    
                     <h1>Register</h1>
+                    
                 </div>
-              `
+              `,
+                mounted(){
+                    this.checkLogin()
+                        .then(data => {
+                            if(data && data.username){
+                                this.isLoggedIn = true;
+                                this.username = data.username;
+                            }
+                        });
+                },
+              data() {
+                return {
+                    //Message related models
+                    message: 'Bitte geben Sie die folgenden Informationen zu Ihrer Person ein:',
+                    messageType: 100,
+
+                    //Registration related models:
+                    email: '',
+                    password: '',
+                    passwordRepeat: '',
+                    firstname: '',
+                    lastname: '',
+                    city: '',
+                    postcode: '',
+                    address: '',
+
+                    isLoggedIn: false,
+                    username: ''
+
+                }
+              },
+            methods: {
+                submit: function () {
+                    if(this.validateInput()){
+                        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/register', {
+                            email: this.email,
+                            password: this.password,
+                            firstname: this.firstname,
+                            lastname: this.lastname,
+                            city: this.city,
+                            address: this.address,
+                            postcode: this.postcode
+                        })
+                            .then((res) => {
+                                if(res.status === 200){
+                                    this.messageType = 200;
+                                    this.message = 'Sie wurden erfolgreich angemeldet. Viel Spaß mit dem Parcel-Tracker!'
+                                }
+                            })
+                            .catch(err => {
+                                console.error(err);
+                                this.message = 'Bitte überprüfen Sie Ihre Eingaben und wiederholen Sie die Registrierung!';
+                                this.messageType = 400;
+                            })
+                    }
+                },
+                validateInput: function () {
+
+                    //TODO: Validate the input before the information is sent to the server!
+                    if(this.password == this.passwordRepeat){
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                },
+                checkLogin: __WEBPACK_IMPORTED_MODULE_1__common_methods__["a" /* checkLogin */]
+            },
+            computed: {
+                messageStyle: function () {
+                    if(this.messageType === 100){
+                        return {};
+                    }
+                    if(this.messageType === 200){
+                        return {
+                            color: '#0a0'
+                        };
+                    }
+                    if(this.messageType === 400){
+                        return {
+                            color: '#f00'
+                        };
+                    }
+                }
+            }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Register);
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_methods__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(3);
+
+
+
+const Home = {
+    components: __WEBPACK_IMPORTED_MODULE_1__components__["a" /* default */],
+    template: `
+                <div class="page page__home">
+                
+                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    
+                    <h1>Willkommen beim Parcel-Tracker!</h1>
+                    
+                </div>
+              `,
+    mounted(){
+      this.checkLogin()
+          .then(data => {
+              if(data && data.username){
+                  this.isLoggedIn = true;
+                  this.username = data.username;
+              }
+          });
+    },
+    data(){
+        return {
+
+            // Currently logged in?
+            isLoggedIn: false,
+            username: ''
+
+        }
+    },
+    methods: {
+        checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["a" /* checkLogin */]
+    },
+    computed: {
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Home);
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_methods__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(3);
+
+
+
+const Home = {
+    components: __WEBPACK_IMPORTED_MODULE_1__components__["a" /* default */],
+    template: `
+                <div class="page page__dashboard">
+                
+                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    
+                    <main>
+                    
+                     <h1>Übersicht</h1>
+                     
+                     <div class="parcels">
+                        <h2>Offene Sendungen</h2>
+                        <ul class="parcels__list">
+                            <li class="parcels__list__item"></li>
+                        </ul>
+                         
+                    </div>
+                    
+                    <div class="parcels">
+                        <h2>Abgeschlossene Sendungen</h2>
+                        <ul class="parcels__list">
+                            <li class="parcels__list__item"></li>
+                        </ul>
+                         
+                    </div>
+                    
+                    
+                    </main>
+                    
+                </div>
+              `,
+    mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                }
+                else {
+                    this.$router.push('/login');
+                }
+            });
+    },
+    data(){
+        return {
+            // Error and Information messages about the login form
+            message: 'Bitte geben Sie ihr Anmeldedaten hier ein:',
+            messageType: 100,
+
+            // Currently logged in?
+            isLoggedIn: false,
+            username: ''
+
+        }
+    },
+    methods: {
+        checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["a" /* checkLogin */]
+    },
+    computed: {
+        messageStyle: function(){
+            if(this.messageType === 400){
+                return {
+                    color: '#ff0000'
+                };
+            }
+            if(this.messageType === 200){
+                return {
+                    color: '#0a0'
+                };
+            }
+            if(this.messageType === 100){
+                return {};
+            }
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Home);
 
 /***/ })
 /******/ ]);

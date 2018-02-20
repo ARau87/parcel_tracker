@@ -1,35 +1,14 @@
 import axios from 'axios';
-
-const submit = function(){
-
-
-    if(validateInput(this.email, this.password)){
-        axios.post('/login',{
-            email: this.email,
-            password: this.password
-        })
-            .then((response) => {
-                if(response && response.status === 200){
-                    this.$emit('login_successful');
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-                this.message = 'Benutzername oder Passwort sind inkorrekt!';
-                this.messageType = 400;
-            })
-    }
-
-};
-
-const validateInput = function(email, password) {
-    //TODO: Validate if email is really an email by regex
-    return true;
-}
+import {checkLogin} from "../common/methods";
+import Components from '../components';
 
 const Login = {
+    components: Components,
     template: `
                 <div class="page page__login">
+                
+                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    
                     <h1>Login</h1>
                     
                     <form class="login">
@@ -42,6 +21,15 @@ const Login = {
                     </form>
                 </div>
               `,
+    mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                }
+            });
+    },
     data(){
         return {
             // Error and Information messages about the login form
@@ -51,15 +39,55 @@ const Login = {
             // Login form models
             password: '',
             email: '',
-            submit: submit.bind(this),
-            validateInput: validateInput.bind(this)
+
+            // Currently logged in?
+            isLoggedIn: false
+
         }
+    },
+    methods: {
+        submit: function(){
+
+
+            if(this.validateInput(this.email, this.password)){
+                axios.post('/login',{
+                    email: this.email,
+                    password: this.password
+                })
+                    .then((response) => {
+                        if(response && response.status === 200){
+                            this.message = 'Sie haben sich erfolgreich angemeldet';
+                            this.messageType = 200;
+                            this.$emit('login_successful');
+                            setTimeout(() => {
+                                this.$router.push({path: '/dashboard'});
+                            }, 1000);
+                        }
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                        this.message = 'Benutzername oder Passwort sind inkorrekt!';
+                        this.messageType = 400;
+                    })
+            }
+
+        },
+        validateInput: function(email, password) {
+            //TODO: Validate if email is really an email by regex
+            return true;
+        },
+        checkLogin: checkLogin
     },
     computed: {
         messageStyle: function(){
             if(this.messageType === 400){
                 return {
                     color: '#ff0000'
+                };
+            }
+            if(this.messageType === 200){
+                return {
+                    color: '#0a0'
                 };
             }
             if(this.messageType === 100){
