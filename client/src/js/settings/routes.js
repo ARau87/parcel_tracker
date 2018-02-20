@@ -2,6 +2,7 @@ import Login from "../pages/login";
 import Register from "../pages/register";
 import Home from "../pages/home";
 import Dashboard from "../pages/dashboard";
+import NewParcel from "../pages/new-parcel";
 
 
 
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/dashboard',
         component: Dashboard
+    },
+    {
+        path: '/new-parcel',
+        component: NewParcel
     },
 ];
 

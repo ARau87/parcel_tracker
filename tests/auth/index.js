@@ -258,7 +258,7 @@ describe('AUTHENTIFICATION', () => {
                                  .get('/login')
                                  .expect(200);
 
-            expect(res.body.username).to.equal('andirau@gmx.de');
+            expect(res.body.email).to.equal('andirau@gmx.de');
 
         });
 

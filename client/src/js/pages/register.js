@@ -8,9 +8,12 @@ const Register = {
     template: `
                 <div class="page page__register">
                 
-                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
                     
                     <main>
+                    
+                        <h1>Register</h1>
+                        
                         <form class="register">
                             
                             <div class="register__message" :style="messageStyle">{{message}}</div>
@@ -30,7 +33,6 @@ const Register = {
                     
                     </main>
                     
-                    <h1>Register</h1>
                     
                 </div>
               `,

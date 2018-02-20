@@ -4,7 +4,8 @@ import axios from 'axios';
 export default {
     name: 'page-header',
     props: [
-        'isLoggedIn'
+        'isLoggedIn',
+        'username'
     ],
     template: `
             
@@ -16,7 +17,9 @@ export default {
                         <router-link class="nav__link" to="/register">Registrierung</router-link>
                         <router-link class="nav__link" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
                         <button class="nav__button button-primary" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
-                    </nav>          
+                    </nav>
+                    
+                    <div v-if="isLoggedIn">Angemeldet als {{username}}</div>          
             </header>
     
     `,

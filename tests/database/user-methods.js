@@ -227,8 +227,6 @@ describe('user.', () => {
 
        let userAfterUpdate = await database.user.get({email: 'andirau@gmx.de', password: 'ichbin18'});
 
-       console.log(userAfterUpdate);
-
        expect(userAfterUpdate.parcels[0].trackingNr).to.equal('A8238978-BDWHDU7126');
        expect(userAfterUpdate.parcels[1].trackingNr).to.equal('A8238978-BDWHDU7127');
 

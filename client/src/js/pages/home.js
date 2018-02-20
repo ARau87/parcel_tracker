@@ -6,7 +6,7 @@ const Home = {
     template: `
                 <div class="page page__home">
                 
-                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
                     
                     <h1>Willkommen beim Parcel-Tracker!</h1>
                     

@@ -393,7 +393,14 @@ const checkLogin = function () {
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/login')
                  .then((response) => {
                     if(response && response.data && response.status === 200){
-                        return response.data;
+                        return {
+                            username: response.data.email,
+                            firstname: response.data.firstname,
+                            lastname: response.data.lastname,
+                            address: response.data.address,
+                            postcode: response.data.postcode,
+                            city: response.data.city
+                        };
                     }
                     else {
                         return null
@@ -1011,6 +1018,8 @@ const app = new Vue({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_register__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_home__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_dashboard__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_new_parcel__ = __webpack_require__(36);
+
 
 
 
@@ -1040,6 +1049,10 @@ const routes = [
         path: '/dashboard',
         component: __WEBPACK_IMPORTED_MODULE_3__pages_dashboard__["a" /* default */]
     },
+    {
+        path: '/new-parcel',
+        component: __WEBPACK_IMPORTED_MODULE_4__pages_new_parcel__["a" /* default */]
+    },
 ];
 
 
@@ -1063,7 +1076,7 @@ const Login = {
     template: `
                 <div class="page page__login">
                 
-                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
                     
                     <h1>Login</h1>
                     
@@ -1097,7 +1110,8 @@ const Login = {
             email: '',
 
             // Currently logged in?
-            isLoggedIn: false
+            isLoggedIn: false,
+            username: ''
 
         }
     },
@@ -2050,7 +2064,8 @@ module.exports = function spread(callback) {
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'page-header',
     props: [
-        'isLoggedIn'
+        'isLoggedIn',
+        'username'
     ],
     template: `
             
@@ -2062,7 +2077,9 @@ module.exports = function spread(callback) {
                         <router-link class="nav__link" to="/register">Registrierung</router-link>
                         <router-link class="nav__link" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
                         <button class="nav__button button-primary" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
-                    </nav>          
+                    </nav>
+                    
+                    <div v-if="isLoggedIn">Angemeldet als {{username}}</div>          
             </header>
     
     `,
@@ -2093,9 +2110,12 @@ const Register = {
     template: `
                 <div class="page page__register">
                 
-                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
                     
                     <main>
+                    
+                        <h1>Register</h1>
+                        
                         <form class="register">
                             
                             <div class="register__message" :style="messageStyle">{{message}}</div>
@@ -2115,7 +2135,6 @@ const Register = {
                     
                     </main>
                     
-                    <h1>Register</h1>
                     
                 </div>
               `,
@@ -2222,7 +2241,7 @@ const Home = {
     template: `
                 <div class="page page__home">
                 
-                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
                     
                     <h1>Willkommen beim Parcel-Tracker!</h1>
                     
@@ -2270,11 +2289,16 @@ const Home = {
     template: `
                 <div class="page page__dashboard">
                 
-                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
                     
                     <main>
                     
                      <h1>Übersicht</h1>
+                     
+                     <div class="parcels">
+                        <h2>Neue Sendung</h2> 
+                        <router-link class="dashboard__link" to="/new-parcel">Neue Sendung beantragen</router-link>
+                     </div>
                      
                      <div class="parcels">
                         <h2>Offene Sendungen</h2>
@@ -2298,6 +2322,7 @@ const Home = {
                 </div>
               `,
     mounted(){
+        // Check if user is logged in.
         this.checkLogin()
             .then(data => {
                 if(data && data.username){
@@ -2344,6 +2369,146 @@ const Home = {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Home);
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_methods__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+
+
+
+
+const NewParcel = {
+    components: __WEBPACK_IMPORTED_MODULE_1__components__["a" /* default */],
+    template: `
+                <div class="page page__home">
+                
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
+                    
+                    <main class="page__body">
+                    
+                        <h1>Neue Sendung beantragen</h1>
+                    
+                        <form class="form">
+                            
+                            <div class="form__receiver">
+                            
+                                <div class="form__message" style="messageStyle">{{message}}</div>
+                            
+                                <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
+                                <input class="form__input" v-model="receiverLastname" placeholder="Nachname" type="text">
+                                <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text">
+                                <input class="form__input" v-model="receiverPostcode" placeholder="PLZ" type="number">
+                                <input class="form__input" v-model="receiverAddress" placeholder="Adresse" type="text">
+                                
+                                
+                            </div>
+                            
+                            <button class="form__button btn-primary" @click.prevent="submit">Abschicken</button>
+                            
+                        </form>
+                    </main>
+                    
+                </div>
+              `,
+    mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                    this.user = data;
+                }
+            });
+    },
+    data(){
+        return {
+            // Error and Information messages about the login form
+            message: 'Bitte geben Sie ihr Anmeldedaten hier ein:',
+            messageType: 100,
+
+            // Currently logged in?
+            isLoggedIn: false,
+            username: '',
+            user: null,
+
+            // Component models
+            receiverCity: '',
+            receiverLastname: '',
+            receiverFirstname: '',
+            receiverPostcode: '',
+            receiverAddress: ''
+
+        }
+    },
+    methods: {
+        checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["a" /* checkLogin */],
+        submit: function () {
+
+            if(this.validateInput({
+                    firstname: this.receiverFirstname,
+                    lastname: this.receiverLastname,
+                    address: this.receiverAddress,
+                    city: this.receiverCity,
+                    postcode: this.receiverPostcode
+                })){
+
+                __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('/v1/parcels/new', {
+                    fromCity: this.user.city,
+                    toCity: this.receiverCity,
+                    fromName: this.user.lastname,
+                    toName: this.receiverLastname,
+                    fromFirstName: this.user.firstname,
+                    toFirstName: this.receiverFirstname,
+                    fromPostCode: this.user.postcode,
+                    toPostCode: this.receiverPostcode,
+                    fromAddress: this.user.address,
+                    toAddress: this.receiverAddress
+                })
+                    .then((response) => {
+                        if(response.status === 200){
+                            this.message = 'Sendung wurde erfolgreich erstellt';
+                            this.messageType = 200;
+                        }
+                    })
+                    .catch((err) => {
+                       console.error(err);
+                       this.message = 'Fehler bei der Sendungserstellung.';
+                       this.messageType = 400;
+                    });
+            }
+
+        },
+        validateInput: function (input) {
+            //TODO: Validate user input
+            return true;
+        }
+    },
+    computed: {
+        messageStyle: function(){
+            if(this.messageType === 400){
+                return {
+                    color: '#ff0000'
+                };
+            }
+            if(this.messageType === 200){
+                return {
+                    color: '#0a0'
+                };
+            }
+            if(this.messageType === 100){
+                return {};
+            }
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (NewParcel);
 
 /***/ })
 /******/ ]);

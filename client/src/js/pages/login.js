@@ -7,7 +7,7 @@ const Login = {
     template: `
                 <div class="page page__login">
                 
-                    <page-header @logout="$router.push('/')" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
                     
                     <h1>Login</h1>
                     
@@ -41,7 +41,8 @@ const Login = {
             email: '',
 
             // Currently logged in?
-            isLoggedIn: false
+            isLoggedIn: false,
+            username: ''
 
         }
     },
@@ -82,7 +83,7 @@ const Login = {
         messageStyle: function(){
             if(this.messageType === 400){
                 return {
-                    color: '#ff0000'
+                    color: '#f00'
                 };
             }
             if(this.messageType === 200){

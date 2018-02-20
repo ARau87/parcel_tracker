@@ -91,13 +91,29 @@ module.exports = (app) => {
     /** GET /login
      *
      * This endpoint checks if the client is currently logged in. If so it
-     * returns the email address of the user. If not it returns 401.
+     * returns some information of the user. If not it returns 401.
      */
-    app.get('/login', jsonParser , (req,res) => {
+    app.get('/login', jsonParser , async (req,res) => {
 
         if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode){
 
-            res.status(200).send({message: 'Success. Client logged in', username: req.session.email});
+            let user = await database.user.get({email: req.session.email})
+            if(user){
+                res.status(200).send({
+                    message: 'Success. Client logged in',
+                    email: user.email,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    address: user.address,
+                    postcode: user.postcode,
+                    city: user.city
+
+                });
+            }
+            else {
+                res.status(500).send({message: 'Internal server error!'});
+            }
+
         }
         else {
             res.status(401).send({message: 'User not logged in!'});
