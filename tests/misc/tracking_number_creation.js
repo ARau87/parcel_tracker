@@ -184,11 +184,6 @@ describe('TRACKING-NUMBER CREATION', () => {
         expect(decrypted.fromName).to.equal(parcel.fromName);
         expect(decrypted.fromFirstName).to.equal(parcel.fromFirstName);
 
-    })
-
-
-    after(async () => {
-      await database.disconnect();
     });
 
   });

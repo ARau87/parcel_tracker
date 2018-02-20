@@ -78,7 +78,12 @@ const router = new VueRouter({
 
 const app = new Vue({
     router,
-    el: '#app'
+    el: '#app',
+    data(){
+        return {
+            isLoggedIn: false
+        }
+    }
 });
 
 /***/ }),

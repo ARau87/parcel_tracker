@@ -16,6 +16,7 @@
             <nav>
                 <router-link to="/login">Login</router-link>
                 <router-link to="/register">Register</router-link>
+                <router-link v-if="isLoggedIn" to="/test">Test</router-link>
             </nav>
         </header>
         <main>

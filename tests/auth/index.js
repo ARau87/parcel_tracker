@@ -222,4 +222,60 @@ describe('AUTHENTIFICATION', () => {
 
     });
 
+    describe('GET /login', () => {
+
+        before( async () => {
+            database.setup('test');
+
+            await database.user.clear();
+
+            await database.user.create(
+                {
+                    email: 'andirau@gmx.de',
+                    firstname: 'Andreas',
+                    lastname: 'Rau',
+                    password: 'ichbin18',
+                    city: 'Olching',
+                    postcode: '82140',
+                    address: 'Rauschweg 131'
+                }
+            );
+
+        });
+
+        it('should return the username of currently logged in user', async () => {
+
+            let agent = request.agent(server);
+
+            let login = await agent.post('/login')
+                                   .send({
+                                       email: 'andirau@gmx.de',
+                                       password: 'ichbin18',
+                                   })
+                                   .expect(200);
+
+            let res = await agent.set('cookie', login.headers['set-cookie'])
+                                 .get('/login')
+                                 .expect(200);
+
+            expect(res.body.username).to.equal('andirau@gmx.de');
+
+        });
+
+        it('should return a response with status 404 if user is not logged in', async () => {
+
+            let agent = request.agent(server);
+
+            let res = await agent.get('/login')
+                                 .expect(404);
+
+        });
+
+        after(async function() {
+            await database.user.clear();
+            await database.disconnect();
+        });
+
+    });
+
 });
