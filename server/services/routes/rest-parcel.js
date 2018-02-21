@@ -29,7 +29,7 @@ module.exports = (app) => {
         (parcel.fromAddress === req.session.address || parcel.toAddress === req.session.address) &&
         (parcel.fromPostCode === req.session.postcode || parcel.toPostCode === req.session.postcode)){
 
-        res.status(200).send(parcel);
+        res.status(200).send({message: 'Success. Parcel found!', parcel: parcel});
       }
       else {
         res.status(401).send({message: 'Parcel not found or you are not allowed to access the parcel\'s information'})
@@ -116,7 +116,7 @@ module.exports = (app) => {
               }
             }
 
-            res.status(200).send([...parcels]);
+            res.status(200).send({message: 'Success. Parcels found in database.', parcels: [...parcels]});
           }
           else {
             res.status(401).send({message: 'Forbidden. User not found!'});
@@ -134,7 +134,7 @@ module.exports = (app) => {
 
   });
 
-  /** PUT /v1/parcel/_trackingNr/step
+  /** PUT /v1/parcel/:trackingNr/step
     *
     * This endpoint adds a step to the parcel specified in the route
     *
@@ -159,5 +159,28 @@ module.exports = (app) => {
     }
 
   });
+
+    /** POST /v1/parcel/:trackingNr/end
+     *
+     * This endpoint ends the delivery by setting the parcel to arrived
+     * and pushing the nextStep to steps and leave it empty.
+     *
+     */
+    app.post('/v1/parcel/:trackingNr/end', jsonParser , async (req,res) => {
+        if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode){
+
+          try{
+            await database.parcel.end({trackingNr: req.params.trackingNr});
+            res.status(200).send({message: 'Success. Step added to the parcel instance.'});
+          }
+          catch(err){
+            res.status(500).send({message: 'Internal server error!'});
+          }
+        }
+        else {
+            res.status(401).send({message: 'Forbidden. This service is only available for authenticated users!'});
+        }
+
+    });
 
 }

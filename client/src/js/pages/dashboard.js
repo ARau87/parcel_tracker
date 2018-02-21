@@ -1,5 +1,6 @@
 import {checkLogin} from "../common/methods";
 import Components from '../components';
+import axios from 'axios';
 
 const Home = {
     components: Components,
@@ -20,7 +21,9 @@ const Home = {
                      <div class="parcels">
                         <h2>Offene Sendungen</h2>
                         <ul class="parcels__list">
-                            <li class="parcels__list__item"></li>
+                            <li class="parcels__list__item" v-for="parcel in openParcels">
+                                <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
+                            </li>
                         </ul>
                          
                     </div>
@@ -28,7 +31,9 @@ const Home = {
                     <div class="parcels">
                         <h2>Abgeschlossene Sendungen</h2>
                         <ul class="parcels__list">
-                            <li class="parcels__list__item"></li>
+                            <li class="parcels__list__item" v-for="parcel in arrivedParcels">
+                                <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
+                            </li>
                         </ul>
                          
                     </div>
@@ -50,6 +55,13 @@ const Home = {
                     this.$router.push('/login');
                 }
             });
+
+        axios.get('/v1/parcels/all')
+            .then((response) => {
+                if(response.status === 200 && response.data && response.data.parcels){
+                    this.parcels = response.data.parcels;
+                }
+            });
     },
     data(){
         return {
@@ -59,12 +71,16 @@ const Home = {
 
             // Currently logged in?
             isLoggedIn: false,
-            username: ''
+            username: '',
+
+            // Parcels
+            parcels: []
 
         }
     },
     methods: {
-        checkLogin: checkLogin
+        checkLogin: checkLogin,
+
     },
     computed: {
         messageStyle: function(){
@@ -81,7 +97,14 @@ const Home = {
             if(this.messageType === 100){
                 return {};
             }
+        },
+        openParcels: function () {
+            return this.parcels.filter((parcel) => !parcel.arrived);
+        },
+        arrivedParcels: function () {
+            return this.parcels.filter((parcel) => parcel.arrived);
         }
+
     }
 }
 

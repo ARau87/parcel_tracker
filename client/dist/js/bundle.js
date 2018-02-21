@@ -1019,6 +1019,8 @@ const app = new Vue({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_home__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_dashboard__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_new_parcel__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_parcel__ = __webpack_require__(37);
+
 
 
 
@@ -1052,6 +1054,10 @@ const routes = [
     {
         path: '/new-parcel',
         component: __WEBPACK_IMPORTED_MODULE_4__pages_new_parcel__["a" /* default */]
+    },
+    {
+        path: '/parcel/:trackingNr',
+        component: __WEBPACK_IMPORTED_MODULE_5__pages_parcel__["a" /* default */]
     },
 ];
 
@@ -1152,7 +1158,7 @@ const Login = {
         messageStyle: function(){
             if(this.messageType === 400){
                 return {
-                    color: '#ff0000'
+                    color: '#f00'
                 };
             }
             if(this.messageType === 200){
@@ -2281,6 +2287,9 @@ const Home = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_methods__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+
 
 
 
@@ -2303,7 +2312,9 @@ const Home = {
                      <div class="parcels">
                         <h2>Offene Sendungen</h2>
                         <ul class="parcels__list">
-                            <li class="parcels__list__item"></li>
+                            <li class="parcels__list__item" v-for="parcel in openParcels">
+                                <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
+                            </li>
                         </ul>
                          
                     </div>
@@ -2311,7 +2322,9 @@ const Home = {
                     <div class="parcels">
                         <h2>Abgeschlossene Sendungen</h2>
                         <ul class="parcels__list">
-                            <li class="parcels__list__item"></li>
+                            <li class="parcels__list__item" v-for="parcel in arrivedParcels">
+                                <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
+                            </li>
                         </ul>
                          
                     </div>
@@ -2333,6 +2346,13 @@ const Home = {
                     this.$router.push('/login');
                 }
             });
+
+        __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/v1/parcels/all')
+            .then((response) => {
+                if(response.status === 200 && response.data && response.data.parcels){
+                    this.parcels = response.data.parcels;
+                }
+            });
     },
     data(){
         return {
@@ -2342,12 +2362,16 @@ const Home = {
 
             // Currently logged in?
             isLoggedIn: false,
-            username: ''
+            username: '',
+
+            // Parcels
+            parcels: []
 
         }
     },
     methods: {
-        checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["a" /* checkLogin */]
+        checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["a" /* checkLogin */],
+
     },
     computed: {
         messageStyle: function(){
@@ -2364,7 +2388,14 @@ const Home = {
             if(this.messageType === 100){
                 return {};
             }
+        },
+        openParcels: function () {
+            return this.parcels.filter((parcel) => !parcel.arrived);
+        },
+        arrivedParcels: function () {
+            return this.parcels.filter((parcel) => parcel.arrived);
         }
+
     }
 }
 
@@ -2398,7 +2429,7 @@ const NewParcel = {
                             
                             <div class="form__receiver">
                             
-                                <div class="form__message" style="messageStyle">{{message}}</div>
+                                <div class="form__message" :style="messageStyle">{{message}}</div>
                             
                                 <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
                                 <input class="form__input" v-model="receiverLastname" placeholder="Nachname" type="text">
@@ -2423,6 +2454,9 @@ const NewParcel = {
                     this.isLoggedIn = true;
                     this.username = data.username;
                     this.user = data;
+                }
+                else {
+                    this.$router.push('/login');
                 }
             });
     },
@@ -2509,6 +2543,117 @@ const NewParcel = {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (NewParcel);
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_methods__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+
+
+
+
+const Parcel = {
+    components: __WEBPACK_IMPORTED_MODULE_1__components__["a" /* default */],
+    template: `
+                <div class="page page__home">
+                
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
+                    
+                    <main>
+                    
+                        <h1>Paket - Sendungsnummer {{$route.params.trackingNr}}</h1>
+                        
+                        <div class="details">
+                            
+                            <h4 class="details__head">Details</h4>
+                            
+                            <div class="details__receiver">
+                                <h5>Empfänger</h5>
+                                <div class="details__receiver__firstname">{{details.toFirstName}}</div>
+                                <div class="details__receiver__name">{{details.toName}}</div>
+                                <div class="details__receiver__city">{{details.toCity}}</div>
+                                <div class="details__receiver__postcode">{{details.toPostCode}}</div>
+                                <div class="details__receiver__address">{{details.toAddress}}</div>
+                            
+                            </div>
+                            
+                            <div class="details__sender">
+                                <h5>Absender</h5>
+                                <div class="details__sender__firstname">{{details.fromFirstName}}</div>
+                                <div class="details__sender__name">{{details.fromName}}</div>
+                                <div class="details__sender__city">{{details.fromCity}}</div>
+                                <div class="details__sender__postcode">{{details.fromPostCode}}</div>
+                                <div class="details__sender__address">{{details.fromAddress}}</div>
+                            
+                            </div>
+                            
+                            <div class="details__history">
+                                <h5>Sendungshistorie</h5>
+                                
+                                <div class="details__history__item" v-for="step in details.steps">
+                                    <div class="step">
+                                        <div class="step__type">{{step.stepType}}</div>
+                                        <div class="step__name">{{step.stepName}}</div>
+                                        <div class="step__name">{{step.stepLocation}}</div>
+                                        <div class="step__date">{{step.stepDate}}</div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        
+                        </div>
+                    
+                    </main>
+                   
+                    
+                    
+                    
+                </div>
+              `,
+    mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                }
+                else {
+                    this.$router.push('/login');
+                }
+            });
+
+        __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/v1/parcel/' + this.$route.params.trackingNr)
+            .then((response) => {
+                if(response.status === 200 && response.data && response.data.parcel){
+                    this.details = response.data.parcel;
+                }
+            })
+    },
+    data(){
+        return {
+
+            // Currently logged in?
+            isLoggedIn: false,
+            username: '',
+
+            // Parcel details
+            details: {}
+
+        }
+    },
+    methods: {
+        checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["a" /* checkLogin */]
+    },
+    computed: {
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Parcel);
 
 /***/ })
 /******/ ]);

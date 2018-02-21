@@ -201,22 +201,46 @@ describe('parcel.', () => {
           fromPostCode: '82140',
           toPostCode: '82178',
           fromAddress: 'Rauschweg 131',
-          toAddress: 'Adenauerstr 8b'
+          toAddress: 'Adenauerstr 8b',
+          nextStep: {}
         }
       );
 
-      let newStep = {
-        stepLocation: 'München',
-        stepName: 'Logistikzentrum'
+      let step1 = {
+            stepType: 'type_logistic',
+            stepLocation: 'München',
+            stepName: 'Logistikzentrum',
+            stepDate: Date.now()
       };
 
-      await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, newStep);
+      let step2 = {
+            stepType: 'type_logistic',
+            stepLocation: 'Hannover',
+            stepName: 'Logistikzentrum',
+            stepDate: Date.now()
+        };
+
+        let step3 = {
+            stepType: 'type_shop',
+            stepLocation: 'Bremen',
+            stepName: 'Abholshop',
+            stepDate: Date.now()
+        };
+
+      await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, step1);
+      await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, step2);
+      await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, step3);
 
       let parcel = await database.parcel.get({trackingNr: 'A8238978-BDWHDU7131'});
       let loadedSteps = parcel.steps;
 
-      expect(loadedSteps[0].stepLocation).to.equal(newStep.stepLocation);
-      expect(loadedSteps[0].stepName).to.equal(newStep.stepName);
+      expect(loadedSteps[0].stepLocation).to.equal(step1.stepLocation);
+      expect(loadedSteps[0].stepName).to.equal(step1.stepName);
+      expect(loadedSteps[1].stepLocation).to.equal(step2.stepLocation);
+      expect(loadedSteps[1].stepName).to.equal(step2.stepName);
+
+      expect(parcel.nextStep.stepLocation).to.equal(step3.stepLocation);
+      expect(parcel.nextStep.stepName).to.equal(step3.stepName);
     });
 
     it('should not return a parcel if the tracking number is missing', async () => {
@@ -254,5 +278,77 @@ describe('parcel.', () => {
       database.disconnect();
     });
   });
+
+    describe('end()', () => {
+
+        before(async () => {
+            database.setup('test');
+            database.parcel.clear();
+        });
+
+        it('should set arrived to true, empty the nextStep field and put the nextStep to the steps array', async () => {
+            await database.parcel.create(
+                {
+                    trackingNr: 'A8238978-BDWHDU7131',
+                    fromCity: 'OlchingTTT',
+                    toCity: 'Puchheim',
+                    fromName: 'Rau',
+                    toName: 'Oberländer',
+                    fromFirstName: 'Andreas',
+                    toFirstName: 'Sebastian',
+                    fromPostCode: '82140',
+                    toPostCode: '82178',
+                    fromAddress: 'Rauschweg 131',
+                    toAddress: 'Adenauerstr 8b',
+                    nextStep: {}
+                }
+            );
+
+            let step1 = {
+                stepType: 'type_logistic',
+                stepLocation: 'München',
+                stepName: 'Logistikzentrum',
+                stepDate: Date.now()
+            };
+
+            let step2 = {
+                stepType: 'type_logistic',
+                stepLocation: 'Hannover',
+                stepName: 'Logistikzentrum',
+                stepDate: Date.now()
+            };
+
+            let step3 = {
+                stepType: 'type_shop',
+                stepLocation: 'Bremen',
+                stepName: 'Abholshop',
+                stepDate: Date.now()
+            };
+
+            await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, step1);
+            await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, step2);
+            await database.parcel.addStep({trackingNr: 'A8238978-BDWHDU7131'}, step3);
+            await database.parcel.end({trackingNr: 'A8238978-BDWHDU7131'});
+
+            let parcel = await database.parcel.get({trackingNr: 'A8238978-BDWHDU7131'});
+            let loadedSteps = parcel.steps;
+
+            expect(loadedSteps[0].stepLocation).to.equal(step1.stepLocation);
+            expect(loadedSteps[0].stepName).to.equal(step1.stepName);
+            expect(loadedSteps[1].stepLocation).to.equal(step2.stepLocation);
+            expect(loadedSteps[1].stepName).to.equal(step2.stepName);
+            expect(loadedSteps[2].stepLocation).to.equal(step3.stepLocation);
+            expect(loadedSteps[2].stepName).to.equal(step3.stepName);
+
+            expect(parcel.arrived).to.be.true;
+            expect(parcel.nextStep).to.deep.equal({});
+        });
+
+        after(async () => {
+            await database.parcel.clear();
+            database.disconnect();
+        });
+    });
+
 
 });

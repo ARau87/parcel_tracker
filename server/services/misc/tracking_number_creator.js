@@ -4,6 +4,7 @@ const database = require('../database');
 const cryptoJS = require('crypto-js');
 const randomstring = require('randomstring');
 const MAX_CHARS = 12;
+const VALID_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890012345678901234567890';
 
 // Helper function that creates random Integer values
 function _getRandomInt(max) {
@@ -30,7 +31,8 @@ const create = (parcel) => {
     const encryption = cryptoJS.AES.encrypt(stringToEncrypt, key);
     let ciphertext = encryption.toString();
 
-    var trackingNr = _createRandomString(MAX_CHARS, ciphertext);
+    var trackingNr = _createRandomString(MAX_CHARS, VALID_CHARS);
+    //TODO: Put Logic here that tracking number reflects somehow the direction of the parcel
 
     // Check if the tracking number is existing in database
     return database.trackingnr.get({trackingNr: trackingNr})

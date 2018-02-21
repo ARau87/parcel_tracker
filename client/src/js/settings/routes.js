@@ -3,6 +3,7 @@ import Register from "../pages/register";
 import Home from "../pages/home";
 import Dashboard from "../pages/dashboard";
 import NewParcel from "../pages/new-parcel";
+import Parcel from "../pages/parcel";
 
 
 
@@ -31,6 +32,10 @@ const routes = [
     {
         path: '/new-parcel',
         component: NewParcel
+    },
+    {
+        path: '/parcel/:trackingNr',
+        component: Parcel
     },
 ];
 

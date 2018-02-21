@@ -271,8 +271,8 @@ describe('GET /v1/parcels/all', () => {
                     .set('cookie', login.headers['set-cookie']);
 
 
-    expect(res.body[0].trackingNr).to.equal(parcel1.trackingNr);
-    expect(res.body[1].trackingNr).to.equal(parcel2.trackingNr);
+    expect(res.body.parcels[0].trackingNr).to.equal(parcel1.trackingNr);
+    expect(res.body.parcels[1].trackingNr).to.equal(parcel2.trackingNr);
 
   });
 
@@ -317,13 +317,17 @@ describe('PUT /v1/parcel/:trackingNr/step', () => {
     );
 
     let step1 = {
+      stepType: 'type_logistic',
       stepLocation: 'München',
-      stepName: 'Logistikzentrum'
+      stepName: 'Logistikzentrum',
+      stepDate: Date.now()
     }
 
     let step2 = {
+      stepType: 'type_shop',
       stepLocation: 'Puchheim',
-      stepName: 'Packetshop'
+      stepName: 'Packetshop',
+      stepDate: Date.now()
     }
 
     let login = await request(server)
@@ -351,9 +355,102 @@ describe('PUT /v1/parcel/:trackingNr/step', () => {
                     .get('/v1/parcel/A8238978-BDWHDU7126')
                     .set('cookie', login.headers['set-cookie']);
 
-    expect(res.body.steps[0].stepLocation).to.equal(step1.stepLocation);
-    expect(res.body.steps[1].stepLocation).to.equal(step2.stepLocation);
+
+    expect(res.body.parcel.steps[0].stepLocation).to.equal(step1.stepLocation);
+    expect(res.body.parcel.nextStep.stepLocation).to.equal(step2.stepLocation);
 
   });
+
+});
+
+describe('POST /v1/parcel/:trackingNr/end', () => {
+
+    before( async () => {
+        database.setup('test');
+        await database.user.clear();
+        await database.parcel.clear();
+
+    });
+
+    it('should set the specified parcel to finished and empty the nextStep property', async () => {
+        let user = await database.user.create(
+            {
+                email: 'andirau@gmx.de',
+                firstname: 'Andreas',
+                lastname: 'Rau',
+                password: 'ichbin18',
+                city: 'Olching',
+                postcode: '82140',
+                address: 'Rauschweg 131'
+            }
+        );
+
+        let parcel = await database.parcel.create(
+            {
+                trackingNr: 'A8238978-BDWHDU7126',
+                fromCity: 'Olching',
+                toCity: 'Puchheim',
+                fromName: 'Rau',
+                toName: 'Oberländer',
+                fromFirstName: 'Andreas',
+                toFirstName: 'Sebastian',
+                fromPostCode: '82140',
+                toPostCode: '82178',
+                fromAddress: 'Rauschweg 131',
+                toAddress: 'Adenauerstr 8b'
+            }
+        );
+
+        let step1 = {
+            stepType: 'type_logistic',
+            stepLocation: 'München',
+            stepName: 'Logistikzentrum',
+            stepDate: Date.now()
+        }
+
+        let step2 = {
+            stepType: 'type_shop',
+            stepLocation: 'Puchheim',
+            stepName: 'Packetshop',
+            stepDate: Date.now()
+        }
+
+        let login = await request(server)
+            .post('/login')
+            .set('Accept', 'application/json')
+            .send({
+                email: 'andirau@gmx.de',
+                password: 'ichbin18'
+            });
+
+
+        await request(server)
+            .put('/v1/parcel/A8238978-BDWHDU7126/step')
+            .set('cookie', login.headers['set-cookie'])
+            .send(step1)
+            .expect(200);
+
+        await request(server)
+            .put('/v1/parcel/A8238978-BDWHDU7126/step')
+            .set('cookie', login.headers['set-cookie'])
+            .send(step2)
+            .expect(200);
+
+        await request(server)
+            .post('/v1/parcel/A8238978-BDWHDU7126/end')
+            .set('cookie', login.headers['set-cookie'])
+            .expect(200);
+
+        let res = await request(server)
+            .get('/v1/parcel/A8238978-BDWHDU7126')
+            .set('cookie', login.headers['set-cookie']);
+
+
+        expect(res.body.parcel.steps[0].stepLocation).to.equal(step1.stepLocation);
+        expect(res.body.parcel.steps[1].stepLocation).to.equal(step2.stepLocation);
+        expect(res.body.parcel.arrived).to.be.true;
+        expect(res.body.parcel.nextStep).to.be.undefined;
+
+    });
 
 });

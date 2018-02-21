@@ -43,6 +43,9 @@ const NewParcel = {
                     this.username = data.username;
                     this.user = data;
                 }
+                else {
+                    this.$router.push('/login');
+                }
             });
     },
     data(){
