@@ -419,7 +419,7 @@ const logout = function () {
     });
 
 };
-/* harmony export (immutable) */ __webpack_exports__["g"] = logout;
+/* harmony export (immutable) */ __webpack_exports__["h"] = logout;
 
 
 const reload = function () {
@@ -430,7 +430,7 @@ const reload = function () {
     window.location.href = baseUrl;
 
 };
-/* harmony export (immutable) */ __webpack_exports__["h"] = reload;
+/* harmony export (immutable) */ __webpack_exports__["i"] = reload;
 
 
 const loadAllParcels = function(){
@@ -438,7 +438,7 @@ const loadAllParcels = function(){
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/v1/parcels/all');
 
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = loadAllParcels;
+/* harmony export (immutable) */ __webpack_exports__["f"] = loadAllParcels;
 
 
 const loadAllParcelsAdmin = function(){
@@ -446,7 +446,7 @@ const loadAllParcelsAdmin = function(){
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/v1/parcels/all');
 
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = loadAllParcelsAdmin;
+/* harmony export (immutable) */ __webpack_exports__["g"] = loadAllParcelsAdmin;
 
 
 const getParcelDetails = function(trackingNr){
@@ -457,12 +457,21 @@ const getParcelDetails = function(trackingNr){
 /* harmony export (immutable) */ __webpack_exports__["d"] = getParcelDetails;
 
 
+const getParcelDetailsAdmin = function(trackingNr){
+
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/v1/parcel/' + trackingNr);
+
+};
+/* harmony export (immutable) */ __webpack_exports__["e"] = getParcelDetailsAdmin;
+
+
 const addStep = function (trackingNr, step) {
     if(step && step.stepType && step.stepLocation && step.stepName){
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/v1/parcel/'+ trackingNr +'/step', {
             stepName: step.stepName,
             stepType: step.stepType,
-            stepLocation: step.stepLocation
+            stepLocation: step.stepLocation,
+            stepDate: Date.now()
         });
     }
 }
@@ -474,7 +483,8 @@ const endParcel = async function (trackingNr) {
     await addStep(trackingNr, {
         stepName: 'Ihre Sendung wurde abgeschlossen!',
         stepType: 'type_end',
-        stepLocation: '',
+        stepLocation: ' ',
+        stepDate: Date.now()
     });
 
     return await __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/v1/parcel/'+ trackingNr +'/end');
@@ -1993,7 +2003,7 @@ module.exports = function spread(callback) {
     `,
     methods: {
         logout: function(){
-           Object(__WEBPACK_IMPORTED_MODULE_1__common_methods__["g" /* logout */])().then(() => this.$emit('logout'));
+           Object(__WEBPACK_IMPORTED_MODULE_1__common_methods__["h" /* logout */])().then(() => this.$emit('logout'));
         }
     }
 });
@@ -2114,7 +2124,7 @@ const Home = {
     },
     methods: {
         checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["b" /* checkLogin */],
-        reload: __WEBPACK_IMPORTED_MODULE_0__common_methods__["h" /* reload */]
+        reload: __WEBPACK_IMPORTED_MODULE_0__common_methods__["i" /* reload */]
     },
     computed: {
     }
@@ -2459,7 +2469,7 @@ const Home = {
     },
     methods: {
         checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["b" /* checkLogin */],
-        loadAllParcels: __WEBPACK_IMPORTED_MODULE_0__common_methods__["e" /* loadAllParcels */]
+        loadAllParcels: __WEBPACK_IMPORTED_MODULE_0__common_methods__["f" /* loadAllParcels */]
 
     },
     computed: {

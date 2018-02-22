@@ -63,12 +63,19 @@ export const getParcelDetails = function(trackingNr){
 
 };
 
+export const getParcelDetailsAdmin = function(trackingNr){
+
+    return axios.post('/v1/parcel/' + trackingNr);
+
+};
+
 export const addStep = function (trackingNr, step) {
     if(step && step.stepType && step.stepLocation && step.stepName){
         return axios.put('/v1/parcel/'+ trackingNr +'/step', {
             stepName: step.stepName,
             stepType: step.stepType,
-            stepLocation: step.stepLocation
+            stepLocation: step.stepLocation,
+            stepDate: Date.now()
         });
     }
 }
@@ -78,7 +85,8 @@ export const endParcel = async function (trackingNr) {
     await addStep(trackingNr, {
         stepName: 'Ihre Sendung wurde abgeschlossen!',
         stepType: 'type_end',
-        stepLocation: '',
+        stepLocation: ' ',
+        stepDate: Date.now()
     });
 
     return await axios.post('/v1/parcel/'+ trackingNr +'/end');

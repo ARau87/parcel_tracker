@@ -43,6 +43,38 @@ module.exports = (app) => {
 
   });
 
+    /** POST /v1/parcels/:trackingNr
+     *
+     * This endpoint returns details of a parcel with a specific tracking number.
+     * This route can only be used by admins.
+     */
+    app.post('/v1/parcel/:trackingNr', async (req,res) => {
+
+        if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode && req.session.admin){
+
+            try {
+
+                let parcel = await database.parcel.get({
+                    trackingNr: req.params.trackingNr,
+                });
+
+                res.status(200).send({message: 'Success. Parcel found!', parcel: parcel});
+
+            }
+            catch(err){
+
+                res.status(500).send({message: 'Internal server error!'});
+
+            }
+
+        }
+
+        else {
+            res.status(401).send({message: 'Forbidden. This service is only available for authenticated users!'});
+        }
+
+    });
+
   /** POST /v1/parcels/new
     *
     * Using this endpoint will create a new parcel with a fresh tracking number.
@@ -251,6 +283,7 @@ module.exports = (app) => {
         if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode){
 
           try{
+              await
             await database.parcel.end({trackingNr: req.params.trackingNr});
             res.status(200).send({message: 'Success. Step added to the parcel instance.'});
           }
