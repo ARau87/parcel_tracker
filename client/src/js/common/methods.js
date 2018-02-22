@@ -22,3 +22,37 @@ export const checkLogin = function () {
                     return null;
                 });
 };
+
+export const logout = function () {
+
+    return axios({
+        method: 'get',
+        url: '/logout',
+        headers: {
+            'Cache-Control': 'no-store'
+        }
+
+    });
+
+};
+
+export const reload = function () {
+
+    let baseUrl = document.referrer.split('/');
+    baseUrl.splice(baseUrl.length-2, 2);
+
+    window.location.href = baseUrl;
+
+};
+
+export const loadAllParcels = function(){
+
+    return axios.get('/v1/parcels/all');
+
+};
+
+export const loadAllParcelsAdmin = function(){
+
+    return axios.post('/v1/parcels/all');
+
+};

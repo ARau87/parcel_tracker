@@ -1,10 +1,9 @@
+import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
-import Home from "../pages/home";
 import Dashboard from "../pages/dashboard";
-import NewParcel from "../pages/new-parcel";
 import Parcel from "../pages/parcel";
-
+import NewParcel from "../pages/new-parcel";
 
 
 const routes = [
@@ -38,6 +37,5 @@ const routes = [
         component: Parcel
     },
 ];
-
 
 export default routes;

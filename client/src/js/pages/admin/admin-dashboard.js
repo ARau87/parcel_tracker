@@ -1,22 +1,17 @@
-import {checkLogin, loadAllParcels} from "../common/methods";
-import Components from '../components';
-import axios from 'axios';
+import Components from "../../components";
+import {loadAllParcelsAdmin, checkLogin} from "../../common/methods";
 
-const Home = {
+const AdminDashboard = {
     components: Components,
     template: `
-                <div class="page page__dashboard">
+                <div class="page page__admindashboard">
                 
-                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
+                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn" :admin="true"></page-header>  
                     
                     <main>
                     
-                     <h1>Übersicht</h1>
+                     <h1>Übersicht - Admin</h1>
                      
-                     <div class="parcels">
-                        <h2>Neue Sendung</h2> 
-                        <router-link class="dashboard__link" to="/new-parcel">Neue Sendung beantragen</router-link>
-                     </div>
                      
                      <div class="parcels">
                         <h2>Offene Sendungen</h2>
@@ -44,7 +39,6 @@ const Home = {
                 </div>
               `,
     mounted(){
-        // Check if user is logged in.
         this.checkLogin()
             .then(data => {
                 if(data && data.username){
@@ -56,7 +50,7 @@ const Home = {
                 }
             });
 
-        this.loadAllParcels()
+        this.loadAllParcelsAdmin()
             .then((response) => {
                 if(response.status === 200 && response.data && response.data.parcels){
                     this.parcels = response.data.parcels;
@@ -70,7 +64,7 @@ const Home = {
             messageType: 100,
 
             // Currently logged in?
-            isLoggedIn: false,
+            isLoggedIn: true,
             username: '',
 
             // Parcels
@@ -80,8 +74,7 @@ const Home = {
     },
     methods: {
         checkLogin,
-        loadAllParcels
-
+        loadAllParcelsAdmin
     },
     computed: {
         messageStyle: function(){
@@ -109,4 +102,4 @@ const Home = {
     }
 }
 
-export default Home;
+export default AdminDashboard;

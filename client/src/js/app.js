@@ -1,6 +1,7 @@
 import routes from './settings/routes';
 
 const router = new VueRouter({
+    relative: true,
     routes
 });
 

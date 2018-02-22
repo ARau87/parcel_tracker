@@ -35,6 +35,13 @@ const get = async (identifier) => {
 
 }
 
+// Get all parcels
+const getAll = async () => {
+    const Parcel = mongoose.model('parcel');
+
+    return Parcel.find({});
+}
+
 // Update the parcel with the specified trackingNr
 const set = async (identifier, updateParams) => {
   const Parcel = mongoose.model('parcel');
@@ -120,5 +127,6 @@ module.exports = {
   get,
   set,
   addStep,
-  end
+  end,
+  getAll
 }

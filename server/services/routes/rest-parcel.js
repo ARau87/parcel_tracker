@@ -97,35 +97,36 @@ module.exports = (app) => {
 
   /** GET /v1/parcels/all
     *
-    * This endpoint returns all parcels related to the logged in user.
+    * This endpoint returns all parcels related to the logged in user or all parcels if the user
+    * is an admin.
     *
     */
   app.get('/v1/parcels/all', async (req,res) => {
     if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode){
 
-      try {
-          let user = await database.user.get({email: req.session.email});
-          let parcels = [];
-          if(user){
+        try {
+              let user = await database.user.get({email: req.session.email});
+              let parcels = [];
+              if(user){
 
-            for(let parcel of user.parcels){
-              let parcelDetailed = await database.parcel.get({trackingNr: parcel.trackingNr});
+                  for(let parcel of user.parcels){
+                      let parcelDetailed = await database.parcel.get({trackingNr: parcel.trackingNr});
 
-              if(parcelDetailed){
-                parcels.push(parcelDetailed);
+                      if(parcelDetailed){
+                          parcels.push(parcelDetailed);
+                      }
+                  }
+
+                  res.status(200).send({message: 'Success. Parcels found in database.', parcels: [...parcels]});
               }
-            }
-
-            res.status(200).send({message: 'Success. Parcels found in database.', parcels: [...parcels]});
+              else {
+                  res.status(401).send({message: 'Forbidden. User not found!'});
+              }
+        }
+          catch(err){
+              console.error(err);
+              res.status(500).send({message: 'Internal server error!'});
           }
-          else {
-            res.status(401).send({message: 'Forbidden. User not found!'});
-          }
-      }
-      catch(err){
-        console.log(err);
-        res.status(500).send({message: 'Internal server error!'});
-      }
 
     }
     else {
@@ -133,6 +134,79 @@ module.exports = (app) => {
     }
 
   });
+
+    /** POST /v1/parcels/all
+     *
+     * This endpoint returns all parcels if the user is an admin.
+     *
+     */
+    app.post('/v1/parcels/all', async (req,res) => {
+        if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode){
+
+            // Normal users can only load their own parcels
+            if(!req.session.admin){
+                try {
+                    let user = await database.user.get({email: req.session.email});
+                    let parcels = [];
+                    if(user){
+
+                        for(let parcel of user.parcels){
+                            let parcelDetailed = await database.parcel.get({trackingNr: parcel.trackingNr});
+
+                            if(parcelDetailed){
+                                parcels.push(parcelDetailed);
+                            }
+                        }
+
+                        res.status(200).send({message: 'Success. Parcels found in database.', parcels: [...parcels]});
+                    }
+                    else {
+                        res.status(401).send({message: 'Forbidden. User not found!'});
+                    }
+                }
+                catch(err){
+                    console.error(err);
+                    res.status(500).send({message: 'Internal server error!'});
+                }
+            }
+
+            // Admins can see all parcels
+            if(req.session.admin) {
+                try {
+
+                    let user = await database.user.get({email: req.session.email});
+
+                    // Double-check if user is admin
+                    if(user.admin){
+                        try {
+                            let parcels = await database.parcel.getAll();
+
+                            res.status(200).send({parcels: parcels});
+                        }
+                        catch(err){
+                            console.error(err);
+                            res.status(500).send({message: 'Internal Server Error!'});
+                        }
+                    }
+
+                }
+                catch(err){
+                    console.error(err);
+                    res.status(500).send({message: 'Internal Server Error!'});
+                }
+            }
+            else {
+                res.status(401).send({message: 'Forbidden. You need to be logged in and be administrator to request this resource'});
+            }
+
+        }
+        else {
+            res.status(401).send({message: 'Forbidden. This service is only available for authenticated users!'});
+        }
+
+    });
+
+
 
   /** PUT /v1/parcel/:trackingNr/step
     *

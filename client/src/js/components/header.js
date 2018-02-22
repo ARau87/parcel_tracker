@@ -1,15 +1,27 @@
 import axios from 'axios';
+import {logout} from '../common/methods';
 
 
 export default {
     name: 'page-header',
     props: [
         'isLoggedIn',
-        'username'
+        'username',
+        'admin'
     ],
     template: `
             
-            <header>
+            <header v-if="admin">
+                    <div class="logo"></div>
+        
+                    <nav class="nav">
+                        <router-link class="nav__link" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
+                        <button class="nav__button button-primary" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
+                    </nav>
+                    
+                    <div v-if="isLoggedIn">Angemeldet als {{username}}</div>          
+            </header>
+            <header v-else>
                     <div class="logo"></div>
         
                     <nav class="nav">
@@ -25,8 +37,7 @@ export default {
     `,
     methods: {
         logout: function(){
-            axios.get('/logout');
-            this.$emit('logout');
+           logout().then(() => this.$emit('logout'));
         }
     }
 };
