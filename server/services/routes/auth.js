@@ -62,6 +62,7 @@ module.exports = (app) => {
                    .then((user) => {
                      if(user){
                        req.session = {
+                                      random0: randomString.generate(10),
                                       email: user.email,
                                       random1: randomString.generate(10),
                                       firstname: user.firstname,
@@ -73,7 +74,9 @@ module.exports = (app) => {
                                       address: user.address,
                                       random5: randomString.generate(10),
                                       postcode: user.postcode,
-                                      random6: randomString.generate(10)
+                                      random6: randomString.generate(10),
+                                      admin: user.admin,
+                                      random7: randomString.generate(10)
                                      };
                        res.status(200).send({message: 'Login successful!'});
                      }
@@ -107,7 +110,6 @@ module.exports = (app) => {
                     address: user.address,
                     postcode: user.postcode,
                     city: user.city
-
                 });
             }
             else {

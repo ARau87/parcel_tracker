@@ -39,6 +39,35 @@ describe('user.', () => {
 
     });
 
+      it('should create an admin in the database if all required parameters are provided', async () => {
+          await database.user.clear();
+          // All required params
+          let user = await database.user.create(
+              {
+                  email: 'andirau1@gmx.de',
+                  firstname: 'Andreas',
+                  lastname: 'Rau',
+                  password: 'ichbin18',
+                  city: 'Olching',
+                  postcode: '82140',
+                  address: 'Rauschweg 131',
+                  admin: true
+              }
+          );
+
+          expect(user.email).to.equal('andirau1@gmx.de');
+          expect(user.firstname).to.equal('Andreas');
+          expect(user.lastname).to.equal('Rau');
+          expect(user.password).to.equal('ichbin18');
+          expect(user.city).to.equal('Olching');
+          expect(user.postcode).to.equal('82140');
+          expect(user.address).to.equal('Rauschweg 131');
+          expect(user.admin).to.be.true;
+          expect(user.parcels).not.to.be.undefined;
+
+
+      });
+
     it('should fail if some required parameters are not provided', async () => {
 
       await database.user.clear();

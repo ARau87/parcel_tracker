@@ -12,7 +12,8 @@ const userSchema = new Schema({
   postcode: {type: String, required: true},
   parcels: {type: [
     {trackingNr: {type: String, required:true}}
-                  ], default: []}
+                  ], default: []},
+  admin: {type: Boolean, required: true, default: false}
 });
 
 mongoose.model('user', userSchema, 'user');

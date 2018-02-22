@@ -149,6 +149,7 @@ module.exports = (app) => {
           res.status(200).send({message: 'Success. Step added to the parcel instance.'});
         }
         catch(err){
+          console.error(err);
           res.status(500).send({message: 'Internal server error!'});
         }
       }
@@ -174,6 +175,7 @@ module.exports = (app) => {
             res.status(200).send({message: 'Success. Step added to the parcel instance.'});
           }
           catch(err){
+            console.error(err);
             res.status(500).send({message: 'Internal server error!'});
           }
         }

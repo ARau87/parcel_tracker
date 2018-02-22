@@ -9,10 +9,15 @@ module.exports = (app) => {
   app.use(
     cookieSession({
       name: 'session',
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      keys: [keys.COOKIE_KEY]
+      maxAge: 5 * 60 * 1000,
+      keys: [keys.COOKIE_KEY, keys.COOKIE_KEY_SECOND]
     })
 
   );
 
+  // Update the cookies if the user is actually using the app
+  app.use((req,res, next) => {
+     req.session.fake = Date.now();
+     next();
+  });
 }
