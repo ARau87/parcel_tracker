@@ -56,3 +56,30 @@ export const loadAllParcelsAdmin = function(){
     return axios.post('/v1/parcels/all');
 
 };
+
+export const getParcelDetails = function(trackingNr){
+
+  return axios.get('/v1/parcel/' + trackingNr);
+
+};
+
+export const addStep = function (trackingNr, step) {
+    if(step && step.stepType && step.stepLocation && step.stepName){
+        return axios.put('/v1/parcel/'+ trackingNr +'/step', {
+            stepName: step.stepName,
+            stepType: step.stepType,
+            stepLocation: step.stepLocation
+        });
+    }
+}
+
+export const endParcel = async function (trackingNr) {
+
+    await addStep(trackingNr, {
+        stepName: 'Ihre Sendung wurde abgeschlossen!',
+        stepType: 'type_end',
+        stepLocation: '',
+    });
+
+    return await axios.post('/v1/parcel/'+ trackingNr +'/end');
+}

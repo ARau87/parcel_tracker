@@ -214,12 +214,18 @@ module.exports = (app) => {
     *
     */
   app.put('/v1/parcel/:trackingNr/step', jsonParser , async (req,res) => {
-    if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode){
+    if(req.session.email && req.session.firstname && req.session.lastname && req.session.city && req.session.address && req.session.postcode && req.session.admin){
 
-      if(req.body && req.body.stepLocation && req.body.stepName){
+      if(req.body && req.body.stepLocation && req.body.stepName && req.body.stepType){
 
         try{
-          await database.parcel.addStep({trackingNr: req.params.trackingNr}, {...req.body});
+          await database.parcel.addStep({trackingNr: req.params.trackingNr},
+              {
+                  stepName: req.body.stepName,
+                  stepLocation: req.body.stepLocation,
+                  stepType: req.body.stepType
+              });
+
           res.status(200).send({message: 'Success. Step added to the parcel instance.'});
         }
         catch(err){

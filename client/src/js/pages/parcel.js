@@ -1,4 +1,4 @@
-import {checkLogin} from "../common/methods";
+import {checkLogin, getParcelDetails} from "../common/methods";
 import Components from '../components';
 import axios from 'axios';
 
@@ -72,12 +72,12 @@ const Parcel = {
                 }
             });
 
-        axios.get('/v1/parcel/' + this.$route.params.trackingNr)
+        this.getParcelDetails(this.$route.params.trackingNr)
             .then((response) => {
                 if(response.status === 200 && response.data && response.data.parcel){
                     this.details = response.data.parcel;
                 }
-            })
+            });
     },
     data(){
         return {
@@ -92,7 +92,8 @@ const Parcel = {
         }
     },
     methods: {
-        checkLogin: checkLogin
+        checkLogin,
+        getParcelDetails
     },
     computed: {
     }

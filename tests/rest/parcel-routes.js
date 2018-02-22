@@ -296,7 +296,8 @@ describe('PUT /v1/parcel/:trackingNr/step', () => {
         password: 'ichbin18',
         city: 'Olching',
         postcode: '82140',
-        address: 'Rauschweg 131'
+        address: 'Rauschweg 131',
+        admin: true
       }
     );
 
@@ -381,7 +382,8 @@ describe('POST /v1/parcel/:trackingNr/end', () => {
                 password: 'ichbin18',
                 city: 'Olching',
                 postcode: '82140',
-                address: 'Rauschweg 131'
+                address: 'Rauschweg 131',
+                admin: true
             }
         );
 
