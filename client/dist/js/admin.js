@@ -2214,7 +2214,6 @@ const AdminParcel = {
                 if(response.status === 200 && response.data && response.data.parcel){
 
                     this.details = response.data.parcel;
-                    console.log(this.details);
                 }
             });
 

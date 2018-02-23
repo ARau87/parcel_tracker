@@ -2561,6 +2561,20 @@ const Parcel = {
                                 </div>
                             
                             </div>
+                            
+                            <div class="details_nextstep" v-if="details.nextStep">
+                                <h5>Nächste Station</h5>
+                                
+                                <div class="details__nextstep__item"">
+                                    <div class="step">
+                                        <div class="step__type">{{details.nextStep.stepType}}</div>
+                                        <div class="step__name">{{details.nextStep.stepName}}</div>
+                                        <div class="step__name">{{details.nextStep.stepLocation}}</div>
+                                        <div class="step__date">{{details.nextStep.stepDate}}</div>
+                                    </div>
+                                </div>
+                            
+                            </div>
                         
                         </div>
                     
@@ -2640,6 +2654,8 @@ const NewParcel = {
                             
                             <div class="form__receiver">
                             
+                                <h4 class="form__head">Empfängerdaten</h4>
+                            
                                 <div class="form__message" :style="messageStyle">{{message}}</div>
                             
                                 <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
@@ -2647,6 +2663,19 @@ const NewParcel = {
                                 <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text">
                                 <input class="form__input" v-model="receiverPostcode" placeholder="PLZ" type="number">
                                 <input class="form__input" v-model="receiverAddress" placeholder="Adresse" type="text">
+                                
+                                
+                            </div>
+                            
+                            <div class="form__sender">
+                            
+                                <h4 class="form__head">Ansenderdaten</h4>
+                            
+                                <input class="form__input" v-model="senderFirstname" placeholder="Vorname" type="text">
+                                <input class="form__input" v-model="senderLastname" placeholder="Nachname" type="text">
+                                <input class="form__input" v-model="senderCity" placeholder="Stadt" type="text">
+                                <input class="form__input" v-model="senderPostcode" placeholder="PLZ" type="number">
+                                <input class="form__input" v-model="senderAddress" placeholder="Adresse" type="text">
                                 
                                 
                             </div>
@@ -2687,7 +2716,13 @@ const NewParcel = {
             receiverLastname: '',
             receiverFirstname: '',
             receiverPostcode: '',
-            receiverAddress: ''
+            receiverAddress: '',
+
+            senderCity: '',
+            senderLastname: '',
+            senderFirstname: '',
+            senderPostcode: '',
+            senderAddress: ''
 
         }
     },
@@ -2704,15 +2739,15 @@ const NewParcel = {
                 })){
 
                 __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('/v1/parcels/new', {
-                    fromCity: this.user.city,
+                    fromCity: this.senderCity,
                     toCity: this.receiverCity,
-                    fromName: this.user.lastname,
+                    fromName: this.senderLastname,
                     toName: this.receiverLastname,
-                    fromFirstName: this.user.firstname,
+                    fromFirstName: this.senderFirstname,
                     toFirstName: this.receiverFirstname,
-                    fromPostCode: this.user.postcode,
+                    fromPostCode: this.senderPostcode,
                     toPostCode: this.receiverPostcode,
-                    fromAddress: this.user.address,
+                    fromAddress: this.senderAddress,
                     toAddress: this.receiverAddress
                 })
                     .then((response) => {
@@ -2748,6 +2783,17 @@ const NewParcel = {
             }
             if(this.messageType === 100){
                 return {};
+            }
+        }
+    },
+    watch: {
+        user: function (user) {
+            if(user){
+                this.senderFirstname = user.firstname;
+                this.senderLastname = user.lastname;
+                this.senderCity = user.city;
+                this.senderAddress = user.address;
+                this.senderPostcode = user.postcode;
             }
         }
     }

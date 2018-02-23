@@ -50,6 +50,20 @@ const Parcel = {
                                 </div>
                             
                             </div>
+                            
+                            <div class="details_nextstep" v-if="details.nextStep">
+                                <h5>Nächste Station</h5>
+                                
+                                <div class="details__nextstep__item"">
+                                    <div class="step">
+                                        <div class="step__type">{{details.nextStep.stepType}}</div>
+                                        <div class="step__name">{{details.nextStep.stepName}}</div>
+                                        <div class="step__name">{{details.nextStep.stepLocation}}</div>
+                                        <div class="step__date">{{details.nextStep.stepDate}}</div>
+                                    </div>
+                                </div>
+                            
+                            </div>
                         
                         </div>
                     
