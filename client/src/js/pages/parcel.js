@@ -1,6 +1,6 @@
 import {checkLogin, getParcelDetails} from "../common/methods";
 import Components from '../components';
-import axios from 'axios';
+import QRCode from 'qrcode';
 
 const Parcel = {
     components: Components,
@@ -12,6 +12,14 @@ const Parcel = {
                     <main>
                     
                         <h1>Paket - Sendungsnummer {{$route.params.trackingNr}}</h1>
+                        
+                        <div class="qrcode">
+                            <h4 class="qrcode__head">Drucken Sie den folgenden QR-Code aus um schnell auf den aktuellen Status ihrer Lieferung zugreifen zu können:</h4>
+                        
+                            <canvas id="qrcode" height="200" width="200">
+                            
+                            </canvas>
+                        </div>
                         
                         <div class="details">
                             
@@ -92,6 +100,11 @@ const Parcel = {
                     this.details = response.data.parcel;
                 }
             });
+
+        this.generateQRCode(this.$route.params.trackingNr, 'qrcode')
+            .catch(err => {
+                console.error(err);
+            });
     },
     data(){
         return {
@@ -107,7 +120,11 @@ const Parcel = {
     },
     methods: {
         checkLogin,
-        getParcelDetails
+        getParcelDetails,
+        generateQRCode: function (trackingNr, canvasId) {
+            let baseUrl = window.location.protocol + '//' + window.location.host + '/#/tracking/' + trackingNr;
+            return QRCode.toCanvas(document.getElementById(canvasId), baseUrl);
+        }
     },
     computed: {
     }
