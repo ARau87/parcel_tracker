@@ -23,4 +23,6 @@ require('./services/routes/router')(app);
 
 require('./services/routes/rest-parcel')(app);
 
+require('./services/routes/external-apis')(app);
+
 module.exports = server;

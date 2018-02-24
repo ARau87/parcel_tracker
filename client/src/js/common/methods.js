@@ -78,7 +78,7 @@ export const addStep = function (trackingNr, step) {
             stepDate: Date.now()
         });
     }
-}
+};
 
 export const endParcel = async function (trackingNr) {
 
@@ -90,4 +90,4 @@ export const endParcel = async function (trackingNr) {
     });
 
     return await axios.post('/v1/parcel/'+ trackingNr +'/end');
-}
+};

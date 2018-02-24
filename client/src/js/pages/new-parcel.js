@@ -1,6 +1,7 @@
-import {checkLogin} from "../common/methods";
+import {autocompletePostalCode, checkLogin} from "../common/methods";
 import Components from '../components';
 import axios from 'axios';
+import _ from "underscore";
 
 const NewParcel = {
     components: Components,
@@ -23,9 +24,10 @@ const NewParcel = {
                             
                                 <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
                                 <input class="form__input" v-model="receiverLastname" placeholder="Nachname" type="text">
-                                <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text">
+                                <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text" >
                                 <input class="form__input" v-model="receiverPostcode" placeholder="PLZ" type="number">
                                 <input class="form__input" v-model="receiverAddress" placeholder="Adresse" type="text">
+                                
                                 
                                 
                             </div>
@@ -51,6 +53,7 @@ const NewParcel = {
                 </div>
               `,
     mounted(){
+
         this.checkLogin()
             .then(data => {
                 if(data && data.username){
@@ -85,7 +88,10 @@ const NewParcel = {
             senderLastname: '',
             senderFirstname: '',
             senderPostcode: '',
-            senderAddress: ''
+            senderAddress: '',
+
+            citiesList: [],
+            addressList: []
 
         }
     },
@@ -118,7 +124,7 @@ const NewParcel = {
                             this.message = 'Sendung wurde erfolgreich erstellt';
                             this.messageType = 200;
                             setTimeout(() => {
-                                this.$router.push('/dashboard');
+                                this.$router.push('/parcel/' + response.data.trackingNr + '/created' );
                             }, 500);
                         }
                     })
@@ -133,7 +139,7 @@ const NewParcel = {
         validateInput: function (input) {
             //TODO: Validate user input
             return true;
-        }
+        },
     },
     computed: {
         messageStyle: function(){

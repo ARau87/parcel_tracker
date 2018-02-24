@@ -103,7 +103,7 @@ module.exports = (app) => {
           await database.user.addParcel({email: req.session.email}, {trackingNr: tracking.trackingNr});
 
           if(parcel){
-            res.status(200).send({message: 'Success. Parcel created!'});
+            res.status(200).send({message: 'Success. Parcel created!', trackingNr: tracking.trackingNr});
           }
           else {
             res.status(404).send({message: 'Bad request.'});

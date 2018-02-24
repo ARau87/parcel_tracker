@@ -4,6 +4,7 @@ import Register from "../pages/register";
 import Dashboard from "../pages/dashboard";
 import Parcel from "../pages/parcel";
 import NewParcel from "../pages/new-parcel";
+import ParcelCreated from "../pages/parcel-created";
 
 
 const routes = [
@@ -36,6 +37,10 @@ const routes = [
         path: '/parcel/:trackingNr',
         component: Parcel
     },
+    {
+        path: '/parcel/:trackingNr/created',
+        component: ParcelCreated
+    }
 ];
 
 export default routes;
