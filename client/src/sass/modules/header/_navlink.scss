@@ -1,0 +1,31 @@
+.nav__link {
+  text-decoration: None;
+  color: $text-light;
+  margin: 20px 0;
+
+  &:visited, &:link {
+
+    border-bottom: 2px solid $link-hover-invisible;
+
+  }
+
+  &:hover, &:active {
+
+    border-bottom: 2px solid $link-hover-visible;
+
+  }
+}
+
+.nav__button {
+  background-color: $color-primary;
+  color: $text-light;
+  border: None;
+  margin: 20px 0;
+  padding: 0;
+  border-bottom: 2px solid $link-hover-invisible;
+
+  &:hover {
+    border-bottom: 2px solid $link-hover-visible;
+    cursor: pointer;
+  }
+}

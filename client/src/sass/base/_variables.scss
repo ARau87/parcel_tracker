@@ -1,0 +1,21 @@
+// Grid:
+$grid-columns: 12;
+
+$below-is-phone: 600px;
+$below-is-tablet: 900px;
+$below-is-tablet-landscape: 1200px;
+$below-is-desktop: 1800px;
+$above-is-tv: 1801px;
+
+// Text
+
+$text-light: #fff;
+
+
+// Colors
+$color1: #0091cd;
+
+$link-hover-invisible: rgba(255,255,255,0);
+$link-hover-visible: rgba(255,255,255,1.0);
+
+$color-primary: $color1;

@@ -6,9 +6,7 @@ const Home = {
     components: Components,
     template: `
                 <div class="page page__dashboard">
-                
-                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
-                    
+                                   
                     <main>
                     
                      <h1>Übersicht</h1>

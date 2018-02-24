@@ -6,9 +6,7 @@ const Login = {
     components: Components,
     template: `
                 <div class="page page__login">
-                
-                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
-                    
+                                  
                     <h1>Login</h1>
                     
                     <form class="login">

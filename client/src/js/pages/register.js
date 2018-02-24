@@ -7,9 +7,7 @@ const Register = {
     components: Components,
     template: `
                 <div class="page page__register">
-                
-                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
-                    
+                              
                     <main>
                     
                         <h1>Register</h1>
@@ -37,13 +35,6 @@ const Register = {
                 </div>
               `,
                 mounted(){
-                    this.checkLogin()
-                        .then(data => {
-                            if(data && data.username){
-                                this.isLoggedIn = true;
-                                this.username = data.username;
-                            }
-                        });
                 },
               data() {
                 return {
@@ -60,9 +51,6 @@ const Register = {
                     city: '',
                     postcode: '',
                     address: '',
-
-                    isLoggedIn: false,
-                    username: ''
 
                 }
               },

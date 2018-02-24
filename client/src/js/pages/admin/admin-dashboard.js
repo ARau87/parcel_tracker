@@ -5,9 +5,7 @@ const AdminDashboard = {
     components: Components,
     template: `
                 <div class="page page__admindashboard">
-                
-                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn" :admin="true"></page-header>  
-                    
+                   
                     <main>
                     
                      <h1>Übersicht - Admin</h1>

@@ -5,9 +5,7 @@ const AdminHome = {
     components: Components,
     template: `
                 <div class="page page__adminhome">
-                
-                    <page-header @logout="reload()" :username="username" :isLoggedIn="isLoggedIn" :admin="true"></page-header>
-                
+                              
                     <h1>Admin Panel</h1>
                     
                 </div>

@@ -6,9 +6,12 @@
 
     <script src="/vue/vue.js"></script>
     <script src="/vue-router/vue-router.js"></script>
+
+    <link href="dist/css/global.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="app">
+    <page-header @logout="logout" :username="username" :loggedin="isLoggedIn" :admin="isAdmin"></page-header>
     <router-view></router-view>
 </div>
 

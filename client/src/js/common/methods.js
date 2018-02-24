@@ -91,3 +91,9 @@ export const endParcel = async function (trackingNr) {
 
     return await axios.post('/v1/parcel/'+ trackingNr +'/end');
 };
+
+export const getParcelTracking = function (trackingNr) {
+    console.log('TEST');
+
+    return axios.get('/v1/parcel/status/' + trackingNr);
+};

@@ -8,9 +8,7 @@ const NewParcel = {
     template: `
                 <div class="page page__home">
                 
-                    <page-header @logout="$router.push('/')" :username="username" :isLoggedIn="isLoggedIn"></page-header>
-                    
-                    <main class="page__body">
+                  <main class="page__body">
                     
                         <h1>Neue Sendung beantragen</h1>
                     

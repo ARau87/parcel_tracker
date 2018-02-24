@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build && node index.js",
     "test": "mocha --exit --timeout=20000 tests/test.js",
-    "build": "webpack"
+    "build": "gulp && webpack"
   },
   "repository": {
     "type": "git",

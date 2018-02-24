@@ -109,7 +109,8 @@ module.exports = (app) => {
                     lastname: user.lastname,
                     address: user.address,
                     postcode: user.postcode,
-                    city: user.city
+                    city: user.city,
+                    admin: user.admin
                 });
             }
             else {

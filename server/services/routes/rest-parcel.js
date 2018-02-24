@@ -298,4 +298,42 @@ module.exports = (app) => {
 
     });
 
+    /** GET /v1/parcel/status/:trackingNr
+     *
+     * This endpoint provides the possibility to check the actual status WITHOUT being logged in.
+     * It only provides the actual status but not detailed information like receiver or sender.
+     *
+     */
+    app.get('/v1/parcel/status/:trackingNr', jsonParser , async (req,res) => {
+
+        try {
+            let parcel = await database.parcel.get({trackingNr: req.params.trackingNr});
+
+
+            if(parcel){
+                res.status(200).send(
+                    {
+                        message: 'Success! Parcel found!',
+                        parcel:
+                            {
+                                trackingNr: parcel.trackingNr,
+                                nextStep: parcel.nextStep,
+                                arrived: parcel.arrived,
+                                currentStep: parcel.steps[parcel.steps.length-1]
+                            }
+                    })
+            }
+            else {
+                res.status(404).send({message: 'Not found!'});
+            }
+        }
+
+        catch(err){
+            res.status(500).send({message: 'Internal server error!'});
+        }
+
+
+
+    });
+
 }

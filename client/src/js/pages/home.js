@@ -5,9 +5,7 @@ const Home = {
     components: Components,
     template: `
                 <div class="page page__home">
-                
-                    <page-header @logout="reload()" :username="username" :isLoggedIn="isLoggedIn"></page-header>
-                    
+                                   
                     <h1>Willkommen beim Parcel-Tracker!</h1>
                     
                 </div>
