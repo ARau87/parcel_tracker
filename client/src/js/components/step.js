@@ -82,6 +82,19 @@ export default {
                         <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
+               <div class="step step-positive" v-else-if="type === 'type_toyou'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-walk"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
+               </div>
               `,
     computed: {
         date: function () {
@@ -89,19 +102,39 @@ export default {
         },
 
         day: function(){
-            return this.date.getDate();
+            let day = this.date.getDate();
+            if(day < 10){
+                return '0' + day;
+            }
+            return day;
         },
         month: function(){
-            return this.date.getMonth()+1;
+
+            let month = this.date.getMonth()+1;
+            if(month < 10){
+                return '0' + month;
+            }
+            return month;
         },
         year: function() {
+
             return this.date.getFullYear();
         },
         hours: function() {
-            return this.date.getHours();
+
+            let hours = this.date.getHours();
+            if(hours < 10){
+                return '0' + hours;
+            }
+            return hours;
         },
         minutes: function() {
-            return this.date.getMinutes();
+
+            let minutes = this.date.getMinutes();
+            if(minutes < 10){
+                return '0' + minutes;
+            }
+            return minutes;
         }
 
     }

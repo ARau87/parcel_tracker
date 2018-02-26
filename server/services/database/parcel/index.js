@@ -71,11 +71,23 @@ const addStep = async (identifier, step) => {
       if(parcel){
 
         if(parcel.nextStep && parcel.nextStep.stepName && parcel.nextStep.stepLocation && parcel.nextStep.stepType){
+
+            // Check if the step has a date. If not add now.
+            if(!step.stepDate){
+                step.stepDate = Date.now();
+            }
+
             await set(parcel, {nextStep: step});
 
             return Parcel.updateOne(identifier, {$push: {steps: parcel.nextStep}});
         }
         else {
+
+            // Check if the step has a date. If not add now.
+            if(!step.stepDate){
+                step.stepDate = Date.now();
+            }
+
             await set(parcel, {nextStep: step});
         }
       }

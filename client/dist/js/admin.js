@@ -1182,6 +1182,19 @@ module.exports = Cancel;
                         <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
+               <div class="step step-positive" v-else-if="type === 'type_toyou'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-walk"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
+               </div>
               `,
     computed: {
         date: function () {
@@ -1189,19 +1202,39 @@ module.exports = Cancel;
         },
 
         day: function(){
-            return this.date.getDate();
+            let day = this.date.getDate();
+            if(day < 10){
+                return '0' + day;
+            }
+            return day;
         },
         month: function(){
-            return this.date.getMonth()+1;
+
+            let month = this.date.getMonth()+1;
+            if(month < 10){
+                return '0' + month;
+            }
+            return month;
         },
         year: function() {
+
             return this.date.getFullYear();
         },
         hours: function() {
-            return this.date.getHours()+1;
+
+            let hours = this.date.getHours();
+            if(hours < 10){
+                return '0' + hours;
+            }
+            return hours;
         },
         minutes: function() {
-            return this.date.getMinutes();
+
+            let minutes = this.date.getMinutes();
+            if(minutes < 10){
+                return '0' + minutes;
+            }
+            return minutes;
         }
 
     }
@@ -2169,25 +2202,31 @@ module.exports = function spread(callback) {
     name: 'parcel-details',
     props: ['parcel', 'type'],
     template: `
-                           <div class="details" v-if="type === 'receiver'">
+                           <div class="address" v-if="type === 'receiver'">
                                 <h5>Empfänger</h5>
-                                <div class="details__firstname">{{parcel.toFirstName}}</div>
-                                <div class="details__name">{{parcel.toName}}</div>
-                                <div class="details__city">{{parcel.toCity}}</div>
-                                <div class="details__postcode">{{parcel.toPostCode}}</div>
-                                <div class="details__address">{{parcel.toAddress}}</div>
-                            
+                                <div class="address__details">
+                                    <div class="address__details__item">{{parcel.toFirstName}}</div>
+                                    <div class="address__details__item">{{parcel.toName}}</div>
+                                    <div class="address__details__item">{{parcel.toCity}}</div>
+                                    <div class="address__details__item">{{parcel.toPostCode}}</div>
+                                    <div class="address__details__item">{{parcel.toAddress}}</div>
+                                
+                                </div>
                            </div>
-                           <div class="details" v-else-if="type === 'sender'">
+                           <div class="address" v-else-if="type === 'sender'">
                                 <h5>Sender</h5>
-                                <div class="details__firstname">{{parcel.fromFirstName}}</div>
-                                <div class="details__name">{{parcel.fromName}}</div>
-                                <div class="details__city">{{parcel.fromCity}}</div>
-                                <div class="details__postcode">{{parcel.fromPostCode}}</div>
-                                <div class="details__address">{{parcel.fromAddress}}</div>
-                            
+                                
+                                <div class="address__details">
+                                
+                                    <div class="address__details__item">{{parcel.fromFirstName}}</div>
+                                    <div class="address__details__item">{{parcel.fromName}}</div>
+                                    <div class="address__details__item">{{parcel.fromCity}}</div>
+                                    <div class="address__details__item">{{parcel.fromPostCode}}</div>
+                                    <div class="address__details__item">{{parcel.fromAddress}}</div>
+             
+                                </div>
                            </div>
-                           <div class="details" v-else>
+                           <div class="address" v-else>
                             Error this template is not defined!!!
                            </div>
                            
@@ -2212,7 +2251,7 @@ module.exports = function spread(callback) {
     template: `
                         <div class="history">
                             <div class="history__steps">
-                                <h5>Sendungshistorie</h5>
+                                <h5 class="history__head">Sendungshistorie</h5>
                                 
                                 <div class="history__item" v-for="step in parcel.steps">
                                     <step :details="step" :type="step.stepType"></step>
@@ -2221,12 +2260,10 @@ module.exports = function spread(callback) {
                             </div>
                             
                             <div class="history_nextstep" v-if="parcel.nextStep">
-                                <h5>Nächste Station</h5>
+                                <h5 class="history__head">Nächste Station</h5>
                                 
                                 <div class="history__nextstep__item"">
-                                    <div class="step">
                                         <step :details="parcel.nextStep" :type="parcel.nextStep.stepType"></step>
-                                    </div>
                                 </div>
                             
                             </div>
@@ -2617,6 +2654,7 @@ const AdminParcel = {
                                         <option value="type_notmet">Empfänger nicht angetroffen</option>
                                         <option value="type_ontheway">Sendung ist auf dem Weg nach</option>
                                         <option value="type_shop">Sendung ist im Paketshop</option>
+                                        <option value="type_toyou">Sendung befindet sich in Zustellung</option>
                                     </select>
                                     
                                     <input type="text" v-model="stepLocation" placeholder="Standort der Sendung">
@@ -2641,9 +2679,7 @@ const AdminParcel = {
                                 </form>
                                 
                             
-                            </div> 
-                          
-                            
+                            </div>  
                         
                         </div>
                         
@@ -2651,8 +2687,13 @@ const AdminParcel = {
                             
                             <h4 class="details__head">Details</h4>
                             
-                            <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
-                            <parcel-details :parcel="details" :type="'sender'"></parcel-details>
+                            <div class="details__addresses">
+                            
+                                <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
+                                <parcel-details :parcel="details" :type="'sender'"></parcel-details>
+                         
+                            
+                            </div>
                             
                             <history :parcel="details"></history>
                         
@@ -2768,6 +2809,9 @@ const AdminParcel = {
                 if(this.stepType == 'type_shop'){
                     this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
                 }
+                if(this.stepType == 'type_toyou'){
+                    this.stepName = 'Das Packet befindet sich in Zustellung!';
+                }
             }
         },
         stepLocation: function(val) {
@@ -2786,6 +2830,9 @@ const AdminParcel = {
                 }
                 if(this.stepType == 'type_shop'){
                     this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
+                }
+                if(this.stepType == 'type_toyou'){
+                    this.stepName = 'Das Packet befindet sich in Zustellung!';
                 }
             }
         }

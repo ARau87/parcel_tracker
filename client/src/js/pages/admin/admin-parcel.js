@@ -25,6 +25,7 @@ const AdminParcel = {
                                         <option value="type_notmet">Empfänger nicht angetroffen</option>
                                         <option value="type_ontheway">Sendung ist auf dem Weg nach</option>
                                         <option value="type_shop">Sendung ist im Paketshop</option>
+                                        <option value="type_toyou">Sendung befindet sich in Zustellung</option>
                                     </select>
                                     
                                     <input type="text" v-model="stepLocation" placeholder="Standort der Sendung">
@@ -49,9 +50,7 @@ const AdminParcel = {
                                 </form>
                                 
                             
-                            </div> 
-                          
-                            
+                            </div>  
                         
                         </div>
                         
@@ -59,8 +58,13 @@ const AdminParcel = {
                             
                             <h4 class="details__head">Details</h4>
                             
-                            <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
-                            <parcel-details :parcel="details" :type="'sender'"></parcel-details>
+                            <div class="details__addresses">
+                            
+                                <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
+                                <parcel-details :parcel="details" :type="'sender'"></parcel-details>
+                         
+                            
+                            </div>
                             
                             <history :parcel="details"></history>
                         
@@ -176,6 +180,9 @@ const AdminParcel = {
                 if(this.stepType == 'type_shop'){
                     this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
                 }
+                if(this.stepType == 'type_toyou'){
+                    this.stepName = 'Das Packet befindet sich in Zustellung!';
+                }
             }
         },
         stepLocation: function(val) {
@@ -194,6 +201,9 @@ const AdminParcel = {
                 }
                 if(this.stepType == 'type_shop'){
                     this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
+                }
+                if(this.stepType == 'type_toyou'){
+                    this.stepName = 'Das Packet befindet sich in Zustellung!';
                 }
             }
         }

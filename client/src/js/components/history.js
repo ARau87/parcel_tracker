@@ -9,7 +9,7 @@ export default {
     template: `
                         <div class="history">
                             <div class="history__steps">
-                                <h5>Sendungshistorie</h5>
+                                <h4 class="history__head">Sendungshistorie</h4>
                                 
                                 <div class="history__item" v-for="step in parcel.steps">
                                     <step :details="step" :type="step.stepType"></step>
@@ -18,12 +18,10 @@ export default {
                             </div>
                             
                             <div class="history_nextstep" v-if="parcel.nextStep">
-                                <h5>Nächste Station</h5>
+                                <h4 class="history__head">Nächste Station</h4>
                                 
                                 <div class="history__nextstep__item"">
-                                    <div class="step">
                                         <step :details="parcel.nextStep" :type="parcel.nextStep.stepType"></step>
-                                    </div>
                                 </div>
                             
                             </div>

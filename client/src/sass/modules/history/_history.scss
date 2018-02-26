@@ -1,0 +1,21 @@
+.history {
+  margin-bottom: 20px;
+}
+
+.history__head {
+
+  text-align: center;
+
+  &::after {
+    display: block;
+    content: " ";
+
+    height: 2px;
+    width: 12%;
+
+    background-color: $color-secondary;
+
+    margin-top: 10px;
+    margin-left: 44%;
+  }
+}

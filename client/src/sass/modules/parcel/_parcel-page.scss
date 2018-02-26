@@ -1,0 +1,27 @@
+.details {
+
+}
+
+.details__addresses {
+
+  display: flex;
+  flex-direction: row;
+
+}
+
+.details__head {
+
+
+  &::after {
+    display: block;
+    content: " ";
+
+    height: 2px;
+    width: 12%;
+
+    background-color: $color-secondary;
+
+    margin-top: 10px;
+    margin-left: 44%;
+  }
+}

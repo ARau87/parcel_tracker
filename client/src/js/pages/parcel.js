@@ -5,11 +5,11 @@ import QRCode from 'qrcode';
 const Parcel = {
     components: Components,
     template: `
-                <div class="page page__home">
+                <div class="page page__parcel">
                     
                     <main>
                     
-                        <h1>Paket - Sendungsnummer {{$route.params.trackingNr}}</h1>
+                        <h1>Paket - {{$route.params.trackingNr}}</h1>
                         
                         <div class="qrcode">
                             <h4 class="qrcode__head">Mit folgendem QR-Code können Sie den Status jederzeit problemlos verfolgen:</h4>
@@ -23,9 +23,14 @@ const Parcel = {
                             
                             <h4 class="details__head">Details</h4>
                             
-                            <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
-                            <parcel-details :parcel="details" :type="'sender'"></parcel-details>
-                          
+                            <div class="details__addresses">
+                            
+                                <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
+                                <parcel-details :parcel="details" :type="'sender'"></parcel-details>
+                         
+                            
+                            </div>
+                             
                             <history :parcel="details"></history>
                         
                         </div>
