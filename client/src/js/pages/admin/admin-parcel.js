@@ -24,6 +24,7 @@ const AdminParcel = {
                                         <option value="type_logistic">Paket im Logistikzentrum</option>
                                         <option value="type_notmet">Empfänger nicht angetroffen</option>
                                         <option value="type_ontheway">Sendung ist auf dem Weg nach</option>
+                                        <option value="type_shop">Sendung ist im Paketshop</option>
                                     </select>
                                     
                                     <input type="text" v-model="stepLocation" placeholder="Standort der Sendung">
@@ -172,6 +173,9 @@ const AdminParcel = {
                 if(this.stepType == 'type_ontheway'){
                     this.stepName = 'Das Packet ist auf dem Weg nach ' + this.stepLocation;
                 }
+                if(this.stepType == 'type_shop'){
+                    this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
+                }
             }
         },
         stepLocation: function(val) {
@@ -187,6 +191,9 @@ const AdminParcel = {
                 }
                 if(this.stepType == 'type_ontheway'){
                     this.stepName = 'Das Packet ist auf dem Weg nach ' + this.stepLocation;
+                }
+                if(this.stepType == 'type_shop'){
+                    this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
                 }
             }
         }

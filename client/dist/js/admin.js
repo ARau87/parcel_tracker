@@ -1100,15 +1100,111 @@ module.exports = Cancel;
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
     name: 'step',
-    props: ['details'],
+    props: ['details', 'type'],
     template: `
-               <div class="step">
-                    <div class="step__type">{{details.stepType}}</div>
-                    <div class="step__name">{{details.stepName}}</div>
-                    <div class="step__name">{{details.stepLocation}}</div>
-                    <div class="step__date">{{details.stepDate}}</div>
+               <div class="step step-positive" v-if="type === 'type_start'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-archive"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
                </div>
-              `
+               <div class="step step-positive" v-else-if="type === 'type_logistic'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-settings"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
+               </div>
+               
+               <div class="step step-positive" v-else-if="type === 'type_ontheway'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-bus"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
+               </div>
+               
+               <div class="step  step-negative" v-else-if="type === 'type_notmet'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-close"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
+               </div>
+               <div class="step step-positive" v-else-if="type === 'type_shop'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-expand"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
+               </div>
+               <div class="step step-positive" v-else-if="type === 'type_end'">
+                    <div class="step__icon">
+                    
+                        <i class="ion-android-done"></i>
+                    
+                    </div>
+                    <div class="step__details">
+                        <div class="step__description">{{details.stepName}}</div>
+                        <div class="step__description">{{details.stepLocation}}</div>
+                        <div class="step__time">{{hours}}:{{minutes}}</div>
+                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                    </div>
+               </div>
+              `,
+    computed: {
+        date: function () {
+          return new Date(this.details.stepDate);
+        },
+
+        day: function(){
+            return this.date.getDate();
+        },
+        month: function(){
+            return this.date.getMonth()+1;
+        },
+        year: function() {
+            return this.date.getFullYear();
+        },
+        hours: function() {
+            return this.date.getHours()+1;
+        },
+        minutes: function() {
+            return this.date.getMinutes();
+        }
+
+    }
 });
 
 /***/ }),
@@ -2119,7 +2215,7 @@ module.exports = function spread(callback) {
                                 <h5>Sendungshistorie</h5>
                                 
                                 <div class="history__item" v-for="step in parcel.steps">
-                                    <step :details="step"></step>
+                                    <step :details="step" :type="step.stepType"></step>
                                 </div>
                             
                             </div>
@@ -2129,7 +2225,7 @@ module.exports = function spread(callback) {
                                 
                                 <div class="history__nextstep__item"">
                                     <div class="step">
-                                        <step :details="parcel.nextStep"></step>
+                                        <step :details="parcel.nextStep" :type="parcel.nextStep.stepType"></step>
                                     </div>
                                 </div>
                             
@@ -2520,6 +2616,7 @@ const AdminParcel = {
                                         <option value="type_logistic">Paket im Logistikzentrum</option>
                                         <option value="type_notmet">Empfänger nicht angetroffen</option>
                                         <option value="type_ontheway">Sendung ist auf dem Weg nach</option>
+                                        <option value="type_shop">Sendung ist im Paketshop</option>
                                     </select>
                                     
                                     <input type="text" v-model="stepLocation" placeholder="Standort der Sendung">
@@ -2668,6 +2765,9 @@ const AdminParcel = {
                 if(this.stepType == 'type_ontheway'){
                     this.stepName = 'Das Packet ist auf dem Weg nach ' + this.stepLocation;
                 }
+                if(this.stepType == 'type_shop'){
+                    this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
+                }
             }
         },
         stepLocation: function(val) {
@@ -2683,6 +2783,9 @@ const AdminParcel = {
                 }
                 if(this.stepType == 'type_ontheway'){
                     this.stepName = 'Das Packet ist auf dem Weg nach ' + this.stepLocation;
+                }
+                if(this.stepType == 'type_shop'){
+                    this.stepName = 'Das Packet ist im Packetshop ' + this.stepLocation + ' abgegben worden und zur Abholung bereit!';
                 }
             }
         }

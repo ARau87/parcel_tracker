@@ -1,0 +1,50 @@
+.step {
+
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+
+  padding: 5px;
+  margin-top: 10px;
+
+  border: 2px solid $color-primary;
+
+}
+
+.step__details {
+
+  flex-direction: column;
+  padding-left: 20px;
+
+}
+
+.step__icon {
+
+  color: $color-primary;
+
+  padding: 5px;
+
+  font-size: 3em;
+
+}
+
+.step__description {
+
+  font-size: 0.8em;
+
+}
+
+.step-positive {
+
+  background-color: $color-positive;
+}
+
+.step-negative {
+
+  background-color: $color-negative;
+}
+
+
+
+
+

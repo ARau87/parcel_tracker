@@ -12,7 +12,7 @@ export default {
                                 <h5>Sendungshistorie</h5>
                                 
                                 <div class="history__item" v-for="step in parcel.steps">
-                                    <step :details="step"></step>
+                                    <step :details="step" :type="step.stepType"></step>
                                 </div>
                             
                             </div>
@@ -22,7 +22,7 @@ export default {
                                 
                                 <div class="history__nextstep__item"">
                                     <div class="step">
-                                        <step :details="parcel.nextStep"></step>
+                                        <step :details="parcel.nextStep" :type="parcel.nextStep.stepType"></step>
                                     </div>
                                 </div>
                             

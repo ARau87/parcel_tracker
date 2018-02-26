@@ -508,3 +508,29 @@ body {
 .tracking__form {
   display: flex;
   flex-direction: row; }
+
+.step {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  margin-top: 10px;
+  border: 2px solid #0091cd; }
+
+.step__details {
+  flex-direction: column;
+  padding-left: 20px; }
+
+.step__icon {
+  color: #0091cd;
+  padding: 5px;
+  font-size: 3em; }
+
+.step__description {
+  font-size: 0.8em; }
+
+.step-positive {
+  background-color: #a3e798; }
+
+.step-negative {
+  background-color: #f39a84; }
