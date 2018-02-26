@@ -18,7 +18,7 @@ const AdminParcel = {
                                 
                                 <form class="edit__addstep__form">
                                 
-                                    <select class="edit__addstep__type" v-model="stepType">
+                                    <select class="edit__select" v-model="stepType">
                                         <option value="-1" selected="selected">Aktion...</option>
                                         <option v-if="!started" value="type_start">Sendung wurde aufgegeben</option>
                                         <option value="type_logistic">Paket im Logistikzentrum</option>
@@ -28,11 +28,11 @@ const AdminParcel = {
                                         <option value="type_toyou">Sendung befindet sich in Zustellung</option>
                                     </select>
                                     
-                                    <input type="text" v-model="stepLocation" placeholder="Standort der Sendung">
+                                    <input class="edit__input" type="text" v-model="stepLocation" placeholder="Standort der Sendung">
                                     
-                                    <input type="text" v-model="stepName">
+                                    <input class="edit__input input-fullwidth" type="text" v-model="stepName">
                                     
-                                    <button class="button button-primary" @click.prevent="submit">Abschicken</button>
+                                    <button class="edit__button" @click.prevent="submit">Abschicken</button>
                                                              
                                 </form>
                                 
@@ -63,7 +63,7 @@ const AdminParcel = {
                                 <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
                                 <parcel-details :parcel="details" :type="'sender'"></parcel-details>
                          
-                            
+               
                             </div>
                             
                             <history :parcel="details"></history>
@@ -144,6 +144,10 @@ const AdminParcel = {
         },
         checkLogin,
         getParcelDetailsAdmin,
+        gotoParcel: function (trackingNr) {
+            this.$router.push('/parcel/' + trackingNr);
+            return;
+        }
     }
     ,
     computed: {

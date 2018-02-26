@@ -19,7 +19,7 @@ export default {
                         <router-link class="nav__link" to="/login">Login</router-link>
                         <router-link class="nav__link" to="/register">Registrierung</router-link>
                         <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
-                        <button class="nav__button button-primary" v-if="admin" @click.prevent="gotoAdminPage">Admin</button>
+                        <button class="nav__button button-primary" v-if="admin && loggedin" @click.prevent="gotoAdminPage">Admin</button>
                         <button class="nav__button button-primary" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                           
@@ -32,6 +32,7 @@ export default {
         
                     <nav class="pageheader__nav col-8">
                         <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
+                        <button class="nav__button" v-if="admin && loggedin" @click.prevent="gotoAppPage">App</button>
                         <button class="nav__button" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                     
@@ -52,13 +53,16 @@ export default {
         },
         mobileNav: function () {
             this.$emit('toggle-navbar');
-            console.log(this.application);
             if(this.application){
                 this.$router.push('/mobile/nav/app');
             }
             else {
                 this.$router.push('/mobile/nav/admin');
             }
+        },
+        gotoAppPage: function () {
+            let adminUrl = window.location.protocol + '//' + window.location.host;
+            window.location.href = adminUrl;
         }
     }
 };

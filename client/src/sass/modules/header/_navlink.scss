@@ -23,6 +23,7 @@
   margin: 20px 0;
   padding: 0;
   border-bottom: 2px solid $link-hover-invisible;
+  border-radius: 0;
 
   &:hover {
     border-bottom: 2px solid $link-hover-visible;

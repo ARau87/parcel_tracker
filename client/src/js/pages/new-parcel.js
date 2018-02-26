@@ -14,32 +14,38 @@ const NewParcel = {
                     
                         <form class="form">
                             
-                            <div class="form__receiver">
+                            <div class="form__receiver container">
                             
                                 <h4 class="form__head">Empfängerdaten</h4>
                             
                                 <div class="form__message" :style="messageStyle">{{message}}</div>
                             
-                                <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
-                                <input class="form__input" v-model="receiverLastname" placeholder="Nachname" type="text">
-                                <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text" >
-                                <input class="form__input" v-model="receiverPostcode" placeholder="PLZ" type="number">
-                                <input class="form__input" v-model="receiverAddress" placeholder="Adresse" type="text">
-                                
-                                
+                                <div class="form__input__container container">
+                            
+                                    <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
+                                    <input class="form__input" v-model="receiverLastname" placeholder="Nachname" type="text">
+                                    <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text" >
+                                    <input class="form__input" v-model="receiverPostcode" placeholder="PLZ" pattern="[0-9]{5}" type="text">
+                                    <input class="form__input" v-model="receiverAddress" placeholder="Adresse" type="text">
+                                    
+                                </div>
                                 
                             </div>
                             
-                            <div class="form__sender">
+                            <div class="form__sender container">
                             
                                 <h4 class="form__head">Ansenderdaten</h4>
-                            
-                                <input class="form__input" v-model="senderFirstname" placeholder="Vorname" type="text">
-                                <input class="form__input" v-model="senderLastname" placeholder="Nachname" type="text">
-                                <input class="form__input" v-model="senderCity" placeholder="Stadt" type="text">
-                                <input class="form__input" v-model="senderPostcode" placeholder="PLZ" type="number">
-                                <input class="form__input" v-model="senderAddress" placeholder="Adresse" type="text">
                                 
+                                <div class="form__input__container container">
+                                
+                                    <input class="form__input" v-model="senderFirstname" placeholder="Vorname" type="text">
+                                    <input class="form__input" v-model="senderLastname" placeholder="Nachname" type="text">
+                                    <input class="form__input" v-model="senderCity" placeholder="Stadt" type="text">
+                                    <input class="form__input" v-model="senderPostcode" placeholder="PLZ" pattern="[0-9]{5}" type="text">
+                                    <input class="form__input" v-model="senderAddress" placeholder="Adresse" type="text">                                       
+                                
+                                </div>
+                            
                                 
                             </div>
                             

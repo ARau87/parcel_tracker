@@ -14,8 +14,9 @@ const Home = {
                     
                         <div class="tracking__message col-12">{{message}}</div>
                         <form class="tracking__form">
-                             <input class="tracking__form__input col-8" type="text" v-model="trackingNr">
-                             <button class="tracking__form__button col-4" @click="searchTrackingNumber">Suchen</button>
+                        
+                             <input class="tracking__form__input" type="text" v-model="trackingNr">
+                             <button class="tracking__form__button" @click="searchTrackingNumber">Suchen</button>
                                             
                         </form>
                     </div>

@@ -1,0 +1,46 @@
+.edit__select {
+
+  width: 48.5%;
+  max-width: 750px;
+  margin-right: 1%;
+
+  @media screen and (max-width: $below-is-phone) {
+
+    width: 100%;
+
+  }
+
+}
+
+.edit__input {
+
+  width: 50%;
+  max-width: 650px;
+  margin-top: 10px;
+
+  @media screen and (max-width: $below-is-phone) {
+
+    width: 100%;
+
+  }
+
+}
+
+.input-fullwidth {
+
+  width: 100%;
+  max-width: 1400px;
+
+}
+
+.edit__button {
+
+  margin-top: 10px;
+
+  @media screen and (max-width: $below-is-phone) {
+
+    width: 100%;
+
+  }
+
+}

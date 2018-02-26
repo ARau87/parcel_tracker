@@ -1,0 +1,22 @@
+.login__input__container {
+
+  width: 100%;
+
+  margin: 20px 0 10px 0;
+
+}
+
+.login__input {
+
+  width: 48%;
+
+  margin-top: 10px;
+  margin-right: 1%;
+
+  @media screen and (max-width: $below-is-phone) {
+
+    width: 100%;
+
+  }
+
+}

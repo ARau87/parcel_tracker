@@ -1111,8 +1111,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>   
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_logistic'">
@@ -1124,8 +1124,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                
@@ -1138,8 +1138,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                
@@ -1152,8 +1152,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_shop'">
@@ -1165,8 +1165,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_end'">
@@ -1178,8 +1178,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_toyou'">
@@ -1190,9 +1190,9 @@ module.exports = Cancel;
                     </div>
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
-                        <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__description"> {{details.stepLocation}}</div>
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
               `,
@@ -2149,7 +2149,7 @@ module.exports = function spread(callback) {
                         <router-link class="nav__link" to="/login">Login</router-link>
                         <router-link class="nav__link" to="/register">Registrierung</router-link>
                         <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
-                        <button class="nav__button button-primary" v-if="admin" @click.prevent="gotoAdminPage">Admin</button>
+                        <button class="nav__button button-primary" v-if="admin && loggedin" @click.prevent="gotoAdminPage">Admin</button>
                         <button class="nav__button button-primary" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                           
@@ -2162,6 +2162,7 @@ module.exports = function spread(callback) {
         
                     <nav class="pageheader__nav col-8">
                         <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
+                        <button class="nav__button" v-if="admin && loggedin" @click.prevent="gotoAppPage">App</button>
                         <button class="nav__button" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                     
@@ -2189,6 +2190,10 @@ module.exports = function spread(callback) {
             else {
                 this.$router.push('/mobile/nav/admin');
             }
+        },
+        gotoAppPage: function () {
+            let adminUrl = window.location.protocol + '//' + window.location.host;
+            window.location.href = adminUrl;
         }
     }
 });
@@ -2292,12 +2297,16 @@ const Login = {
                                   
                     <h1>Login</h1>
                     
-                    <form class="login">
+                    <form class="login container">
                         <div class="login__message" :style="messageStyle">{{message}}</div>
                         
-                        <input class="login__input" v-model="email" placeholder="E-Mail" type="email">
-                        <input class="login__input" v-model="password" placeholder="Passwort" type="password">
-                        <button class="login__submit button-primary" @click.prevent="submit">Abschicken</button>
+                        <div class="login__input__container">
+                        
+                            <input class="login__input" v-model="email" placeholder="E-Mail" type="email">
+                            <input class="login__input" v-model="password" placeholder="Passwort" type="password">                       
+                            
+                        </div>
+                       <button class="login__submit button-primary" @click.prevent="submit">Abschicken</button>
                     
                     </form>
                 </div>
@@ -2647,7 +2656,7 @@ const AdminParcel = {
                                 
                                 <form class="edit__addstep__form">
                                 
-                                    <select class="edit__addstep__type" v-model="stepType">
+                                    <select class="edit__select" v-model="stepType">
                                         <option value="-1" selected="selected">Aktion...</option>
                                         <option v-if="!started" value="type_start">Sendung wurde aufgegeben</option>
                                         <option value="type_logistic">Paket im Logistikzentrum</option>
@@ -2657,11 +2666,11 @@ const AdminParcel = {
                                         <option value="type_toyou">Sendung befindet sich in Zustellung</option>
                                     </select>
                                     
-                                    <input type="text" v-model="stepLocation" placeholder="Standort der Sendung">
+                                    <input class="edit__input" type="text" v-model="stepLocation" placeholder="Standort der Sendung">
                                     
-                                    <input type="text" v-model="stepName">
+                                    <input class="edit__input input-fullwidth" type="text" v-model="stepName">
                                     
-                                    <button class="button button-primary" @click.prevent="submit">Abschicken</button>
+                                    <button class="edit__button" @click.prevent="submit">Abschicken</button>
                                                              
                                 </form>
                                 
@@ -2692,7 +2701,7 @@ const AdminParcel = {
                                 <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
                                 <parcel-details :parcel="details" :type="'sender'"></parcel-details>
                          
-                            
+               
                             </div>
                             
                             <history :parcel="details"></history>
@@ -2773,6 +2782,10 @@ const AdminParcel = {
         },
         checkLogin: __WEBPACK_IMPORTED_MODULE_1__common_methods__["b" /* checkLogin */],
         getParcelDetailsAdmin: __WEBPACK_IMPORTED_MODULE_1__common_methods__["e" /* getParcelDetailsAdmin */],
+        gotoParcel: function (trackingNr) {
+            this.$router.push('/parcel/' + trackingNr);
+            return;
+        }
     }
     ,
     computed: {

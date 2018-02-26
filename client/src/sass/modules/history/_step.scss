@@ -6,10 +6,25 @@
 
   padding: 5px;
   margin-top: 10px;
+  margin-left: 20%;
 
   border: 2px solid $color-primary;
 
-  width: 100%;
+  width: 60%;
+
+  @media screen and (max-width: $below-is-phone){
+
+    width: 100%;
+    margin-left: 0;
+
+  }
+
+  @media screen and (min-width: $below-is-phone) and (max-width: $below-is-tablet){
+
+    width: 80%;
+    margin-left: 10%;
+
+  }
 
 }
 
@@ -34,7 +49,25 @@
 
 }
 
-.step__description {
+.step__description:nth-of-type(1) {
+
+  font-size: 1.1em;
+
+}
+
+.step__description:nth-of-type(2) {
+
+  font-size: 0.8em;
+
+}
+
+.step__time {
+
+  font-size: 0.8em;
+
+}
+
+.step__date {
 
   font-size: 0.8em;
 

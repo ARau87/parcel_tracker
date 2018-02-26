@@ -11,8 +11,8 @@ export default {
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>   
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_logistic'">
@@ -24,8 +24,8 @@ export default {
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                
@@ -38,8 +38,8 @@ export default {
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                
@@ -52,8 +52,8 @@ export default {
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_shop'">
@@ -65,8 +65,8 @@ export default {
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_end'">
@@ -78,8 +78,8 @@ export default {
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_toyou'">
@@ -90,9 +90,9 @@ export default {
                     </div>
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
-                        <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__description"> {{details.stepLocation}}</div>
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
               `,

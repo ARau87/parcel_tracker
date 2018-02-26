@@ -6,6 +6,15 @@
 
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-left: 10%;
+
+  @media screen  and (max-width: $below-is-phone){
+
+    padding-left: 42%;
+  }
+
 
 }
 

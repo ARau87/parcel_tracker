@@ -310,6 +310,24 @@ ul {
 
 /* BASE - Base Variable file along with starting point Mixins and Placeholders.
 ========================================================================== */
+* {
+  font-family: 'Lato', sans-serif; }
+
+h1 {
+  font-family: 'Lusitana', serif; }
+
+h2 {
+  font-family: 'Lusitana', serif; }
+
+h3 {
+  font-family: 'Lusitana', serif; }
+
+h4 {
+  font-family: 'Lusitana', serif; }
+
+h5 {
+  font-family: 'Lusitana', serif; }
+
 /* FRAMEWORK - Structure and layout files.
 ========================================================================== */
 .container {
@@ -411,7 +429,8 @@ select {
   border: None;
   margin: 20px 0;
   padding: 0;
-  border-bottom: 2px solid rgba(255, 255, 255, 0); }
+  border-bottom: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 0; }
   .nav__button:hover {
     border-bottom: 2px solid white;
     cursor: pointer; }
@@ -482,6 +501,9 @@ select {
   padding-left: 10px;
   text-transform: uppercase;
   font-weight: bold; }
+  @media screen and (max-width: 600px) {
+    .pageheader__logo {
+      width: 50%; } }
 
 .pageheader__burger {
   display: none;
@@ -489,7 +511,11 @@ select {
   padding-right: 15px;
   color: #fff;
   text-align: right; }
-  @media screen and (max-width: 900px) and (orientation: portrait) {
+  @media screen and (max-width: 600px) {
+    .pageheader__burger {
+      width: 50%;
+      display: block; } }
+  @media screen and (min-width: 600px) and (max-width: 900px) and (orientation: portrait) {
     .pageheader__burger {
       display: block; } }
   @media screen and (max-width: 1200px) and (orientation: landscape) {
@@ -498,6 +524,18 @@ select {
 
 .pageheader__burger__icon {
   font-size: 1.5em; }
+
+.login__input__container {
+  width: 100%;
+  margin: 20px 0 10px 0; }
+
+.login__input {
+  width: 48%;
+  margin-top: 10px;
+  margin-right: 1%; }
+  @media screen and (max-width: 600px) {
+    .login__input {
+      width: 100%; } }
 
 .page__home__head {
   font-size: 1.6em;
@@ -509,7 +547,32 @@ select {
 
 .tracking__form {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%; }
+
+.tracking__form__input {
+  width: 69%;
+  margin-right: 1%;
+  margin-top: 10px;
+  max-width: 650px; }
+  @media screen and (max-width: 600px) {
+    .tracking__form__input {
+      width: 100%;
+      margin-right: 0;
+      margin-top: 10px; } }
+
+.tracking__form__button {
+  width: 30%;
+  max-width: 100px;
+  margin-top: 10px; }
+  @media screen and (max-width: 600px) {
+    .tracking__form__button {
+      width: 100%;
+      margin-top: 10px; } }
+
+.details h5 {
+  text-align: center; }
 
 .step {
   text-align: left;
@@ -517,8 +580,17 @@ select {
   flex-direction: row;
   padding: 5px;
   margin-top: 10px;
+  margin-left: 20%;
   border: 2px solid #0091cd;
-  width: 100%; }
+  width: 60%; }
+  @media screen and (max-width: 600px) {
+    .step {
+      width: 100%;
+      margin-left: 0; } }
+  @media screen and (min-width: 600px) and (max-width: 900px) {
+    .step {
+      width: 80%;
+      margin-left: 10%; } }
 
 .step__details {
   flex-direction: column;
@@ -531,7 +603,16 @@ select {
   font-size: 3em;
   min-width: 10%; }
 
-.step__description {
+.step__description:nth-of-type(1) {
+  font-size: 1.1em; }
+
+.step__description:nth-of-type(2) {
+  font-size: 0.8em; }
+
+.step__time {
+  font-size: 0.8em; }
+
+.step__date {
   font-size: 0.8em; }
 
 .step-positive {
@@ -556,7 +637,13 @@ select {
 
 .details__addresses {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-left: 10%; }
+  @media screen and (max-width: 600px) {
+    .details__addresses {
+      padding-left: 42%; } }
 
 .details__head::after {
   display: block;
@@ -567,38 +654,99 @@ select {
   margin-top: 10px;
   margin-left: 44%; }
 
-.address:nth-of-type(1) {
+.address {
   width: 30%;
-  margin: 0 15% 0 5%;
-  text-align: justify-all;
   font-size: 1.2em; }
-
-.address:nth-of-type(2) {
-  width: 30%;
-  margin: 0 5% 0 15%;
-  text-align: justify-all;
-  font-size: 1.1em; }
+  @media screen and (max-width: 600px) {
+    .address {
+      width: 100%; } }
 
 .qrcode {
   text-align: center; }
 
-.register {
+.form {
+  margin-bottom: 20px; }
+
+.form__input__container {
+  margin-top: 20px; }
+
+.form__input {
+  width: 32.33333333%;
+  margin-right: 1%;
+  margin-top: 10px; }
+  @media screen and (max-width: 600px) {
+    .form__input {
+      width: 100%;
+      margin-right: 0; } }
+  @media screen and (min-width: 600px) and (max-width: 900px) {
+    .form__input {
+      width: 49%;
+      margin-right: 1%; } }
+
+.form__button {
+  margin-top: 10px; }
+
+.form__head {
   width: 100%; }
+  .form__head::after {
+    display: block;
+    content: " ";
+    height: 2px;
+    width: 12%;
+    background-color: #003d56;
+    margin-top: 10px;
+    margin-left: 44%; }
+
+.edit__select {
+  width: 48.5%;
+  max-width: 750px;
+  margin-right: 1%; }
+  @media screen and (max-width: 600px) {
+    .edit__select {
+      width: 100%; } }
+
+.edit__input {
+  width: 50%;
+  max-width: 650px;
+  margin-top: 10px; }
+  @media screen and (max-width: 600px) {
+    .edit__input {
+      width: 100%; } }
+
+.input-fullwidth {
+  width: 100%;
+  max-width: 1400px; }
+
+.edit__button {
+  margin-top: 10px; }
+  @media screen and (max-width: 600px) {
+    .edit__button {
+      width: 100%; } }
+
+.register {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center; }
 
 .register__input:nth-of-type(1) {
   margin-top: 15px; }
 
 .register__input {
   width: 80%;
-  margin: 5px 10%; }
+  margin: 5px 10%;
+  max-width: 650px; }
 
 .register__message {
   width: 80%;
-  margin: 0 10%; }
+  margin: 0 10%;
+  max-width: 650px; }
 
 .register__submit {
   width: 80%;
-  margin: 0 10%; }
+  margin: 0 10%;
+  max-width: 650px; }
 
 .parcels h2 {
   text-align: center; }
@@ -614,10 +762,9 @@ select {
 .parcels__list__item {
   list-style: none;
   text-align: center;
-  width: 30.333333%;
+  width: 32.333333%;
   margin-right: 1%;
   margin-top: 10px;
-  padding: 20px;
   border: 2px solid #0091cd;
   border-radius: 5px;
   transition: background-color 0.2s; }
@@ -630,7 +777,8 @@ select {
     color: #0091cd;
     transition: color 0.2s; }
   .parcels__list__item:hover {
-    background-color: #0091cd; }
+    background-color: #0091cd;
+    cursor: pointer; }
     .parcels__list__item:hover a {
       color: #fff; }
 
@@ -651,3 +799,8 @@ select {
   .parcels__new__link:hover {
     background-color: #eb2f06;
     color: #fff; }
+
+.parcel__link {
+  display: inline-block;
+  width: 100%;
+  padding: 20px; }

@@ -1,0 +1,59 @@
+.form {
+
+  margin-bottom: 20px;
+
+}
+
+.form__input__container {
+
+  margin-top: 20px;
+
+}
+
+.form__input {
+
+  width: 32.33333333%;
+  margin-right: 1%;
+  margin-top: 10px;
+
+  @media screen and (max-width: $below-is-phone) {
+
+    width: 100%;
+
+    margin-right: 0;
+
+  }
+
+  @media screen and (min-width: $below-is-phone) and (max-width: $below-is-tablet) {
+
+    width: 49%;
+
+    margin-right: 1%;
+
+  }
+
+}
+
+.form__button {
+
+  margin-top: 10px;
+
+}
+
+.form__head{
+
+  width: 100%;
+
+  &::after {
+    display: block;
+    content: " ";
+
+    height: 2px;
+    width: 12%;
+
+    background-color: $color-secondary;
+
+    margin-top: 10px;
+    margin-left: 44%;
+  }
+}

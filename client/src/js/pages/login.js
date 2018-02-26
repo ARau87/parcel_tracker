@@ -9,12 +9,16 @@ const Login = {
                                   
                     <h1>Login</h1>
                     
-                    <form class="login">
+                    <form class="login container">
                         <div class="login__message" :style="messageStyle">{{message}}</div>
                         
-                        <input class="login__input" v-model="email" placeholder="E-Mail" type="email">
-                        <input class="login__input" v-model="password" placeholder="Passwort" type="password">
-                        <button class="login__submit button-primary" @click.prevent="submit">Abschicken</button>
+                        <div class="login__input__container">
+                        
+                            <input class="login__input" v-model="email" placeholder="E-Mail" type="email">
+                            <input class="login__input" v-model="password" placeholder="Passwort" type="password">                       
+                            
+                        </div>
+                       <button class="login__submit button-primary" @click.prevent="submit">Abschicken</button>
                     
                     </form>
                 </div>

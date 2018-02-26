@@ -14,18 +14,18 @@ const Parcel = {
                             
                             <h4 class="details__head">Details</h4>
                             
-                             <div class="details_nextstep" v-if="details.nextStep">
-                                <h5>Aktuelle Station</h5>
+                             <div class="details_currentstep" v-if="details.currentStep">
+                                <h5>Letzte Station</h5>
                                 
-                                <step :details="details.currentStep"></step>
+                                <step :details="details.currentStep" :type="details.currentStep.stepType"></step>
                             
                             </div>
                             
                             
                             <div class="details_nextstep" v-if="details.nextStep">
-                                <h5>Nächste Station</h5>
+                                <h5>Aktuelle Station</h5>
                                 
-                                <step :details="details.nextStep"></step>
+                                <step :details="details.nextStep" :type="details.nextStep.stepType"></step>
                             
                             </div>
                         

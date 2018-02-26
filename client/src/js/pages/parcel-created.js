@@ -23,9 +23,12 @@ const ParcelCreated = {
                             
                             <h4 class="details__head">Details</h4>
                             
-                            <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
-                            <parcel-details :parcel="details" :type="'sender'"></parcel-details>
+                            <div class="details__addresses">
+                            
+                                <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
+                                <parcel-details :parcel="details" :type="'sender'"></parcel-details>
 
+                            </div>
                         </div>
                     
                     </main>

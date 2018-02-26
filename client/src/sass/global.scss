@@ -8,7 +8,7 @@
 ========================================================================== */
 
 @import 'base/_variables.scss';
-//@import 'base/_mixins.scss';
+@import 'base/_basic.scss';
 //@import 'base/_placeholders.scss';
 
 
@@ -29,7 +29,10 @@
 @import 'modules/header/_mobile-nav.scss';
 @import 'modules/header/_pageheader.scss';
 
+@import "modules/login/_login.scss";
+
 @import 'modules/home/_homepage.scss';
+@import 'modules/home/_tracking-page.scss';
 
 @import 'modules/history/_step.scss';
 @import 'modules/history/_history.scss';
@@ -37,6 +40,8 @@
 @import 'modules/parcel/_parcel-page.scss';
 @import 'modules/parcel/_parcel-details.scss';
 @import 'modules/parcel/_qrcode.scss';
+@import 'modules/parcel/_new-parcel.scss';
+@import 'modules/parcel/_edit-parcel.scss';
 
 @import 'modules/register/_register-page.scss';
 

@@ -30,6 +30,12 @@
   text-transform: uppercase;
   font-weight: bold;
 
+  @media screen and (max-width: $below-is-phone){
+
+    width: 50%;
+
+  }
+
 }
 
 .pageheader__burger {
@@ -39,8 +45,16 @@
   color: $text-light;
   text-align: right;
 
+  @media screen and (max-width: $below-is-phone){
 
-  @media screen and (max-width: $below-is-tablet) and (orientation: portrait) {
+    width: 50%;
+
+    display: block;
+
+  }
+
+
+  @media screen and (min-width: $below-is-phone) and (max-width: $below-is-tablet) and (orientation: portrait) {
 
     display: block;
 

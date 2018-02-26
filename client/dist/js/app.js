@@ -1869,8 +1869,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>   
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_logistic'">
@@ -1882,8 +1882,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                
@@ -1896,8 +1896,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                
@@ -1910,8 +1910,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_shop'">
@@ -1923,8 +1923,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_end'">
@@ -1936,8 +1936,8 @@ module.exports = Cancel;
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
                         <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
                <div class="step step-positive" v-else-if="type === 'type_toyou'">
@@ -1948,9 +1948,9 @@ module.exports = Cancel;
                     </div>
                     <div class="step__details">
                         <div class="step__description">{{details.stepName}}</div>
-                        <div class="step__description">{{details.stepLocation}}</div>
-                        <div class="step__time">{{hours}}:{{minutes}}</div>
-                        <div class="step__date">{{day}}.{{month}}.{{year}}</div>    
+                        <div class="step__description"> {{details.stepLocation}}</div>
+                        <div class="step__time">Zeit: {{hours}}:{{minutes}}</div>
+                        <div class="step__date">Datum: {{day}}.{{month}}.{{year}}</div>    
                     </div>
                </div>
               `,
@@ -2907,7 +2907,7 @@ module.exports = function spread(callback) {
                         <router-link class="nav__link" to="/login">Login</router-link>
                         <router-link class="nav__link" to="/register">Registrierung</router-link>
                         <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
-                        <button class="nav__button button-primary" v-if="admin" @click.prevent="gotoAdminPage">Admin</button>
+                        <button class="nav__button button-primary" v-if="admin && loggedin" @click.prevent="gotoAdminPage">Admin</button>
                         <button class="nav__button button-primary" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                           
@@ -2920,6 +2920,7 @@ module.exports = function spread(callback) {
         
                     <nav class="pageheader__nav col-8">
                         <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
+                        <button class="nav__button" v-if="admin && loggedin" @click.prevent="gotoAppPage">App</button>
                         <button class="nav__button" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                     
@@ -2947,6 +2948,10 @@ module.exports = function spread(callback) {
             else {
                 this.$router.push('/mobile/nav/admin');
             }
+        },
+        gotoAppPage: function () {
+            let adminUrl = window.location.protocol + '//' + window.location.host;
+            window.location.href = adminUrl;
         }
     }
 });
@@ -3050,12 +3055,16 @@ const Login = {
                                   
                     <h1>Login</h1>
                     
-                    <form class="login">
+                    <form class="login container">
                         <div class="login__message" :style="messageStyle">{{message}}</div>
                         
-                        <input class="login__input" v-model="email" placeholder="E-Mail" type="email">
-                        <input class="login__input" v-model="password" placeholder="Passwort" type="password">
-                        <button class="login__submit button-primary" @click.prevent="submit">Abschicken</button>
+                        <div class="login__input__container">
+                        
+                            <input class="login__input" v-model="email" placeholder="E-Mail" type="email">
+                            <input class="login__input" v-model="password" placeholder="Passwort" type="password">                       
+                            
+                        </div>
+                       <button class="login__submit button-primary" @click.prevent="submit">Abschicken</button>
                     
                     </form>
                 </div>
@@ -3995,8 +4004,9 @@ const Home = {
                     
                         <div class="tracking__message col-12">{{message}}</div>
                         <form class="tracking__form">
-                             <input class="tracking__form__input col-8" type="text" v-model="trackingNr">
-                             <button class="tracking__form__button col-4" @click="searchTrackingNumber">Suchen</button>
+                        
+                             <input class="tracking__form__input" type="text" v-model="trackingNr">
+                             <button class="tracking__form__button" @click="searchTrackingNumber">Suchen</button>
                                             
                         </form>
                     </div>
@@ -6583,32 +6593,38 @@ const NewParcel = {
                     
                         <form class="form">
                             
-                            <div class="form__receiver">
+                            <div class="form__receiver container">
                             
                                 <h4 class="form__head">Empfängerdaten</h4>
                             
                                 <div class="form__message" :style="messageStyle">{{message}}</div>
                             
-                                <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
-                                <input class="form__input" v-model="receiverLastname" placeholder="Nachname" type="text">
-                                <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text" >
-                                <input class="form__input" v-model="receiverPostcode" placeholder="PLZ" type="number">
-                                <input class="form__input" v-model="receiverAddress" placeholder="Adresse" type="text">
-                                
-                                
+                                <div class="form__input__container container">
+                            
+                                    <input class="form__input" v-model="receiverFirstname" placeholder="Vorname" type="text">
+                                    <input class="form__input" v-model="receiverLastname" placeholder="Nachname" type="text">
+                                    <input class="form__input" v-model="receiverCity" placeholder="Stadt" type="text" >
+                                    <input class="form__input" v-model="receiverPostcode" placeholder="PLZ" pattern="[0-9]{5}" type="text">
+                                    <input class="form__input" v-model="receiverAddress" placeholder="Adresse" type="text">
+                                    
+                                </div>
                                 
                             </div>
                             
-                            <div class="form__sender">
+                            <div class="form__sender container">
                             
                                 <h4 class="form__head">Ansenderdaten</h4>
-                            
-                                <input class="form__input" v-model="senderFirstname" placeholder="Vorname" type="text">
-                                <input class="form__input" v-model="senderLastname" placeholder="Nachname" type="text">
-                                <input class="form__input" v-model="senderCity" placeholder="Stadt" type="text">
-                                <input class="form__input" v-model="senderPostcode" placeholder="PLZ" type="number">
-                                <input class="form__input" v-model="senderAddress" placeholder="Adresse" type="text">
                                 
+                                <div class="form__input__container container">
+                                
+                                    <input class="form__input" v-model="senderFirstname" placeholder="Vorname" type="text">
+                                    <input class="form__input" v-model="senderLastname" placeholder="Nachname" type="text">
+                                    <input class="form__input" v-model="senderCity" placeholder="Stadt" type="text">
+                                    <input class="form__input" v-model="senderPostcode" placeholder="PLZ" pattern="[0-9]{5}" type="text">
+                                    <input class="form__input" v-model="senderAddress" placeholder="Adresse" type="text">                                       
+                                
+                                </div>
+                            
                                 
                             </div>
                             
@@ -8330,9 +8346,12 @@ const ParcelCreated = {
                             
                             <h4 class="details__head">Details</h4>
                             
-                            <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
-                            <parcel-details :parcel="details" :type="'sender'"></parcel-details>
+                            <div class="details__addresses">
+                            
+                                <parcel-details :parcel="details" :type="'receiver'"></parcel-details>
+                                <parcel-details :parcel="details" :type="'sender'"></parcel-details>
 
+                            </div>
                         </div>
                     
                     </main>
@@ -8413,18 +8432,18 @@ const Parcel = {
                             
                             <h4 class="details__head">Details</h4>
                             
-                             <div class="details_nextstep" v-if="details.nextStep">
-                                <h5>Aktuelle Station</h5>
+                             <div class="details_currentstep" v-if="details.currentStep">
+                                <h5>Letzte Station</h5>
                                 
-                                <step :details="details.currentStep"></step>
+                                <step :details="details.currentStep" :type="details.currentStep.stepType"></step>
                             
                             </div>
                             
                             
                             <div class="details_nextstep" v-if="details.nextStep">
-                                <h5>Nächste Station</h5>
+                                <h5>Aktuelle Station</h5>
                                 
-                                <step :details="details.nextStep"></step>
+                                <step :details="details.nextStep" :type="details.nextStep.stepType"></step>
                             
                             </div>
                         

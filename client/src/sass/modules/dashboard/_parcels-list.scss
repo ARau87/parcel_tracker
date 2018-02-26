@@ -23,12 +23,10 @@
 
   text-align: center;
 
-  width: 30.333333%;
+  width: 32.333333%;
 
   margin-right: 1%;
   margin-top: 10px;
-
-  padding: 20px;
 
   border: 2px solid $color-primary;
   border-radius: 5px;
@@ -55,6 +53,8 @@
   &:hover {
 
     background-color: $color-primary;
+
+    cursor: pointer;
 
     & a {
       color: $text-light;
@@ -98,6 +98,16 @@
   }
 
 
+
+}
+
+.parcel__link {
+
+  display: inline-block;
+
+  width: 100%;
+
+  padding: 20px;
 
 }
 
