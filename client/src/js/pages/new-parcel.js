@@ -58,6 +58,7 @@ const NewParcel = {
                     this.isLoggedIn = true;
                     this.username = data.username;
                     this.user = data;
+                    this.$emit('logged-in');
                 }
                 else {
                     this.$router.push('/login');

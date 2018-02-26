@@ -4,7 +4,7 @@ const database = require('../database');
 const cryptoJS = require('crypto-js');
 const randomstring = require('randomstring');
 const MAX_CHARS = 12;
-const VALID_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890012345678901234567890';
+const VALID_CHARS = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789123456789123456789---';
 
 // Helper function that creates random Integer values
 function _getRandomInt(max) {

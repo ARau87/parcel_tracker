@@ -48,6 +48,7 @@ const Home = {
                 if(data && data.username){
                     this.isLoggedIn = true;
                     this.username = data.username;
+                    this.$emit('logged-in');
                 }
                 else {
                     this.$router.push('/login');

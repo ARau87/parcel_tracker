@@ -70,6 +70,7 @@ const Register = {
                                 if(res.status === 200){
                                     this.messageType = 200;
                                     this.message = 'Sie wurden erfolgreich angemeldet. Viel Spaß mit dem Parcel-Tracker!'
+                                    this.$router.push('/login');
                                 }
                             })
                             .catch(err => {

@@ -36,6 +36,17 @@ const ParcelCreated = {
                 </div>
               `,
     mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                    this.$emit('logged-in');
+                }
+                else {
+                    this.$router.push('/login');
+                }
+            });
 
         this.getParcelDetails(this.$route.params.trackingNr)
             .then((response) => {
@@ -52,7 +63,9 @@ const ParcelCreated = {
     data(){
         return {
             // Parcel details
-            details: {}
+            details: {},
+            username: '',
+            isLoggedIn: false
 
         }
     },

@@ -23,7 +23,11 @@
 /* MODULES - Re-usable site elements.
 ========================================================================== */
 
+@import 'modules/common/_common.scss';
+
 @import 'modules/header/_navlink.scss';
 @import 'modules/header/_pageheader.scss';
+
+@import 'modules/home/_homepage.scss';
 //@import 'modules/_lists.scss';
 //@import 'modules/_tabs.scss';

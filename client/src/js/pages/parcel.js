@@ -12,7 +12,7 @@ const Parcel = {
                         <h1>Paket - Sendungsnummer {{$route.params.trackingNr}}</h1>
                         
                         <div class="qrcode">
-                            <h4 class="qrcode__head">Drucken Sie den folgenden QR-Code aus um schnell auf den aktuellen Status ihrer Lieferung zugreifen zu können:</h4>
+                            <h4 class="qrcode__head">Mit folgendem QR-Code können Sie den Status jederzeit problemlos verfolgen:</h4>
                         
                             <canvas id="qrcode" height="200" width="200">
                             
@@ -38,6 +38,17 @@ const Parcel = {
                 </div>
               `,
     mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                    this.$emit('logged-in');
+                }
+                else {
+                    this.$router.push('/login');
+                }
+            });
 
         this.getParcelDetails(this.$route.params.trackingNr)
             .then((response) => {
@@ -55,7 +66,9 @@ const Parcel = {
         return {
 
             // Parcel details
-            details: {}
+            details: {},
+            username: '',
+            isLoggedIn: false
 
         }
     },

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 75);
+/******/ 	return __webpack_require__(__webpack_require__.s = 76);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 
 
 var bind = __webpack_require__(8);
-var isBuffer = __webpack_require__(15);
+var isBuffer = __webpack_require__(16);
 
 /*global toString:true*/
 
@@ -393,7 +393,8 @@ const checkLogin = function () {
                             lastname: response.data.lastname,
                             address: response.data.address,
                             postcode: response.data.postcode,
-                            city: response.data.city
+                            city: response.data.city,
+                            admin: response.data.admin
                         };
                     }
                     else {
@@ -493,7 +494,6 @@ const endParcel = async function (trackingNr) {
 
 
 const getParcelTracking = function (trackingNr) {
-    console.log('TEST');
 
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/v1/parcel/status/' + trackingNr);
 };
@@ -505,9 +505,11 @@ const getParcelTracking = function (trackingNr) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__details__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__history__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__header__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__details__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__history__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__step__ = __webpack_require__(14);
+
 
 
 
@@ -516,13 +518,14 @@ const getParcelTracking = function (trackingNr) {
     'page-header': __WEBPACK_IMPORTED_MODULE_0__header__["a" /* default */],
     'parcel-details': __WEBPACK_IMPORTED_MODULE_1__details__["a" /* default */],
     'history': __WEBPACK_IMPORTED_MODULE_2__history__["a" /* default */],
+    'step': __WEBPACK_IMPORTED_MODULE_3__step__["a" /* default */]
 });
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(14);
+module.exports = __webpack_require__(15);
 
 /***/ }),
 /* 4 */
@@ -532,7 +535,7 @@ module.exports = __webpack_require__(14);
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(17);
+var normalizeHeaderName = __webpack_require__(18);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -847,12 +850,12 @@ process.umask = function() { return 0; };
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(18);
-var buildURL = __webpack_require__(20);
-var parseHeaders = __webpack_require__(21);
-var isURLSameOrigin = __webpack_require__(22);
+var settle = __webpack_require__(19);
+var buildURL = __webpack_require__(21);
+var parseHeaders = __webpack_require__(22);
+var isURLSameOrigin = __webpack_require__(23);
 var createError = __webpack_require__(11);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(23);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(24);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -949,7 +952,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(24);
+      var cookies = __webpack_require__(25);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1034,7 +1037,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(19);
+var enhanceError = __webpack_require__(20);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -1092,6 +1095,24 @@ module.exports = Cancel;
 
 /***/ }),
 /* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    name: 'step',
+    props: ['details'],
+    template: `
+               <div class="step">
+                    <div class="step__type">{{details.stepType}}</div>
+                    <div class="step__name">{{details.stepName}}</div>
+                    <div class="step__name">{{details.stepLocation}}</div>
+                    <div class="step__date">{{details.stepDate}}</div>
+               </div>
+              `
+});
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1120,7 @@ module.exports = Cancel;
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
-var Axios = __webpack_require__(16);
+var Axios = __webpack_require__(17);
 var defaults = __webpack_require__(4);
 
 /**
@@ -1134,14 +1155,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(13);
-axios.CancelToken = __webpack_require__(30);
+axios.CancelToken = __webpack_require__(31);
 axios.isCancel = __webpack_require__(12);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(31);
+axios.spread = __webpack_require__(32);
 
 module.exports = axios;
 
@@ -1150,7 +1171,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /*!
@@ -1177,7 +1198,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1185,8 +1206,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(25);
-var dispatchRequest = __webpack_require__(26);
+var InterceptorManager = __webpack_require__(26);
+var dispatchRequest = __webpack_require__(27);
 
 /**
  * Create a new instance of Axios
@@ -1263,7 +1284,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1282,7 +1303,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1315,7 +1336,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1343,7 +1364,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1416,7 +1437,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1476,7 +1497,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1551,7 +1572,7 @@ module.exports = (
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1594,7 +1615,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1654,7 +1675,7 @@ module.exports = (
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1713,18 +1734,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(27);
+var transformData = __webpack_require__(28);
 var isCancel = __webpack_require__(12);
 var defaults = __webpack_require__(4);
-var isAbsoluteURL = __webpack_require__(28);
-var combineURLs = __webpack_require__(29);
+var isAbsoluteURL = __webpack_require__(29);
+var combineURLs = __webpack_require__(30);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -1806,7 +1827,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1833,7 +1854,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1854,7 +1875,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1875,7 +1896,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1939,7 +1960,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1973,7 +1994,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1986,11 +2007,28 @@ module.exports = function spread(callback) {
     props: [
         'loggedin',
         'username',
-        'admin'
+        'admin',
+        'application'
     ],
     template: `
-            
-            <header class="pageheader container" v-if="admin">
+          
+            <header class="pageheader container" v-if="application">
+                    <div class="pageheader__logo col-4">Parcel Tracker</div>
+        
+                    <nav class="pageheader__nav col-8">
+                        <router-link class="nav__link" to="/">Home</router-link>
+                        <router-link class="nav__link" to="/login">Login</router-link>
+                        <router-link class="nav__link" to="/register">Registrierung</router-link>
+                        <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
+                        <button class="nav__button button-primary" v-if="admin" @click.prevent="gotoAdminPage">Admin</button>
+                        <button class="nav__button button-primary" v-if="loggedin" @click.prevent="logout">Logout</button>
+                    </nav>
+                          
+                    <div class="pageheader__burger col-8">
+                        <i @click.preventt="mobileNav" class="ion-navicon-round pageheader__burger__icon"></i>
+                    </div>  
+            </header>
+            <header class="pageheader container" v-else>
                     <div class="pageheader__logo col-4">Parcel Tracker</div>
         
                     <nav class="pageheader__nav col-8">
@@ -1999,35 +2037,35 @@ module.exports = function spread(callback) {
                     </nav>
                     
                     <div class="pageheader__burger">
-                        <i>Burger here!</i>
+                        <i @click.prevent="mobileNav" class="ion-navicon-round pageheader__burger__icon"></i>
                     </div>
                             
-            </header>
-            <header class="pageheader container" v-else>
-                    <div class="pageheader__logo col-4">Parcel Tracker</div>
-        
-                    <nav class="pageheader__nav col-8">
-                        <router-link class="nav__link" to="/login">Login</router-link>
-                        <router-link class="nav__link" to="/register">Registrierung</router-link>
-                        <router-link class="nav__link" v-if="loggedin" to="/dashboard">Übersicht</router-link>
-                        <button class="nav__button button-primary" v-if="loggedin" @click.prevent="logout">Logout</button>
-                    </nav>
-                          
-                    <div class="pageheader__burger col-8">
-                        <i>Burger here!</i>
-                    </div>  
             </header>
     
     `,
     methods: {
         logout: function(){
            Object(__WEBPACK_IMPORTED_MODULE_0__common_methods__["i" /* logout */])().then(() => this.$emit('logout'));
+        },
+        gotoAdminPage: function () {
+            let adminUrl = window.location.protocol + '//' + window.location.host + '/admin';
+            window.location.href = adminUrl;
+        },
+        mobileNav: function () {
+            this.$emit('toggle-navbar');
+            console.log(this.application);
+            if(this.application){
+                this.$router.push('/mobile/nav/app');
+            }
+            else {
+                this.$router.push('/mobile/nav/admin');
+            }
         }
     }
 });
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2062,11 +2100,11 @@ module.exports = function spread(callback) {
 });
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__step__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__step__ = __webpack_require__(14);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -2102,28 +2140,196 @@ module.exports = function spread(callback) {
 });
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-    name: 'step',
-    props: ['details'],
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_methods__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(2);
+
+
+
+
+const Login = {
+    components: __WEBPACK_IMPORTED_MODULE_2__components__["a" /* default */],
     template: `
-               <div class="step">
-                    <div class="step__type">{{details.stepType}}</div>
-                    <div class="step__name">{{details.stepName}}</div>
-                    <div class="step__name">{{details.stepLocation}}</div>
-                    <div class="step__date">{{details.stepDate}}</div>
-               </div>
-              `
-});
+                <div class="page page__login">
+                                  
+                    <h1>Login</h1>
+                    
+                    <form class="login">
+                        <div class="login__message" :style="messageStyle">{{message}}</div>
+                        
+                        <input class="login__input" v-model="email" placeholder="E-Mail" type="email">
+                        <input class="login__input" v-model="password" placeholder="Passwort" type="password">
+                        <button class="login__submit button-primary" @click.prevent="submit">Abschicken</button>
+                    
+                    </form>
+                </div>
+              `,
+    mounted(){
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                    this.$emit('logged-in');
+                }
+            });
+    },
+    data(){
+        return {
+            // Error and Information messages about the login form
+            message: 'Bitte geben Sie ihr Anmeldedaten hier ein:',
+            messageType: 100,
+
+            // Login form models
+            password: '',
+            email: '',
+
+            // Currently logged in?
+            isLoggedIn: false,
+            username: ''
+
+        }
+    },
+    methods: {
+        submit: function(){
+
+
+            if(this.validateInput(this.email, this.password)){
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/login',{
+                    email: this.email,
+                    password: this.password
+                })
+                    .then((response) => {
+                        if(response && response.status === 200){
+                            this.message = 'Sie haben sich erfolgreich angemeldet';
+                            this.messageType = 200;
+                            this.$emit('login_successful');
+                            setTimeout(() => {
+                                this.$router.push({path: '/dashboard'});
+                            }, 1000);
+                        }
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                        this.message = 'Benutzername oder Passwort sind inkorrekt!';
+                        this.messageType = 400;
+                    })
+            }
+
+        },
+        validateInput: function(email, password) {
+            //TODO: Validate if email is really an email by regex
+            return true;
+        },
+        checkLogin: __WEBPACK_IMPORTED_MODULE_1__common_methods__["b" /* checkLogin */]
+    },
+    computed: {
+        messageStyle: function(){
+            if(this.messageType === 400){
+                return {
+                    color: '#f00'
+                };
+            }
+            if(this.messageType === 200){
+                return {
+                    color: '#0a0'
+                };
+            }
+            if(this.messageType === 100){
+                return {};
+            }
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Login);
 
 /***/ }),
-/* 36 */,
 /* 37 */,
 /* 38 */,
-/* 39 */,
+/* 39 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_methods__ = __webpack_require__(1);
+
+
+const MobileNav = {
+
+    template: `
+                <div v-if="app" class="page page__menu">
+                        <button class="menu__button" @click.prevent="exit">X</button>
+                        <router-link class="menu__link" @click.native="leave" to="/">Home</router-link>
+                        <router-link class="menu__link" @click.native="leave" to="/login">Login</router-link>
+                        <router-link class="menu__link" @click.native="leave" to="/register">Registrierung</router-link>
+                        <router-link class="menu__link" @click.native="leave" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
+                        <button class="menu__button" v-if="admin && isLoggedIn" @click.prevent="gotoAdminPage">Admin</button>
+                        <button class="menu__button" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
+                </div>
+                <div v-else class="page page__menu">
+                        <button class="menu__button" @click.prevent="exit">X</button>
+                        <router-link class="menu__link" @click.native="leave" to="/">Home</router-link>
+                        <router-link class="menu__link" @click.native="leave" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
+                        <button class="menu__button" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
+                </div>
+              `,
+    methods: {
+        logout: function(){
+            this.$emit('toggle-navbar');
+            Object(__WEBPACK_IMPORTED_MODULE_0__common_methods__["i" /* logout */])().then(() => this.$emit('logout'));
+            this.$router.push('/');
+        },
+        gotoAdminPage: function () {
+            this.$emit('toggle-navbar');
+            let adminUrl = window.location.protocol + '//' + window.location.host + '/admin';
+            window.location.href = adminUrl;
+        },
+        checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["b" /* checkLogin */],
+        exit: function(){
+            this.$emit('toggle-navbar');
+            this.$router.push('/dashboard');
+        },
+        leave: function () {
+            this.$emit('toggle-navbar');
+        }
+    },
+    mounted(){
+
+        if(this.$route.params.app === 'admin'){
+            this.app = false;
+        }
+
+        this.checkLogin()
+            .then(data => {
+                if(data && data.username){
+                    this.isLoggedIn = true;
+                    this.username = data.username;
+                    this.admin = data.admin;
+                }
+            });
+    },
+    data(){
+        return {
+
+            // Currently logged in?
+            isLoggedIn: false,
+            username: '',
+            admin: false,
+            app: true
+
+        }
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (MobileNav);
+
+/***/ }),
 /* 40 */,
 /* 41 */,
 /* 42 */,
@@ -2159,12 +2365,13 @@ module.exports = function spread(callback) {
 /* 72 */,
 /* 73 */,
 /* 74 */,
-/* 75 */
+/* 75 */,
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_adminRoutes__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_adminRoutes__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_methods__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(2);
 
@@ -2183,7 +2390,6 @@ const adminApp =  new Vue({
     router,
     el: '#app',
     mounted(){
-        this.loginInterval();
 
         Object(__WEBPACK_IMPORTED_MODULE_1__common_methods__["b" /* checkLogin */])()
             .then(data => {
@@ -2199,42 +2405,52 @@ const adminApp =  new Vue({
     },
     data(){
         return {
+
             isLoggedIn: false,
             username: '',
-            isAdmin: false
+            isAdmin: false,
+            navHidden: false
         }
     },
     methods: {
-        loginInterval: function () {
-            setInterval(() => {
-                Object(__WEBPACK_IMPORTED_MODULE_1__common_methods__["b" /* checkLogin */])()
-                    .then(data => {
-                        if(data && data.username){
-                            this.isLoggedIn = true;
-                            this.username = data.username;
-                        }
-                        else {
-                            this.$router.push('/');
-                        }
-                    });}, 10000);
-        },
         logout: function(){
             this.isLoggedIn = false;
             this.username = '';
+            this.isAdmin = false;
             this.$router.push('/');
+        },
+        checkLogin: function () {
+            Object(__WEBPACK_IMPORTED_MODULE_1__common_methods__["b" /* checkLogin */])()
+                .then(data => {
+                    if(data && data.username){
+                        this.isLoggedIn = true;
+                        this.username = data.username;
+                        this.isAdmin = data.admin;
+                    }
+                    else {
+                        this.$router.push('/');
+                    }
+                });
+        },
+        toggleNav: function(){
+            this.navHidden = !this.navHidden;
         }
     }
 });
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_admin_admin_parcel__ = __webpack_require__(77);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_admin_admin_dashboard__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_admin_admin_home__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_admin_admin_parcel__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_admin_admin_dashboard__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_admin_admin_home__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_login__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_navigation__ = __webpack_require__(39);
+
+
 
 
 
@@ -2253,6 +2469,10 @@ const adminRoutes = [
     {
         path: '/parcel/:trackingNr',
         component: __WEBPACK_IMPORTED_MODULE_0__pages_admin_admin_parcel__["a" /* default */]
+    },
+    {
+        path: '/mobile/nav/:app',
+        component: __WEBPACK_IMPORTED_MODULE_4__pages_navigation__["a" /* default */]
     }
 
 ];
@@ -2262,7 +2482,7 @@ const adminRoutes = [
 /* harmony default export */ __webpack_exports__["a"] = (adminRoutes);
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2466,7 +2686,7 @@ const AdminParcel = {
 /* harmony default export */ __webpack_exports__["a"] = (AdminParcel);
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2577,7 +2797,7 @@ const AdminDashboard = {
 /* harmony default export */ __webpack_exports__["a"] = (AdminDashboard);
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

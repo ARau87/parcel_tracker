@@ -14,13 +14,13 @@ const app = new Vue({
     router,
     el: '#app',
     mounted(){
-      this.loginInterval();
 
       checkLogin()
             .then(data => {
                 if(data && data.username){
                     this.isLoggedIn = true;
                     this.username = data.username;
+                    this.isAdmin = data.admin;
                 }
                 else {
                     this.$router.push('/');
@@ -29,37 +29,35 @@ const app = new Vue({
     },
     data(){
       return {
+
           isLoggedIn: false,
-          username: ''
+          username: '',
+          isAdmin: false,
+          navHidden: false
       }
     },
     methods: {
-        loginInterval: function () {
-            setInterval(() => {
-                    checkLogin()
-                        .then(data => {
-                            if(data && data.username){
-                                this.isLoggedIn = true;
-                                this.username = data.username;
-                            }
-                            else {
-                                let isWhitelistPage = false;
-                                ['login', 'register', '#'].forEach((href) => {
-                                    let currentPage = window.location.href.split('/')[window.location.href.split('/').length-1];
-                                    if(window.location.href.split('/')[window.location.href.split('/').length-1] === href){
-                                        isWhitelistPage = true;
-                                    }
-                                });
-                                if(!isWhitelistPage){
-                                    this.$router.push('/login');
-                                }
-                            }
-                        });}, 10000);
-        },
         logout: function(){
             this.isLoggedIn = false;
             this.username = '';
+            this.isAdmin = false;
             this.$router.push('/');
+        },
+        checkLogin: function () {
+            checkLogin()
+                .then(data => {
+                    if(data && data.username){
+                        this.isLoggedIn = true;
+                        this.username = data.username;
+                        this.isAdmin = data.admin;
+                    }
+                    else {
+                        this.$router.push('/');
+                    }
+                });
+        },
+        toggleNav: function(){
+            this.navHidden = !this.navHidden;
         }
     }
 });

@@ -14,7 +14,6 @@ const adminApp =  new Vue({
     router,
     el: '#app',
     mounted(){
-        this.loginInterval();
 
         checkLogin()
             .then(data => {
@@ -30,29 +29,35 @@ const adminApp =  new Vue({
     },
     data(){
         return {
+
             isLoggedIn: false,
             username: '',
-            isAdmin: false
+            isAdmin: false,
+            navHidden: false
         }
     },
     methods: {
-        loginInterval: function () {
-            setInterval(() => {
-                checkLogin()
-                    .then(data => {
-                        if(data && data.username){
-                            this.isLoggedIn = true;
-                            this.username = data.username;
-                        }
-                        else {
-                            this.$router.push('/');
-                        }
-                    });}, 10000);
-        },
         logout: function(){
             this.isLoggedIn = false;
             this.username = '';
+            this.isAdmin = false;
             this.$router.push('/');
+        },
+        checkLogin: function () {
+            checkLogin()
+                .then(data => {
+                    if(data && data.username){
+                        this.isLoggedIn = true;
+                        this.username = data.username;
+                        this.isAdmin = data.admin;
+                    }
+                    else {
+                        this.$router.push('/');
+                    }
+                });
+        },
+        toggleNav: function(){
+            this.navHidden = !this.navHidden;
         }
     }
 });

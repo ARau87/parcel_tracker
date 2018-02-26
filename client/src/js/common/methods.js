@@ -11,7 +11,8 @@ export const checkLogin = function () {
                             lastname: response.data.lastname,
                             address: response.data.address,
                             postcode: response.data.postcode,
-                            city: response.data.city
+                            city: response.data.city,
+                            admin: response.data.admin
                         };
                     }
                     else {
@@ -93,7 +94,6 @@ export const endParcel = async function (trackingNr) {
 };
 
 export const getParcelTracking = function (trackingNr) {
-    console.log('TEST');
 
     return axios.get('/v1/parcel/status/' + trackingNr);
 };

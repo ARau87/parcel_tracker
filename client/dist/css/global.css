@@ -302,6 +302,9 @@ template {
 * {
   box-sizing: border-box; }
 
+body {
+  font-size: 17px; }
+
 /* BASE - Base Variable file along with starting point Mixins and Placeholders.
 ========================================================================== */
 /* FRAMEWORK - Structure and layout files.
@@ -386,6 +389,12 @@ template {
 
 /* MODULES - Re-usable site elements.
 ========================================================================== */
+.page {
+  margin-top: 20px;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column; }
+
 .nav__link {
   text-decoration: None;
   color: #fff;
@@ -429,8 +438,8 @@ template {
 
 .pageheader__burger {
   display: none;
-  margin: 20px 0;
-  padding-right: 10px;
+  margin: 17px 0;
+  padding-right: 15px;
   color: #fff;
   text-align: right; }
   @media screen and (max-width: 900px) and (orientation: portrait) {
@@ -439,3 +448,18 @@ template {
   @media screen and (max-width: 1200px) and (orientation: landscape) {
     .pageheader__burger {
       display: block; } }
+
+.pageheader__burger__icon {
+  font-size: 1.5em; }
+
+.page__home__head {
+  font-size: 1.6em;
+  text-align: center;
+  margin-top: 20px; }
+
+.tracking {
+  margin-top: 20px; }
+
+.tracking__form {
+  display: flex;
+  flex-direction: row; }

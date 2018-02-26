@@ -6,6 +6,7 @@ import Parcel from "../pages/parcel";
 import NewParcel from "../pages/new-parcel";
 import ParcelCreated from "../pages/parcel-created";
 import ParcelTracking from "../pages/parcel-tracking";
+import MobileNav from "../pages/navigation";
 
 
 const routes = [
@@ -45,6 +46,10 @@ const routes = [
     {
         path: '/tracking/:trackingNr',
         component: ParcelTracking
+    },
+    {
+        path: '/mobile/nav/:app',
+        component: MobileNav
     }
 ];
 

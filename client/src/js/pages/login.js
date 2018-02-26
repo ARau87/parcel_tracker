@@ -25,6 +25,7 @@ const Login = {
                 if(data && data.username){
                     this.isLoggedIn = true;
                     this.username = data.username;
+                    this.$emit('logged-in');
                 }
             });
     },
@@ -75,7 +76,7 @@ const Login = {
             //TODO: Validate if email is really an email by regex
             return true;
         },
-        checkLogin: checkLogin
+        checkLogin
     },
     computed: {
         messageStyle: function(){
