@@ -1,6 +1,6 @@
 {
   "name": "parcel_tracker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Parcel Tracker - Code competition of IT Talents",
   "main": "index.js",
   "scripts": {
