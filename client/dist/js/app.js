@@ -2961,7 +2961,7 @@ module.exports = function spread(callback) {
     props: ['parcel', 'type'],
     template: `
                            <div class="address" v-if="type === 'receiver'">
-                                <h5>Empfänger</h5>
+                                <h5 class="address__head">Empfänger</h5>
                                 <div class="address__details">
                                     <div class="address__details__item">{{parcel.toFirstName}}</div>
                                     <div class="address__details__item">{{parcel.toName}}</div>
@@ -2972,7 +2972,7 @@ module.exports = function spread(callback) {
                                 </div>
                            </div>
                            <div class="address" v-else-if="type === 'sender'">
-                                <h5>Sender</h5>
+                                <h5 class="address__head">Sender</h5>
                                 
                                 <div class="address__details">
                                 
@@ -3009,7 +3009,7 @@ module.exports = function spread(callback) {
     template: `
                         <div class="history">
                             <div class="history__steps">
-                                <h5 class="history__head">Sendungshistorie</h5>
+                                <h4 class="history__head">Sendungshistorie</h4>
                                 
                                 <div class="history__item" v-for="step in parcel.steps">
                                     <step :details="step" :type="step.stepType"></step>
@@ -3018,7 +3018,7 @@ module.exports = function spread(callback) {
                             </div>
                             
                             <div class="history_nextstep" v-if="parcel.nextStep">
-                                <h5 class="history__head">Nächste Station</h5>
+                                <h4 class="history__head">Nächste Station</h4>
                                 
                                 <div class="history__nextstep__item"">
                                         <step :details="parcel.nextStep" :type="parcel.nextStep.stepType"></step>
@@ -4071,20 +4071,20 @@ const Register = {
                               
                     <main>
                     
-                        <h1>Register</h1>
+                        <h1>Registrierung</h1>
                         
                         <form class="register">
                             
                             <div class="register__message" :style="messageStyle">{{message}}</div>
                         
-                            <input class="register__email" placeholder="E-Mail" v-model="email" type="email">
-                            <input class="register__password" placeholder="Passwort" v-model="password" type="password">
-                            <input class="register__password-repeat" placeholder="Passwort (Wiederholung)" v-model="passwordRepeat" type="password">
-                            <input class="register__firstname" placeholder="Vorname" v-model="firstname" type="text">
-                            <input class="register__lastname" placeholder="Nachname" v-model="lastname" type="text">
-                            <input class="register__city" placeholder="Stadt" v-model="city" type="text">
-                            <input class="register__postcode" placeholder="PLZ" v-model="postcode" type="number">
-                            <input class="register__address" placeholder="Adresse" v-model="address" type="text">
+                            <input class="register__input" placeholder="E-Mail" v-model="email" type="email">
+                            <input class="register__input" placeholder="Passwort" v-model="password" type="password">
+                            <input class="register__input" placeholder="Passwort (Wiederholung)" v-model="passwordRepeat" type="password">
+                            <input class="register__input" placeholder="Vorname" v-model="firstname" type="text">
+                            <input class="register__input" placeholder="Nachname" v-model="lastname" type="text">
+                            <input class="register__input" placeholder="Stadt" v-model="city" type="text">
+                            <input class="register__input" placeholder="PLZ" v-model="postcode" type="number">
+                            <input class="register__input" placeholder="Adresse" v-model="address" type="text">
                             
                             <button class="register__submit button-primary" @click.prevent="submit">Abschicken</button>
     

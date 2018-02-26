@@ -401,6 +401,33 @@ body {
 .page h4 {
   text-align: center; }
 
+input {
+  border: 2px solid #0091cd;
+  border-radius: 10px;
+  padding: 10px;
+  color: #0091cd; }
+  input::placeholder {
+    color: #888; }
+
+button {
+  border: 2px solid #0091cd;
+  border-radius: 10px;
+  padding: 10px;
+  color: #0091cd; }
+  button:hover {
+    color: #fff;
+    background-color: #0091cd; }
+
+select {
+  background: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  border: 2px solid #0091cd;
+  border-radius: 10px;
+  padding: 10px;
+  color: #0091cd; }
+
 .nav__link {
   text-decoration: None;
   color: #fff;
@@ -585,3 +612,21 @@ body {
 
 .qrcode {
   text-align: center; }
+
+.register {
+  width: 100%; }
+
+.register__input:nth-of-type(1) {
+  margin-top: 15px; }
+
+.register__input {
+  width: 80%;
+  margin: 5px 10%; }
+
+.register__message {
+  width: 80%;
+  margin: 0 10%; }
+
+.register__submit {
+  width: 80%;
+  margin: 0 10%; }

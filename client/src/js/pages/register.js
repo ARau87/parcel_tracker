@@ -10,20 +10,20 @@ const Register = {
                               
                     <main>
                     
-                        <h1>Register</h1>
+                        <h1>Registrierung</h1>
                         
                         <form class="register">
                             
                             <div class="register__message" :style="messageStyle">{{message}}</div>
                         
-                            <input class="register__email" placeholder="E-Mail" v-model="email" type="email">
-                            <input class="register__password" placeholder="Passwort" v-model="password" type="password">
-                            <input class="register__password-repeat" placeholder="Passwort (Wiederholung)" v-model="passwordRepeat" type="password">
-                            <input class="register__firstname" placeholder="Vorname" v-model="firstname" type="text">
-                            <input class="register__lastname" placeholder="Nachname" v-model="lastname" type="text">
-                            <input class="register__city" placeholder="Stadt" v-model="city" type="text">
-                            <input class="register__postcode" placeholder="PLZ" v-model="postcode" type="number">
-                            <input class="register__address" placeholder="Adresse" v-model="address" type="text">
+                            <input class="register__input" placeholder="E-Mail" v-model="email" type="email">
+                            <input class="register__input" placeholder="Passwort" v-model="password" type="password">
+                            <input class="register__input" placeholder="Passwort (Wiederholung)" v-model="passwordRepeat" type="password">
+                            <input class="register__input" placeholder="Vorname" v-model="firstname" type="text">
+                            <input class="register__input" placeholder="Nachname" v-model="lastname" type="text">
+                            <input class="register__input" placeholder="Stadt" v-model="city" type="text">
+                            <input class="register__input" placeholder="PLZ" v-model="postcode" type="number">
+                            <input class="register__input" placeholder="Adresse" v-model="address" type="text">
                             
                             <button class="register__submit button-primary" @click.prevent="submit">Abschicken</button>
     

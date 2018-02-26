@@ -1,3 +1,5 @@
+// Page styles
+
 .page {
 
   margin-top: 20px;
@@ -17,5 +19,58 @@
 .page h4 {
 
   text-align: center;
+
+}
+
+// Form styles
+
+input {
+
+  border: 2px solid $color-primary;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  color: $color-primary;
+
+  &::placeholder {
+
+    color: #888;
+
+  }
+
+}
+
+button {
+
+  border: 2px solid $color-primary;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  color: $color-primary;
+
+  &:hover {
+
+    color: $text-light;
+    background-color: $color-primary;
+
+  }
+
+}
+
+select {
+
+  background: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+
+  border: 2px solid $color-primary;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  color: $color-primary;
 
 }
