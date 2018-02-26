@@ -2863,7 +2863,7 @@ const AdminDashboard = {
                      
                      <div class="parcels">
                         <h2>Offene Sendungen</h2>
-                        <ul class="parcels__list">
+                        <ul class="parcels__list container">
                             <li class="parcels__list__item" v-for="parcel in openParcels">
                                 <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
                             </li>
@@ -2873,7 +2873,7 @@ const AdminDashboard = {
                     
                     <div class="parcels">
                         <h2>Abgeschlossene Sendungen</h2>
-                        <ul class="parcels__list">
+                        <ul class="parcels__list container">
                             <li class="parcels__list__item" v-for="parcel in arrivedParcels">
                                 <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
                             </li>

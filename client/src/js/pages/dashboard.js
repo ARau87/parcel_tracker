@@ -13,12 +13,16 @@ const Home = {
                      
                      <div class="parcels">
                         <h2>Neue Sendung</h2> 
-                        <router-link class="dashboard__link" to="/new-parcel">Neue Sendung beantragen</router-link>
+                        
+                        <div class="parcel__new">
+                            <router-link class="parcels__new__link" to="/new-parcel">Neue Sendung beantragen</router-link>
+                        </div>
+                        
                      </div>
                      
                      <div class="parcels">
                         <h2>Offene Sendungen</h2>
-                        <ul class="parcels__list">
+                        <ul class="parcels__list container">
                             <li class="parcels__list__item" v-for="parcel in openParcels">
                                 <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
                             </li>
@@ -28,7 +32,7 @@ const Home = {
                     
                     <div class="parcels">
                         <h2>Abgeschlossene Sendungen</h2>
-                        <ul class="parcels__list">
+                        <ul class="parcels__list container">
                             <li class="parcels__list__item" v-for="parcel in arrivedParcels">
                                 <router-link class="parcel__link" :to="'/parcel/' + parcel.trackingNr">{{parcel.trackingNr}}</router-link>
                             </li>

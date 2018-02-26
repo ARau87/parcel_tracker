@@ -10,10 +10,6 @@
   .col-#{$i} {
     width: (100% / $grid-columns) * $i;
 
-    // For phones the col-width is always 100%
-    @media screen and (max-width: $below-is-phone){
-      width: 100%;
-    }
   }
 
 }

@@ -1,0 +1,103 @@
+.parcels h2 {
+
+  text-align: center;
+
+  &::after {
+    display: block;
+    content: " ";
+
+    height: 2px;
+    width: 12%;
+
+    background-color: $color-secondary;
+
+    margin-top: 10px;
+    margin-left: 44%;
+  }
+
+}
+
+.parcels__list__item {
+
+  list-style: none;
+
+  text-align: center;
+
+  width: 30.333333%;
+
+  margin-right: 1%;
+  margin-top: 10px;
+
+  padding: 20px;
+
+  border: 2px solid $color-primary;
+  border-radius: 5px;
+
+  transition: background-color 0.2s;
+
+  @media screen and (max-width: $below-is-phone) {
+
+    width: 100%;
+
+    margin-right: 0;
+
+  }
+
+  & a {
+
+    text-decoration: none;
+
+    color: $color-primary;
+
+    transition: color 0.2s;
+  }
+
+  &:hover {
+
+    background-color: $color-primary;
+
+    & a {
+      color: $text-light;
+    }
+  }
+
+}
+
+.parcel__new {
+
+  text-align: center;
+
+  margin: 40px 0;
+
+  height: auto;
+  width: 100%;
+
+}
+
+.parcels__new__link {
+
+  padding: 20px;
+
+  width: 100%;
+
+  border: 2px solid $color-cta;
+  border-radius: 5px;
+
+  text-decoration: none;
+
+  color: $color-cta;
+
+  transition: color 0.2s,  background-color 0.2s;
+
+  &:hover {
+
+    background-color: $color-cta;
+
+    color: $text-light;
+
+  }
+
+
+
+}
+
