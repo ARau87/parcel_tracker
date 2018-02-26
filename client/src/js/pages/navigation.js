@@ -4,7 +4,7 @@ const MobileNav = {
 
     template: `
                 <div v-if="app" class="page page__menu">
-                        <button class="menu__button" @click.prevent="exit">X</button>
+                        <button class="menu__button button-exit" @click.prevent="exit">X</button>
                         <router-link class="menu__link" @click.native="leave" to="/">Home</router-link>
                         <router-link class="menu__link" @click.native="leave" to="/login">Login</router-link>
                         <router-link class="menu__link" @click.native="leave" to="/register">Registrierung</router-link>
@@ -13,7 +13,7 @@ const MobileNav = {
                         <button class="menu__button" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
                 </div>
                 <div v-else class="page page__menu">
-                        <button class="menu__button" @click.prevent="exit">X</button>
+                        <button class="menu__button button-exit" @click.prevent="exit">X</button>
                         <router-link class="menu__link" @click.native="leave" to="/">Home</router-link>
                         <router-link class="menu__link" @click.native="leave" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
                         <button class="menu__button" v-if="admin && isLoggedIn" @click.prevent="gotoAppPage">App</button>

@@ -35,7 +35,7 @@ export default {
                         <button class="nav__button" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                     
-                    <div class="pageheader__burger">
+                    <div class="pageheader__burger col-8">
                         <i @click.prevent="mobileNav" class="ion-navicon-round pageheader__burger__icon"></i>
                     </div>
                             

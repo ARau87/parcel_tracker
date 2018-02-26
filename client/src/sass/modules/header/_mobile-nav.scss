@@ -1,0 +1,83 @@
+.page.page__menu {
+
+  margin: 0;
+  padding: 0;
+
+}
+
+.page__menu {
+
+  height: 100vh;
+  background-color: $color-primary;
+
+}
+
+.menu__link {
+
+  width: 100%;
+  border-bottom: 1px solid $text-light;
+
+  margin: 0;
+  padding: 0;
+  padding-top: 4vh;
+
+  min-height: 10vh;
+  color: $text-light;
+
+  text-align: center;
+  text-decoration: None;
+
+
+  background-color: $color-primary;
+
+  transition: background-color 0.2s, color 0.2s;
+
+
+  &:hover, &:active {
+
+    background-color: $color-secondary;
+    color: $text-light;
+    cursor: pointer;
+
+  }
+
+
+}
+
+.menu__button {
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  background: None;
+  background-color: $color-primary;
+
+  border: None;
+  border-bottom: 1px solid $text-light;
+
+  min-height: 10vh;
+  color: $text-light;
+
+  text-align: center;
+  text-decoration: None;
+
+  transition: background-color 0.2s, color 0.2s;
+
+
+  &.button-exit {
+
+    background-color: $color-cta;
+
+  }
+
+  &:hover, &:active {
+
+    background-color: $color-secondary;
+    color: $text-light;
+    cursor: pointer;
+
+  }
+
+}
+

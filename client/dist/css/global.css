@@ -415,6 +415,51 @@ body {
     border-bottom: 2px solid white;
     cursor: pointer; }
 
+.page.page__menu {
+  margin: 0;
+  padding: 0; }
+
+.page__menu {
+  height: 100vh;
+  background-color: #0091cd; }
+
+.menu__link {
+  width: 100%;
+  border-bottom: 1px solid #fff;
+  margin: 0;
+  padding: 0;
+  padding-top: 4vh;
+  min-height: 10vh;
+  color: #fff;
+  text-align: center;
+  text-decoration: None;
+  background-color: #0091cd;
+  transition: background-color 0.2s, color 0.2s; }
+  .menu__link:hover, .menu__link:active {
+    background-color: #003d56;
+    color: #fff;
+    cursor: pointer; }
+
+.menu__button {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: None;
+  background-color: #0091cd;
+  border: None;
+  border-bottom: 1px solid #fff;
+  min-height: 10vh;
+  color: #fff;
+  text-align: center;
+  text-decoration: None;
+  transition: background-color 0.2s, color 0.2s; }
+  .menu__button.button-exit {
+    background-color: #eb2f06; }
+  .menu__button:hover, .menu__button:active {
+    background-color: #003d56;
+    color: #fff;
+    cursor: pointer; }
+
 .pageheader {
   background-color: #0091cd; }
 

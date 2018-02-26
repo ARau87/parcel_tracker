@@ -2794,7 +2794,7 @@ module.exports = function spread(callback) {
                         <button class="nav__button" v-if="loggedin" @click.prevent="logout">Logout</button>
                     </nav>
                     
-                    <div class="pageheader__burger">
+                    <div class="pageheader__burger col-8">
                         <i @click.prevent="mobileNav" class="ion-navicon-round pageheader__burger__icon"></i>
                     </div>
                             
@@ -3086,7 +3086,7 @@ const MobileNav = {
 
     template: `
                 <div v-if="app" class="page page__menu">
-                        <button class="menu__button" @click.prevent="exit">X</button>
+                        <button class="menu__button button-exit" @click.prevent="exit">X</button>
                         <router-link class="menu__link" @click.native="leave" to="/">Home</router-link>
                         <router-link class="menu__link" @click.native="leave" to="/login">Login</router-link>
                         <router-link class="menu__link" @click.native="leave" to="/register">Registrierung</router-link>
@@ -3095,9 +3095,10 @@ const MobileNav = {
                         <button class="menu__button" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
                 </div>
                 <div v-else class="page page__menu">
-                        <button class="menu__button" @click.prevent="exit">X</button>
+                        <button class="menu__button button-exit" @click.prevent="exit">X</button>
                         <router-link class="menu__link" @click.native="leave" to="/">Home</router-link>
                         <router-link class="menu__link" @click.native="leave" v-if="isLoggedIn" to="/dashboard">Übersicht</router-link>
+                        <button class="menu__button" v-if="admin && isLoggedIn" @click.prevent="gotoAppPage">App</button>
                         <button class="menu__button" v-if="isLoggedIn" @click.prevent="logout">Logout</button>
                 </div>
               `,
@@ -3109,7 +3110,12 @@ const MobileNav = {
         },
         gotoAdminPage: function () {
             this.$emit('toggle-navbar');
-            let adminUrl = window.location.protocol + '//' + window.location.host + '/admin';
+            let appUrl = window.location.protocol + '//' + window.location.host + '/admin';
+            window.location.href = appUrl;
+        },
+        gotoAppPage: function () {
+            this.$emit('toggle-navbar');
+            let adminUrl = window.location.protocol + '//' + window.location.host;
             window.location.href = adminUrl;
         },
         checkLogin: __WEBPACK_IMPORTED_MODULE_0__common_methods__["b" /* checkLogin */],

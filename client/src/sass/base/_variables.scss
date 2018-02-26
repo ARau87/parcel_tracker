@@ -10,15 +10,21 @@ $above-is-tv: 1801px;
 // Text
 
 $text-light: #fff;
+$text-dark: #000;
 
 
 // Colors
 $color1: #0091cd;
+$color2: #eb2f06;
+$color3: #003d56;
 
 $link-hover-invisible: rgba(255,255,255,0);
 $link-hover-visible: rgba(255,255,255,1.0);
 
 $color-primary: $color1;
+$color-secondary: $color3;
+
+$color-cta: $color2;
 
 // Fonts
 
