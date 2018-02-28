@@ -37,12 +37,13 @@ Es bestehen also unter anderen die Möglichkeiten:
  - **MONGO_URI_TEST**: (Optional) URI zur Test Datenbank. Wird zum Starten der Tests benötigt.
  - **COOKIE_KEY**: Randomstring der zur Verschlüsselung/Entschlüsselung der Cookie-Sessions benötigt wird.
  - **COOKIE_KEY_SECOND**: Zweiter Randomstring zur Verschlüsselung/Entschlüsselung (Erhöht die Sicherheit)
+ - **DEFAULT_ADMIN_USER**: Dieses Adminkonto wird bei Start der Anwendung erstellt. Wird kein Adminkonto gewünscht kann dieser Parameter auch entfernt werden.
 
 ### Setup
 
  - Öffnen Sie ein Terminal
  - Clonen Sie das github repository: **git clone https://github.com/ARau87/parcel_tracker.git**
- - Navigieren Sie zum Anwendungsordner:  **cd path/to/application**
+ - Navigieren Sie zum Anwendungsordner:  **cd path/to/parcel_tracker**
  - Starten Sie die Installation der Abhängigkeiten: **npm install**
  - Nun können einige Tests gestartet werden um die Installation zu überprüfen: **npm test**
    ( Bitte beachten Sie, dass zum Starten der Tests eine Verbindung zur Datenbank konfiguriert sein muss. Siehe Konfiguration!)

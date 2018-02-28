@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 const config = require('../../config');
 
+const user = require('./user');
+
 // Setting up the MongoDB database connection
 const setup = (env) => {
   mongoose.Promise = global.Promise;
@@ -22,6 +24,12 @@ const setup = (env) => {
   require('./models/user');
   require('./models/parcel');
   require('./models/tracking_number');
+
+  // Create default admin user
+  if('DEFAULT_ADMIN_USER' in config){
+      user.create(config.DEFAULT_ADMIN_USER)
+          .catch(err => console.log('[SERVER] Default Admin already in database'));
+  }
 }
 
 // Disconnect from the mongodb database
@@ -32,7 +40,7 @@ const disconnect = () => {
 module.exports = {
    setup,
    disconnect,
-   user: require('./user'),
+   user,
    parcel: require('./parcel'),
    trackingnr: require('./trackingnr')
 

@@ -2183,7 +2183,6 @@ module.exports = function spread(callback) {
         },
         mobileNav: function () {
             this.$emit('toggle-navbar');
-            console.log(this.application);
             if(this.application){
                 this.$router.push('/mobile/nav/app');
             }
