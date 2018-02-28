@@ -138,7 +138,7 @@ Die Styles des Cients wurden mit SASS implementiert. Die Clients besitzen ein gr
 
 Das folgende Schaubild zeigt die komplette Architektur
 
-![Parcel-Tracker Architektur - Bild konnte nicht geladen werden](https://github.com/ARau87/parcel_tracker/blob/master/Architecture.pdf "Parcel-Tracker Architektur")
+![Parcel-Tracker Architektur - Bild konnte nicht geladen werden](https://github.com/ARau87/parcel_tracker/blob/master/Architecture.png "Parcel-Tracker Architektur")
 
 
 ## Ausblick
