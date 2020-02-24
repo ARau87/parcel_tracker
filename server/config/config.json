@@ -1,9 +1,9 @@
 {
-  "MONGO_URI": "mongodb://parcel_tracker_admin:ichbin18@ds229008.mlab.com:29008/parcel_tracker_dev",
+  "MONGO_URI": "",
   "COOKIE_KEY": "liweeoigWHGIUERGIUEHFIUHFUHWCLKNEOIF298RU2FH298FH238FH9H2",
   "COOKIE_KEY_SECOND": "oWGHIWFJ23F0293JF099RF09R3JF38J9832H89F1",
   "PASSWORD_KEY": "- Not used now! In a future version passwords should be saved encrypted!!!",
-  "MONGO_URI_TEST":"mongodb://parcel_tracker_admin:ichbin18@ds125938.mlab.com:25938/parcel_tracker_test",
+  "MONGO_URI_TEST":"",
   "DEFAULT_ADMIN_USER": {
     "email": "admin@parcel-tracker.de",
     "password": "123456",
