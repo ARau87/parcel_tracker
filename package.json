@@ -20,11 +20,11 @@
   "homepage": "https://github.com/ARau87/parcel_tracker#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "crypto-js": "^3.1.9-1",
-    "express": "^4.16.2",
+    "express": "^4.18.2",
     "latinize": "^0.4.0",
     "mongoose": "^5.0.3",
     "morgan": "^1.9.0",
